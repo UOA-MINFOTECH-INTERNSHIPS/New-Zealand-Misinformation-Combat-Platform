@@ -1,11 +1,16 @@
+       \:.             .:/
+        \``._________.''/ 
+         \             / 
+ .--.--, / .':.   .':. \
+/__:  /  | '::' . '::' |
+   / /   |`.   ._.   .'|
+  / /    |.'         '.|
+ /___-_-,|.\  \   /  /.|
+      // |''\.;   ;,/ '|
+      `==|:=         =:|
+         `.          .'
+l42        :-._____.-:
+          `''       `''
 
-yooooooooooooooooooooooooooooooooooooo
-
-Here is a Pikachu
-
-Hello world!
-
-Dont say hello world!
-
-ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh!
+          
 
