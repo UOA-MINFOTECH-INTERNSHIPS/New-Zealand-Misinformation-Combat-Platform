@@ -9,7 +9,7 @@ Open the command line terminal and "cd" to the project folder.
 "cd" inside the "backend" folder and run the below script:
 
 ```bash
- install parlai
+npm install
 ```
 
 **Frontend setup**
@@ -17,5 +17,5 @@ Open the command line terminal and "cd" to the project folder.
 "cd" inside the "frontend" folder and run the below script:
 
 ```bash
-pip install parlai
+npm install
 ```
