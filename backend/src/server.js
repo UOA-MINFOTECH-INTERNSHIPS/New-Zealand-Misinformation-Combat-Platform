@@ -30,5 +30,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Start the DB running. Then, once it's connected, start the server.
-mongoose.connect('mongodb://localhost:27017/pokemonbox', { useNewUrlParser: true })
+require('dotenv').config()
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
