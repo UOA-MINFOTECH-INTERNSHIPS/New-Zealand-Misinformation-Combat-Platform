@@ -27,8 +27,14 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
     });
+
 }
 
 // Start the DB running. Then, once it's connected, start the server.
-mongoose.connect('mongodb://localhost:27017/pokemonbox', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://cojomedialab:cojolab123@cojo.g5jff.gcp.mongodb.net/myFirstDtabase', { useNewUrlParser: true })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
+
+
+const logger = require('./Logger/logger');
+logger.log('info','catch');
+logger.log('error','error3');
