@@ -1,17 +1,19 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import {handleClick} from 'react';
+import { AppBar, Toolbar, Typography, Button, Menu, Box,Tooltip, IconButton, Avatar } from "@mui/material";
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import Menubar from "./Menubar";
+import './navigation.css';
+import TabPanel from './tab.js';
 
 export default function Navbar() {
     return (
         <AppBar position="static">
+            
             <Toolbar>
-                
-                <Typography variant="h6" component={RouterNavLink} to="/" sx={{ flexGrow: 1, color: "inherit", textDecoration: "inherit" }}>
-                    MInfoTech project - MERN &amp; MUI Template
-                </Typography>
-
-                <Button color="inherit" component={RouterNavLink} to="/stuff">My Button</Button>
+                <Button className='menuButton' color="inherit" component={RouterNavLink} to="/">Articles</Button>
+                <Menubar/>
             </Toolbar>
+            
         </AppBar>
     );
 }

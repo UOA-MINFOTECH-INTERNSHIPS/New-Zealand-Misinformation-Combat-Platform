@@ -27,9 +27,15 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
     });
+
 }
 
 // Start the DB running. Then, once it's connected, start the server.
 require('dotenv').config()
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
+
+const logger = require('./Logger/logger');
+logger.log('info','catch');
+logger.log('error','error3');
+

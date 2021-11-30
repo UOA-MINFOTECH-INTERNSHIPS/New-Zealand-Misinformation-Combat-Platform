@@ -1,0 +1,36 @@
+.registerContainer{
+    width: max-content;
+    margin: 40px auto;
+    padding: 25px 28px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #867c7c;
+}
+.registerHeading{
+    color: black;
+    margin-top: 10px;
+}
+input[type=text],input[type=email], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 15px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+.registerbtn {
+    background-color: #1e2e74;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+.SignInRedicted{
+    float: center;
+    text-align: center;
+}
+

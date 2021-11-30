@@ -6,23 +6,16 @@ import PokeBox from "./PokeBox";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { AppContext } from "../AppContextProvider";
+import Login from "./Login/loginPage";
+import RegistrationForm from "./Register/registerForm";
 
 export default function PokemonPage() {
 
     const { pokemon, catchRandomPokemon, releaseAllPokemon, isLoading } = useContext(AppContext);
 
     return (
-        <PageWithNavbar>
-            <PokeBox contents={pokemon} />
-            <Box mt={2} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
-                {isLoading && <LinearProgress sx={{ mr: 3, flexGrow: 1 }} />}
-                <Fab disabled={isLoading} color="primary" aria-label="add" sx={{ mr: 1 }} onClick={() => catchRandomPokemon()}>
-                    <AddIcon />
-                </Fab>
-                <Fab disabled={isLoading} color="secondary" aria-label="release-all" onClick={() => releaseAllPokemon()}>
-                    <DeleteForeverIcon />
-                </Fab>
-            </Box>
-        </PageWithNavbar>
+        <div>
+            <RegistrationForm/>
+        </div>
     )
 }
