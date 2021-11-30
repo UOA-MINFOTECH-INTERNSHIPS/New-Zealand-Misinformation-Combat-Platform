@@ -31,9 +31,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Start the DB running. Then, once it's connected, start the server.
-mongoose.connect('mongodb+srv://cojomedialab:cojolab123@cojo.g5jff.gcp.mongodb.net/myFirstDtabase', { useNewUrlParser: true })
+require('dotenv').config()
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
-
 
 const logger = require('./Logger/logger');
 logger.log('info','catch');

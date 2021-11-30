@@ -2,6 +2,7 @@ const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint } = format;
 
 
+
 //importing the mongodb package so we could upload log to database collection in mongo
 require('winston-mongodb');
 
@@ -13,7 +14,7 @@ const logger = createLogger({
     }),
     new transports.MongoDB({
       level: 'error', 
-      db: 'mongodb+srv://cojomedialab:cojolab123@cojo.g5jff.gcp.mongodb.net/myFirstDtabase',
+      db: process.env.CONNECTION_STRING,
       collection: 'ErrorLog',
       format: format.combine(format.timestamp(), format.json()),
       useUnifiedTopology: true

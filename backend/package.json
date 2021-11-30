@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
     "dummy-json": "^3.0.4",
     "express": "^4.17.1",
     "mongoose": "^6.0.13",
