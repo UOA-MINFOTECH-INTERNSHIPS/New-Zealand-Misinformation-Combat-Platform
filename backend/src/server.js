@@ -38,3 +38,4 @@ mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
 const logger = require('./Logger/logger');
 logger.log('info','catch');
 logger.log('error','error3');
+
