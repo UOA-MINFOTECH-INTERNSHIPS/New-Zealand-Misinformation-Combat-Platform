@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
     Box, Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, 
     Tooltip} from '@mui/material';
@@ -26,10 +27,11 @@ export default function Menubar() {
       </Box>
 
       
-      <Typography sx={{minWidth: 100 }}>Linda</Typography>
+      <Typography sx={{minWidth: 100 } }>Linda</Typography>
 
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
+      <Menu  anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
         PaperProps={{
+        
           elevation: 0,
           sx: {
             overflow: 'visible', filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))', mt: 1.5,
