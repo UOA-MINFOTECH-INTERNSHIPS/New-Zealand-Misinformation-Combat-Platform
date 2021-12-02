@@ -38,6 +38,22 @@ async function deleteArticle(id) {
     await Article.deleteOne({ _id: id });
 }
 
+async function likeArticle(id) {
+    const dbArticle = await Article.findById(article._id);
+    if (dbArticle){
+        dbArticle.like = true;
+    }
+    
+}
+
+async function unlikeArticle(id) {
+    const dbArticle = await Article.findById(article._id);
+    if (dbArticle){
+        dbArticle.like = false;
+    }
+    
+}
+
 async function deleteAllArticle() {
     await Article.deleteMany({});
 }
