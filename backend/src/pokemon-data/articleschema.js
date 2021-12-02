@@ -7,7 +7,7 @@ const articleSchema = new Schema({
     title: String,
     description:String,
     url:String,
-    urlToImage:Image,
+    urlToImage:String,
     publishAt:Date,
     content:String,
     like: Boolean
