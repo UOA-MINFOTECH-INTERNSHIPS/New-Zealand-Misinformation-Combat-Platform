@@ -8,6 +8,11 @@ import { Tooltip , IconButton} from "@mui/material";
 
 
 export default function Profile (){
+    const user = {
+        username: "llia464",
+        name: "Linda",
+        email: "123@bla.com"
+    }
     return (
         <div>
           <Navbar/>
@@ -18,7 +23,7 @@ export default function Profile (){
                          />
                      </div>
                      <div>
-                           <h1>UserName:</h1>
+                           <h1>UserName: {user.username}</h1>
                            <h3>E-mail:</h3>    
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import { IconButton, Avatar} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Navbar (){
+
     return(
     <div className='NavContainer'>
         <nav>
@@ -20,11 +21,9 @@ export default function Navbar (){
             
             </div>
             
-            <div className='profile'>
-                <Profile/>
-            </div>
+            <Profile/>
+
             
-            <p className='username'>Linda</p>
         </nav>
 
     </div>

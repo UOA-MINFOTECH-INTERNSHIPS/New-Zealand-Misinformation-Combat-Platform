@@ -38,11 +38,11 @@ nav a:hover{
 .is_active{
     background-color: #fff;
 }
-.profile{
-    padding-left: 60%;
-}
-
 .username{
-    color: white;
+    color: grey;
     font-size: medium;
+}
+.notLogged{
+    margin-top: 10;
+    background-color: 1A2634;
 }
