@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../Navbar_ProfilePage";
+import Navbar from "./Navbar_ProfilePage";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
