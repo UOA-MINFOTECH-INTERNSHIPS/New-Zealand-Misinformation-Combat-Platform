@@ -1,0 +1,48 @@
+nav{
+    background: #1A2634;
+    display: flex;
+    align-items: center;
+}
+.logo{
+    font-size: 22px;
+    margin: 0 50px;
+    color: #fff;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1A2634;
+}
+
+nav li {
+    float: right;
+
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    text-decoration: none;
+}
+  
+nav a:hover{
+    background: #111;
+    transition: all ease-in-out 0.2s;
+}
+
+.is_active{
+    background-color: #fff;
+}
+.username{
+    color: grey;
+    font-size: medium;
+}
+.notLogged{
+    margin-top: 10;
+    background-color: 1A2634;
+}
