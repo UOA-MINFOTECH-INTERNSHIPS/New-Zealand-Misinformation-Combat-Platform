@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import {
     Box, Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, 
     Tooltip} from '@mui/material';
@@ -7,7 +6,8 @@ import {
     Logout, Settings, PersonAdd
 } from '@mui/icons-material';
 
-export default function Menubar() {
+
+export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,20 +18,12 @@ export default function Menubar() {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Account settings">
-          <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-            <Avatar sx={{ width: 32, height: 32 }}>L</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-
-      
-      <Typography sx={{minWidth: 100 } }>Linda</Typography>
-
-      <Menu  anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
+            <IconButton  onClick={handleClick} >
+                    <Avatar sx={{width: 35, height: 35, }}>L</Avatar>
+            </IconButton>
+    
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
         PaperProps={{
-        
           elevation: 0,
           sx: {
             overflow: 'visible', filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))', mt: 1.5,
