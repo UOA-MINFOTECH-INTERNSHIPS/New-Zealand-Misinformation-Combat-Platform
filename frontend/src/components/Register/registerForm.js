@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import './registerForm.css';
 
-function RegistrationForm(props) {
-  return(
+export default function RegistrationForm(props) {
+    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    return(
         <div className="registerContainer">
             <form>
                 <div>
@@ -14,7 +19,7 @@ function RegistrationForm(props) {
                     <input type="text" className="form-control" id="username" placeholder = 'Enter Username' required/>
                     <label htmlFor="InputName">Name</label>
                     <input type="text" className="form-control" id="name" placeholder = 'Enter Name' required/>
-                   
+                    
                 </div>
                 
                 <div className="form-group text-left">
@@ -32,7 +37,7 @@ function RegistrationForm(props) {
                     <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
                 </div>
 
-                <button type="submit" className="registerbtn">
+                <button type="submit" className="registerbtn" >
                     Register
                 </button>
 
@@ -44,4 +49,3 @@ function RegistrationForm(props) {
     )
 }
 
-export default RegistrationForm;

@@ -9,10 +9,7 @@ import { CssBaseline } from '@mui/material';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AppContextProvider>
-        <CssBaseline />
         <App />
-      </AppContextProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
