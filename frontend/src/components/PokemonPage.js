@@ -8,14 +8,13 @@ import { useContext } from "react";
 import { AppContext } from "../AppContextProvider";
 import Login from "./Login/loginPage";
 import RegistrationForm from "./Register/registerForm";
+import Profile from "./Profile/Profile";
+
 
 export default function PokemonPage() {
 
-    const { pokemon, catchRandomPokemon, releaseAllPokemon, isLoading } = useContext(AppContext);
-
+    
     return (
-        <div>
-            <RegistrationForm/>
-        </div>
+        <Profile />
     )
 }

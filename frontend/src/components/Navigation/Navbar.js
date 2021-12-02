@@ -1,7 +1,7 @@
 import {handleClick}from 'react';
 import {NavLink} from 'react-router-dom';
-import './style.css';
-import Profile from './Profile';
+import './navStyle.css';
+import Profile from './ProfileDropdown';
 import { IconButton, Avatar} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
