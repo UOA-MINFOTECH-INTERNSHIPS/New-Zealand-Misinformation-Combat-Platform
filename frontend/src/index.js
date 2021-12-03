@@ -5,10 +5,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContextProvider } from './AppContextProvider';
 import App from './App';
 import { CssBaseline } from '@mui/material';
+import Navbar from './components/Navigation/Navbar';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+        <Navbar/>
         <App />
     </Router>
   </React.StrictMode>,
