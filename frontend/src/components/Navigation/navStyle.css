@@ -46,3 +46,7 @@ nav a:hover{
     margin-top: 10;
     background-color: 1A2634;
 }
+.logout, .profile{
+    color: #111;
+    padding: 0%;
+}

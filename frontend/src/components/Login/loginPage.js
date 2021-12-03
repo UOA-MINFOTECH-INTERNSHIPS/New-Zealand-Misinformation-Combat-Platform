@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import Navbar from '../Navigation/Navbar';
 import './login.css'
- 
+
 function Login(props) {
   const username = useFormInput('');
   const password = useFormInput('');
@@ -9,29 +10,36 @@ function Login(props) {
  
   // handle button click of login form
   const handleLogin = () => {
-    props.history.push('/dashboard');
+    const user = {
+      username: username,
+      password: password
+    }
+    console.log(user);
   }
+
   return (
-    <div className='loginContainer'>
-      <h1 className='loginHeading'>Login</h1>
-      <div>
-        <label>Username</label>
-        <input type="text" {...username} autoComplete="new-password" />
-      </div>
-      <div style={{ marginTop: 10 }}>
-        Password<br />
-        <input type="password" {...password} autoComplete="new-password" />
-      </div>
-      {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-      <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} />
-      <div class="SignInRedicted">
-        <p>Do not have an account? <a href="#">Register</a></p>
-      </div>
+    <div>
+      <div className='loginContainer'>
+            <h1 className='loginHeading'>Login</h1>
+            <div>
+              <label>Username</label>
+              <input type="text" {...username} autoComplete="new-password" />
+            </div>
+            <div style={{ marginTop: 10 }}>
+              Password<br />
+              <input type="password" {...password} autoComplete="new-password" />
+            </div>
+            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+            <button type="submit" className="registerbtn" onClick={handleLogin}>
+                    Login
+            </button>
+            <div class="SignInRedicted">
+              <p>Do not have an account? <a href="/register">Register</a></p>
+            </div>
+          </div>
     </div>
   );
 }
-
-
 
 
 const useFormInput = initialValue => {

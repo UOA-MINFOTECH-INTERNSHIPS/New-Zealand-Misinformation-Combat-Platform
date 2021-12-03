@@ -1,24 +1,26 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Box, Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Tooltip, Button} from '@mui/material';
 import {Logout, Settings, PersonAdd} from '@mui/icons-material';
 
 
+
 export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
- /* const user = {
+  /*const user = {
         username: "llia464",
         name: "Linda",
         email: "123@bla.com",
         password: "123"
-  } */
+  }*/
   const user = null;
   return (
     <React.Fragment>
@@ -43,14 +45,15 @@ export default function Profile() {
              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
            >
-             <MenuItem>Profile</MenuItem>
+             <MenuItem> <a className='profile' href='/profile'>Profile </a></MenuItem>
              <MenuItem> My articles</MenuItem>
              <Divider />
-             <MenuItem>
+             <MenuItem ><a className='logout' href='/'>
                <ListItemIcon>
                  <Logout fontSize="small" />
                </ListItemIcon>
                Logout
+               </a>
              </MenuItem>
            </Menu>
            </div>

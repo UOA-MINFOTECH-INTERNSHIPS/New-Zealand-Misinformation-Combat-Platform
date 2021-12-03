@@ -10,3 +10,17 @@
     color: black;
     margin-top: 1px;
 }
+
+.loginBtn{
+    background-color: #1A2634;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.loginBtn:hover{
+    background-color: #867c7c;
+}

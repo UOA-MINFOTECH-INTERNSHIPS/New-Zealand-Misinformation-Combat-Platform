@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "./Navbar_ProfilePage";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
@@ -15,7 +13,6 @@ export default function Profile (){
     }
     return (
         <div>
-          <Navbar/>
                 <div className='UserContainer'>
                     <div>
                          <img style={{width:"200px", height:"200px",borderRadius:"200px"}} 
