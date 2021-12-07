@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import './registerForm.css';
+import { useContext } from "react";
+import createNewUser from "/Users/Felix Wang/Documents/GitHub/new/frontend/src/hooks/useUser";
+import { AppContext } from "/Users/Felix Wang/Documents/GitHub/new/frontend/src/AppContextProvider";
 
 export default function RegistrationForm(props) {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { user, createNewUser, deleteAllUser, isLoading } = useContext(AppContext);
 
     return(
         <div className="registerContainer">
@@ -37,7 +41,7 @@ export default function RegistrationForm(props) {
                     <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
                 </div>
 
-                <button type="submit" className="registerbtn" >
+                <button type="submit" className="registerbtn" onClick={() => createNewUser()}>
                     Register
                 </button>
 

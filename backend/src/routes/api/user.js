@@ -12,6 +12,10 @@ import {
     deleteAllUser
 } from '../../pokemon-data/user-dao';
 import axios from 'axios';
+import { User } from '../../pokemon-data/userschema';
+import { info } from '../../Logger/logger';
+
+const logger = require('../../Logger/logger');
 
 
 
@@ -34,18 +38,25 @@ const router = express.Router();
 // }
 
 // Create new random pokemon
-router.post('/newuser', async (req, res) => {
-    
+router.post('/register', async (req, res) => {
+    const {username, name,email, password} = req.body;
+    logger.log('info',username);
+    const newUser = new User({
+        username: username,
+        name : name,
+        email : email,
+        password : password});
     // const pokemon = {
     //     name: 'Ditto',
     //     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png'
     // }
     //const pokemon = await fetchFromPokemonAPI();
-    const dbUser = await createUser(user);
+    const dbUser = await createUser(newUser);
 
     res.status(HTTP_CREATED) 
         .header('Location', `/api/user/${dbUser._id}`)
         .json(dbUser);
+    
     
         
 
