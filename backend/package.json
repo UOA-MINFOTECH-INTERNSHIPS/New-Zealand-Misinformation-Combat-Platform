@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "dummy-json": "^3.0.4",
