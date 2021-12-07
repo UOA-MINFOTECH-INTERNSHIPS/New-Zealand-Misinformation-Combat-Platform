@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import './registerForm.css'
 
 function Register(props) {
+
   const username = useFormInput('');
   const password = useFormInput('');
   const name = useFormInput('');
   const email = useFormInput('');
+  const confirmPassword = useFormInput('');
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
+  //history but in v6 we only can use useNavigate
+  const navigate = useNavigate();
+  /*const initialState = {username: '',
+    name:'', 
+    email:'',
+    password:'',
+    confirmPassword:''} */
  
   // handle button click of login form
   const handleLogin = () => {
@@ -15,9 +26,11 @@ function Register(props) {
       username: username,
       name: name,
       email: email,
-      password: password
+      password: password,
+      confirmPassword: confirmPassword
     }
     console.log(user);
+    navigate('/user');
   }
 
   return (
@@ -44,7 +57,7 @@ function Register(props) {
             </div>
             <div style={{ marginTop: 10 }}>
                 ConfirmPassword<br />
-                <input type="password" {...password} required/>
+                <input type="password" {...confirmPassword} required/>
             </div>
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
             

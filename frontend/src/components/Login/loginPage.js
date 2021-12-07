@@ -7,6 +7,7 @@ function Login(props) {
   const password = useFormInput('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
  
   // handle button click of login form
   const handleLogin = () => {
@@ -16,6 +17,7 @@ function Login(props) {
     }
     console.log(user);
   }
+
 
   return (
     <div>
