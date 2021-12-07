@@ -13,8 +13,9 @@ function Register(props) {
   const handleLogin = () => {
     const user = {
       username: username,
-      password: password,
       name: name,
+      email: email,
+      password: password
     }
     console.log(user);
   }
