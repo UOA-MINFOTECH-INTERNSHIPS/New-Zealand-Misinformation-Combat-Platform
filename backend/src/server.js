@@ -7,6 +7,11 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Setup body-parser
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+//Setup JSON converter
 app.use(express.json());
 
 // Setup our routes.
