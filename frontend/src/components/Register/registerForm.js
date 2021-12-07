@@ -13,8 +13,9 @@ function Register(props) {
   const handleLogin = () => {
     const user = {
       username: username,
-      password: password,
       name: name,
+      email: email,
+      password: password
     }
     console.log(user);
   }
@@ -58,7 +59,6 @@ function Register(props) {
     </div>
   );
 }
-
 
 const useFormInput = initialValue => {
   const [value, setValue] = useState(initialValue);

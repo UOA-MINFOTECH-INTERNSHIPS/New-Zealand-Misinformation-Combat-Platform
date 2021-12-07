@@ -2,7 +2,10 @@ import express from 'express';
 
 const router = express.Router();
 
-import pokemon from './pokemon';
-router.use('/pokemon', pokemon);
+import user from './user';
+router.use('/user', user);
+
+import article from './articles';
+router.use('/articles', article);
 
 export default router;

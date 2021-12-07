@@ -1,16 +1,16 @@
 import React from 'react';
-import usePokemon from './hooks/usePokemon';
+import useUser from './hooks/useUser';
 
 export const AppContext = React.createContext({
-    pokemonBox: []
+    userBox: []
 });
 
 export function AppContextProvider({ children }) {
 
-    const { pokemon, catchRandomPokemon, releaseAllPokemon, isLoading } = usePokemon();
+    const { user, createNewUser, deleteAllUser, isLoading } = useUser();
 
     return (
-        <AppContext.Provider value={{ pokemon, catchRandomPokemon, releaseAllPokemon, isLoading }}>
+        <AppContext.Provider value={{ user, createNewUser, deleteAllUser, isLoading }}>
             {children}
         </AppContext.Provider>
     )

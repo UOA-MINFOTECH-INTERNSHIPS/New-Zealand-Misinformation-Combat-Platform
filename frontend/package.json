@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^31.0.0",
+    "@ckeditor/ckeditor5-react": "^3.0.3",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.1.1",
