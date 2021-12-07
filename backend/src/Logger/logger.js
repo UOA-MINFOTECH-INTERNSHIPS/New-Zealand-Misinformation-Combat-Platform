@@ -1,6 +1,6 @@
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint } = format;
-
+require('dotenv').config()
 
 
 //importing the mongodb package so we could upload log to database collection in mongo
