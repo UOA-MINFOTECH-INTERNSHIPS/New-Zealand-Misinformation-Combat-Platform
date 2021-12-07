@@ -1,5 +1,5 @@
 .registerContainer{
-    width: max-content;
+    width: 400px;
     margin: 40px auto;
     padding: 25px 28px;
     background: white;
@@ -11,7 +11,7 @@
     margin-top: 10px;
 }
 input[type=text],input[type=email], input[type=password] {
-    width: 100%;
+    width:93%;
     padding: 15px;
     margin: 5px 0 15px 0;
     display: inline-block;
@@ -20,7 +20,7 @@ input[type=text],input[type=email], input[type=password] {
   }
 
 .registerbtn {
-    background-color: #1e2e74;
+    background-color: #1A2634;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
@@ -29,6 +29,10 @@ input[type=text],input[type=email], input[type=password] {
     width: 100%;
     opacity: 0.9;
   }
+
+.registerbtn:hover{
+  background-color: #867c7c;
+}
 .SignInRedicted{
     float: center;
     text-align: center;

@@ -1,0 +1,6 @@
+.articleContainer{
+    margin: 20px 10 5px 10;
+    border: 2px;
+    border-color: black;
+    display: flex; 
+}
