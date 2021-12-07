@@ -2,24 +2,24 @@ import axios from "axios";
 import { useState } from "react";
 import useGet from "./useGet";
 
-export default function usePokemon() {
+export default function useUser() {
 
-    const { data, refresh, isLoading } = useGet('/api/pokemon', []);
+    const { data, refresh, isLoading } = useGet('/api/user', []);
 
     const [inProgress, setInProgress] = useState(isLoading);
 
-    function catchRandomPokemon() {
+    function createNewUser() {
         setInProgress(true);
-        axios.post('/api/pokemon/newCatch')
+        axios.post('/api/user/register')
             .then(() => {
                 refresh();
                 setInProgress(false);
             });
     }
 
-    function releaseAllPokemon() {
+    function deleteAllUser() {
         setInProgress(true);
-        axios.delete('/api/pokemon')
+        axios.delete('/api/user')
             .then(() => {
                 refresh();
                 setInProgress(false);
@@ -27,9 +27,9 @@ export default function usePokemon() {
     }
 
     return {
-        pokemon: data,
-        catchRandomPokemon,
-        releaseAllPokemon,
+        user: data,
+        createNewUser,
+        deleteAllUser,
         isLoading: isLoading || inProgress
     };
 

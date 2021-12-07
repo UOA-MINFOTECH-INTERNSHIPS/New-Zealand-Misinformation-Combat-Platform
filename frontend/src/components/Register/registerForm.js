@@ -73,7 +73,6 @@ function Register(props) {
   );
 }
 
-
 const useFormInput = initialValue => {
   const [value, setValue] = useState(initialValue);
  
