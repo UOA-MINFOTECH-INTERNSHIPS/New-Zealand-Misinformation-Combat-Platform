@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import './registerForm.css'
+import axios from 'axios';
+import { UserContext } from "../../UserContextProvider";
 
 function Register(props) {
+  const {username, password, name, email, confirmPassword} = useFormInput('');
+  const { user, createUser, isLoading } = useContext(UserContext);
 
-  const username = useFormInput('');
-  const password = useFormInput('');
-  const name = useFormInput('');
-  const email = useFormInput('');
-  const confirmPassword = useFormInput('');
   const [error, setError] = useState(null);
   //const [loading, setLoading] = useState(false);
+
   //history but in v6 we only can use useNavigate
   const navigate = useNavigate();
-  /*const initialState = {username: '',
-    name:'', 
-    email:'',
-    password:'',
-    confirmPassword:''} */
- 
-  // handle button click of login form
-  const handleLogin = () => {
+
+  const handleSubmit = () => {
     const user = {
       username: username,
       name: name,
@@ -30,7 +24,9 @@ function Register(props) {
       confirmPassword: confirmPassword
     }
     console.log(user);
-    navigate('/user');
+    navigate('/login');
+    
+
   }
 
   return (
@@ -61,7 +57,7 @@ function Register(props) {
             </div>
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
             
-            <button type="submit" className="registerbtn" onClick={handleLogin}>
+            <button type="submit" className="registerbtn" onClick={handleSubmit}>
                 Register
             </button>
 
