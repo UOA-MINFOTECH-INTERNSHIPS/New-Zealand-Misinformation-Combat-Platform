@@ -53,7 +53,6 @@ router.post('/register', async (req, res) => {
     res.status(HTTP_CREATED) 
         .header('Location', `/api/user/${dbUser._id}`)
         .json(dbUser);
-    
 });
 
 // Retrieve all user
