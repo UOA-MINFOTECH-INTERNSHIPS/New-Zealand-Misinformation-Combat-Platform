@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from "react";
 import './registerForm.css'
 import axios from "axios";
@@ -45,6 +46,7 @@ function Register() {
     }catch (err) {
           console.error(err);
     }
+
   }
   return (
     <div>
@@ -86,6 +88,7 @@ function Register() {
             </div>
             <div style={{ marginTop: 10 }}>
                 ConfirmPassword<br />
+
                 <input 
                 type="password" 
                 value={confirmPassword} 
@@ -99,6 +102,7 @@ function Register() {
               </button>
             </form>
             <div className="SignInRedicted">
+
                 <p>Already have an account? <a href="/login">Sign in</a></p>
             </div>
         </div>
