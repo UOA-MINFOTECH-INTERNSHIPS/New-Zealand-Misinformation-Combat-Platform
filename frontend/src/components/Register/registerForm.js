@@ -1,34 +1,53 @@
-import React, { useState,useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+
+import React, { useContext, useState } from "react";
 import './registerForm.css'
-import axios from 'axios';
-import { UserContext } from "../../UserContextProvider";
+import axios from "axios";
 
-function Register(props) {
-  const {username, password, name, email, confirmPassword} = useFormInput('');
-  const { user, createUser, isLoading } = useContext(UserContext);
+function Register() {
+  // const username = useFormInput('');
+  // const password = useFormInput('');
+  // const name = useFormInput('');
+  // const email = useFormInput('');
+  // const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+ 
+  // handle button click of login form
+  // const handleLogin = () => {
+  //   const user = {
+  //     username: username,
+  //     name: name,
+  //     email: email,
+  //     password: password
+  //   }
+  //   console.log(user);
+  // }
+  async function register(e) {
+    e.preventDefault();
 
-  const [error, setError] = useState(null);
-  //const [loading, setLoading] = useState(false);
+    try {
+      const registerData = {
+        username,
+        name,
+        email,
+        password,
+        confirmPassword,
+      };
 
-  //history but in v6 we only can use useNavigate
-  const navigate = useNavigate();
+      await axios.post(
+        "http://localhost:3001/api/user/register",
+        registerData
+      );
 
-  const handleSubmit = () => {
-    const user = {
-      username: username,
-      name: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword
+    }catch (err) {
+          console.error(err);
     }
-    console.log(user);
-    navigate('/login');
-    
 
   }
-
   return (
     <div>
         <div className='loginContainer'>
@@ -37,31 +56,53 @@ function Register(props) {
             <hr/>
             <div>
                 <label>Username</label>
-                <input type="text" {...username}  required/>
+                <input 
+                type="text" 
+                onChange={(e) => setUsername(e.target.value)} 
+                value={username}  
+                />
             </div>
             <div>
                 <label>Name</label>
-                <input type="text" {...name}  required/>
+                <input 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                />
             </div>
             <div>
                 <label>Email</label>
-                <input type="text" {...email}  required/>
+                <input 
+                type="text" 
+                value={email}  
+                onChange={(e) => setEmail(e.target.value)}
+                />
             </div>
             <div style={{ marginTop: 10 }}>
                 Password<br />
-                <input type="password" {...password} required/>
+                <input 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                />
             </div>
             <div style={{ marginTop: 10 }}>
                 ConfirmPassword<br />
-                <input type="password" {...confirmPassword} required/>
-            </div>
-            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
-            
-            <button type="submit" className="registerbtn" onClick={handleSubmit}>
-                Register
-            </button>
 
-            <div class="SignInRedicted">
+                <input 
+                type="password" 
+                value={confirmPassword} 
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+            </div>
+            {/* {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />  */}
+            <form onSubmit={register}>
+              <button type="submit" className="registerbtn">
+                  Register
+              </button>
+            </form>
+            <div className="SignInRedicted">
+
                 <p>Already have an account? <a href="/login">Sign in</a></p>
             </div>
         </div>
@@ -69,17 +110,17 @@ function Register(props) {
   );
 }
 
-const useFormInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
+// const useFormInput = initialValue => {
+//   const [value, setValue] = useState(initialValue);
  
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  }
-}
+//   const handleChange = e => {
+//     setValue(e.target.value);
+//   }
+//   return {
+//     value,
+//     onChange: handleChange
+//   }
+// }
 
 
 export default Register;

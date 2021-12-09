@@ -15,8 +15,8 @@ export default function Navbar (){
             </div>
             <div>
                 <ul>
-                    <li><NavLink  to = '/articles' activeClassName='is-active'exact={true}>Articles</NavLink></li>
-                    <li><NavLink to = '/recommendation' activeClassName='is-active'>Recommendation</NavLink></li>
+                    <li><NavLink  to = '/articles' activeclassname='is-active'>Articles</NavLink></li>
+                    <li><NavLink to = '/recommendation' activeclassname='is-active'>Recommendation</NavLink></li>
                 </ul>
             
             </div>
