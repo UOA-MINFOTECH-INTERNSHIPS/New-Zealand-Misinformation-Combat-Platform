@@ -16,8 +16,9 @@ function Editor() {
           console.log( 'Editor is ready to use!', editor );
       } }
          onChange={(event, editor) =>{
-           const data = editor.getData()
-           setText(data)
+           const inputData = editor.getData()
+           setText(inputData)
+           ///console.log(inputData)
          }}
         />
       </div>

@@ -4,7 +4,7 @@ import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerForm';
-import Editor from './components/Upload_NewArticle/editor';
+import Editor from './components/Upload_NewArticle/Input/Input_article_v1';
 function App() {
   return (
     <Routes>
