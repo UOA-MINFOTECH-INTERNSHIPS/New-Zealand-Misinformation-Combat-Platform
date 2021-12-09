@@ -15,8 +15,12 @@ import axios from 'axios';
 import { User } from '../../pokemon-data/userschema';
 
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 
+
+// const bodyParser = require('body')
 const HTTP_OK = 200; // Not really needed; this is the default if you don't set something else.
 const HTTP_CREATED = 201;
 const HTTP_NOT_FOUND = 404;
@@ -37,12 +41,41 @@ const router = express.Router();
 
 // Create new random pokemon
 router.post('/register', async (req, res) => {
-    const {username, name,email, password} = req.body;
+    const {username, name,email, password, confirmPassword} = req.body;
+
+    if (!username || !name || !email || !password || !confirmPassword)
+      return res
+        .status(400)
+        .json({ errorMessage: "Please enter all required fields." });
+
+    if (password.length < 6)
+      return res.status(400).json({
+        errorMessage: "Please enter a password of at least 6 characters.",
+      });
+
+    if (password !== confirmPassword)
+      return res.status(400).json({
+        errorMessage: "Please enter the same password twice.",
+      });
+
+    const existingUser = await User.findOne({ username });
+    if (existingUser)
+      return res.status(400).json({
+        errorMessage: "An account with this email already exists.",
+      });
+    
+
+    // hash the password
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+
+
     const newUser = {
         username: username,
         name : name,
         email : email,
-        password : password};
+        password : passwordHash};
     // const pokemon = {
     //     name: 'Ditto',
     //     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png'

@@ -2,9 +2,23 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
 // Setup Express
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 
 // Setup body-parser
 const bodyParser = require("body-parser");
