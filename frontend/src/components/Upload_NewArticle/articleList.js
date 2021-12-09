@@ -9,7 +9,9 @@ const ArticleList = props =>{
         content =(
             <ul>
                 {props.item.map(p => (
+
                     <ArticleItem key={p.id} name={p.value} />
+
                 ))}
             </ul>
         )
