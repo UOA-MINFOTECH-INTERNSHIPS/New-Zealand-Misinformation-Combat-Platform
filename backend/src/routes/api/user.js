@@ -17,6 +17,7 @@ import { User } from '../../pokemon-data/userschema';
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require('dotenv').config()
 
 
 // const bodyParser = require('body')
@@ -90,7 +91,7 @@ router.post('/register', async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    console.log(req.body);
     // validate
     console.log(username);
     console.log(password);
@@ -106,7 +107,7 @@ router.post("/login", async (req, res) => {
 
     const passwordCorrect = await bcrypt.compare(
       password,
-      existingUser.passwordHash
+      existingUser.password
     );
     if (!passwordCorrect)
       return res.status(401).json({ errorMessage: "Wrong email or password." });
