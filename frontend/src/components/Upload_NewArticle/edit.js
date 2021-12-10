@@ -4,17 +4,17 @@ import ArticleList from './articleList';
 import Editor from './Input/Input_article_v1';
 
 function Edit() {
-  const [loadedArticle, setLoadedArticle] = useState([]);
+  const [loadedArticle, setLoadedArticle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5000/products');
+      const response = await fetch('http://localhost:3001/api');
 
       const responseData = await response.json();
 
-      setLoadedArticle(responseData.products);
+      setLoadedArticle(responseData.Article);
       setIsLoading(false);
     };
 
@@ -24,11 +24,11 @@ function Edit() {
   const addArticleHandler = async (title) => {
     try {
       const newArticle = {
-        title: title,
+        title: title
      //   price: +productPrice // "+" to convert string to number
       };
       let hasError = false;
-      const response = await fetch('http://localhost:5000/product', {
+      const response = await fetch('http://localhost:3001/api', {
         method: 'POST',
         body: JSON.stringify(newArticle),
         headers: {
@@ -62,7 +62,7 @@ function Edit() {
       <main>
         <Editor onAddArticle={addArticleHandler} />
         {isLoading && <p className="loader">Loading...</p>}
-        {!isLoading && <ProductList items={loadedArticle} />}
+        {!isLoading && < ArticleList items={loadedArticle} />}
       </main>
     </React.Fragment>
   );
