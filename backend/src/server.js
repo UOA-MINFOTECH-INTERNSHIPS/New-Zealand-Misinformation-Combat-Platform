@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Start the DB running. Then, once it's connected, start the server.
 require('dotenv').config()
-mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true ,useUnifiedTopology: true, })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
 
 const logger = require('./Logger/logger');
