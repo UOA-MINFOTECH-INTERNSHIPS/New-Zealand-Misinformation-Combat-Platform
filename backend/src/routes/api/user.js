@@ -42,6 +42,7 @@ const router = express.Router();
 // Create new random pokemon
 router.post('/register', async (req, res) => {
     const {username, name,email, password, confirmPassword} = req.body;
+    
 
     if (!username || !name || !email || !password || !confirmPassword)
       return res
