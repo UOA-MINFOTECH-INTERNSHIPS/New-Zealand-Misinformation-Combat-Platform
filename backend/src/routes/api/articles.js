@@ -48,6 +48,13 @@ router.post('/likearticle', async (req, res) => {
 
 });
 
+//===================================================
+/*creating auth before posting
+import auth from '../../middleware/auth.js';
+router.post('/',auth,createArticle); */
+//===================================================
+
+
 //create user post article
 router.post('/newarticle', async (req, res) => {
     const dbArticle = await createArticle();

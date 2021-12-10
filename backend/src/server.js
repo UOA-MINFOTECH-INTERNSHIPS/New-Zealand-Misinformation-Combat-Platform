@@ -30,7 +30,9 @@ app.use(express.json());
 
 // Setup our routes.
 import routes from './routes';
+
 app.use('/', routes);
+
 
 // Make the "public" folder available statically
 app.use(express.static(path.join(__dirname, '../public')));
