@@ -2,9 +2,23 @@ import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
 
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
 // Setup Express
 const app = express();
 const port = process.env.PORT || 3001;
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 
 // Setup body-parser
 const bodyParser = require("body-parser");
@@ -39,7 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // Start the DB running. Then, once it's connected, start the server.
 require('dotenv').config()
-mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true })
+mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true ,useUnifiedTopology: true, })
     .then(() => app.listen(port, () => console.log(`App server listening on port ${port}!`)));
 
 const logger = require('./Logger/logger');
