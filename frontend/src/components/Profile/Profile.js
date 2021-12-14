@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect,useState}from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
@@ -11,6 +11,7 @@ export default function Profile (){
         name: "Linda",
         email: "123@bla.com"
     }
+
     return (
         <div>
                 <div className='UserContainer'>
