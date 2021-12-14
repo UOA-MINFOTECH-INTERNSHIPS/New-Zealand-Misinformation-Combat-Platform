@@ -7,6 +7,8 @@ import {
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
+import axios from 'axios';
+import { Article } from '../../pokemon-data/articleschema';
 
 
 
@@ -17,6 +19,7 @@ const HTTP_NO_CONTENT = 204;
 
 
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 //create user post article
 router.post('/newarticle', auth, async (req, res) => {
@@ -46,7 +49,7 @@ router.post('/newarticle', auth, async (req, res) => {
 
 
 // Retrieve all articles saved
-router.get('/', auth, async (req, res) => {
+router.get('/all', auth, async (req, res) => {
     try{
         res.json(await retrieveAllArticle());
     }catch(err){
@@ -57,7 +60,6 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-
 // save like article from api
 router.post('/likearticle', async (req, res) => {
     res.status(HTTP_CREATED) 
@@ -65,34 +67,35 @@ router.post('/likearticle', async (req, res) => {
         .json(dbArticle);
 });
 
-//===================================================
-/*creating auth before posting
-import auth from '../../middleware/auth.js';
-router.post('/',auth,createArticle); */
-//===================================================
-
-
-
-// Delete all articles
-router.delete('/', async (req, res) => {
-    await deleteAllArticle();
-    res.sendStatus(HTTP_NO_CONTENT);
+// Retrieve all articles saved
+router.get('/', async (req, res) => {
+    res.json(await retrieveArticle20());
 });
 
+
 // Delete one article
-router.delete('/', async (req, res) => {
-    await deleteArticle();
+router.delete('/', auth, async (req, res) => {
+    const {id} = req.body;
+    await deleteArticle(id);
     res.sendStatus(HTTP_NO_CONTENT);
 });
 
 // Update one article
-router.post('/update', async (req, res) => {
-    await deleteArticle();
-    const dbArticle = await updateArticle();
+router.post('/update', auth, async (req, res) => {
+    const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
+    const newArticle=new Article({
+        author: author,
+        title: newTitle,
+        description:newDescription,
+        url:newUrl,
+        urlToImage:newUrlToImage,
+        publishAt:Date.now(),
+        content:newContent
+    });
+    const dbArticle = await updateArticle(id,newArticle);
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
 });
 
 export default router;
-
