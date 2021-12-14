@@ -10,10 +10,11 @@ import './NewArticle.css';
     title: String,
     description:String,
     url:String,
-    image:String,
-    publish:Date,
+    urlToImage:String,
+    publishAt:Date,
     content:String,
     like: Boolean
+
 */ 
 
 
@@ -22,14 +23,10 @@ function Editor() {
   const [title,setTitle] = useState('');
   const [description,setDescription] = useState('');
   const [url,setUrl] = useState('');
-  const [image,setImage] = useState('');
-  const [publish,setPublish] = useState('');
+  const [urlToImage,setUrlToImage] = useState('');
+  const [publishAt,setPublishAt] = useState('');
   const [content,setContent] = useState('');
   const [like,setLike] = useState('');
-
-
-
-
 
 
 
@@ -42,24 +39,25 @@ function Editor() {
         title,
         description,
         url,
-        image,
-        publish,
+        urlToImage,
+        publishAt,
         content,
         like,
         content
       };
+    //  console.log(createText)
 
       await axios.post(
-        "http://localhost:3001/api/..",
+       "http://localhost:3001/api/articles/post",
         createText
-      );
+        
+      ); 
 
     }catch (err) {
           console.error(err);
     }
 
   }
-
 
 
 
@@ -101,11 +99,11 @@ function Editor() {
                 />
         </div>
         <div>
-                <label>Image</label>
+                <label>UrlToImage</label>
                 <input 
                 type="text" 
-                onChange={(e) => setImage(e.target.value)} 
-                value={image}  
+                onChange={(e) => setUrlToImage(e.target.value)} 
+                value={urlToImage}  
                 />
         </div>
         <div>
@@ -113,8 +111,8 @@ function Editor() {
                 <input 
                 className='data'
                 type="Date" 
-                onChange={(e) => setPublish(e.target.value)} 
-                value={publish}  
+                onChange={(e) => setPublishAt(e.target.value)} 
+                value={publishAt}  
                 />
         </div>
         <div className="editor">
@@ -126,15 +124,15 @@ function Editor() {
                          console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                                const data = editor.getData()
-                                  setContent(data)
+                                const content = editor.getData()
+                                  setContent(content)
                          }}
             />
        </div>
         <div>
                 <label>Like</label>
-                <Checkbox
-                type="Date" 
+                <input
+                type="checkbox" 
                 onChange={(e) => setLike(e.target.value)} 
                 value={like}  
                 />
