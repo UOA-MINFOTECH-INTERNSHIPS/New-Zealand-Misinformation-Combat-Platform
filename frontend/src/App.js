@@ -4,7 +4,11 @@ import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerForm';
-import Editor from './components/Upload_NewArticle/editor';
+import Editor from './components/CreateNewArticle_v3/NewArticle';
+
+
+
+
 function App() {
   return (
     <Routes>
