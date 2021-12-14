@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
-import Navbar from '../Navigation/Navbar';
-import './login.css'
+import './login.css';
+import axios from 'axios';
 
 function Login(props) {
-  const username = useFormInput('');
-  const password = useFormInput('');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [username,setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
  
   // handle button click of login form
-  const handleLogin = () => {
-    const user = {
-      username: username,
-      password: password
+  async function handleLogin (e) {
+    e.preventDefault();
+    try{
+      const user = {username,password}
+      console.log(user);
+      
+      await axios.post(
+        "http://localhost:3001/api/user/login",
+        user
+      );
+      console.log("logged in");
+    }catch (err){
+
     }
-    console.log(user);
+    
   }
 
 
@@ -25,13 +32,15 @@ function Login(props) {
             <h1 className='loginHeading'>Login</h1>
             <div>
               <label>Username</label>
-              <input type="text" {...username} autoComplete="new-password" />
+              <input type="text" autoComplete="new-password" onChange={(e) => setUsername(e.target.value)} 
+                value={username}  />
             </div>
             <div style={{ marginTop: 10 }}>
               Password<br />
-              <input type="password" {...password} autoComplete="new-password" />
+              <input type="password"  autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} 
+                value={password}  />
             </div>
-            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+           
             <button type="submit" className="registerbtn" onClick={handleLogin}>
                     Login
             </button>
@@ -41,19 +50,6 @@ function Login(props) {
           </div>
     </div>
   );
-}
-
-
-const useFormInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
- 
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  }
 }
 
 

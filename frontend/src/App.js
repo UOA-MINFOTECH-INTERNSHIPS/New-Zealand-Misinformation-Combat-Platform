@@ -5,7 +5,8 @@ import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerForm';
 import Editor from './components/Upload_NewArticle/editor';
-function App() {
+
+export default function App() {
   return (
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
@@ -18,5 +19,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

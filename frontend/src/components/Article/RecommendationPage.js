@@ -1,5 +1,4 @@
 import './articleStyle.css';
-import React, { useState } from 'react';
 
 export default function Recommendation (){
     const article = {

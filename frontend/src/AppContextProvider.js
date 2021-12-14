@@ -1,17 +1,25 @@
-import React from 'react';
-import useUser from './hooks/useUser';
+import React, {createContext, useEffect, useState} from 'react';
+import axios from 'axios';
 
-export const AppContext = React.createContext({
-    userBox: []
-});
+const AppContext = createContext();
 
-export function AppContextProvider({ children }) {
+export function AppContextProvider(props) {
+    const [loggedIn, setLoggedIn] = useState(undefined);
 
-    const { user, createNewUser, deleteAllUser, isLoading } = useUser();
+    async function getLoggedIn(){
+        const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn");
+        setLoggedIn(loggedInRes.data);
+    }
 
+    useEffect (()=>{
+        getLoggedIn();
+    }, []);
+    
     return (
-        <AppContext.Provider value={{ user, createNewUser, deleteAllUser, isLoading }}>
-            {children}
+        <AppContext.Provider value={{ loggedIn, getLoggedIn }}>
+            {props.children}
         </AppContext.Provider>
     )
 }
+
+export default AppContext;

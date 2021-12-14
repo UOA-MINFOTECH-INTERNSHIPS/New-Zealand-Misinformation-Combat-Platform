@@ -1,67 +1,66 @@
-import React, { useState,useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import React, { useState } from "react";
 import './registerForm.css'
-import axios from 'axios';
-import { UserContext } from "../../UserContextProvider";
+import axios from "axios";
 
-function Register(props) {
-  const {username, password, name, email, confirmPassword} = useFormInput('');
-  const { user, createUser, isLoading } = useContext(UserContext);
+export default function Register() {
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [error, setError] = useState(null);
-  //const [loading, setLoading] = useState(false);
+  async function register(e) {
+    e.preventDefault();
 
-  //history but in v6 we only can use useNavigate
-  const navigate = useNavigate();
+    try {
+      const registerData = {username, name, email, password, confirmPassword,};
 
-  const handleSubmit = () => {
-    const user = {
-      username: username,
-      name: name,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword
+      await axios.post("http://localhost:3001/api/user/register", registerData);
+
+    }catch (err) {
+          console.error(err);
     }
-    console.log(user);
-    navigate('/login');
-    
 
   }
-
   return (
     <div>
         <div className='loginContainer'>
             <h2 className ='registerHeading'>Register</h2>
             <p>Please enter your detail to create an account</p>
             <hr/>
+
             <div>
                 <label>Username</label>
-                <input type="text" {...username}  required/>
+                <input type="text" onChange={(e) => setUsername(e.target.value)} value={username} />
             </div>
+
             <div>
                 <label>Name</label>
-                <input type="text" {...name}  required/>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
             </div>
+
             <div>
                 <label>Email</label>
-                <input type="text" {...email}  required/>
+                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </div>
-            <div style={{ marginTop: 10 }}>
-                Password<br />
-                <input type="password" {...password} required/>
-            </div>
-            <div style={{ marginTop: 10 }}>
-                ConfirmPassword<br />
-                <input type="password" {...confirmPassword} required/>
-            </div>
-            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
-            
-            <button type="submit" className="registerbtn" onClick={handleSubmit}>
-                Register
-            </button>
 
-            <div class="SignInRedicted">
+            <div style={{ marginTop: 10 }}>
+                Password <br />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </div>
+
+            <div style={{ marginTop: 10 }}>
+              ConfirmPassword<br />
+              <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+            </div>
+
+            <form onSubmit={register}>
+              <button type="submit" className="registerbtn">
+                  Register
+              </button>
+            </form>
+            <div className="SignInRedicted">
+
                 <p>Already have an account? <a href="/login">Sign in</a></p>
             </div>
         </div>
@@ -69,18 +68,4 @@ function Register(props) {
   );
 }
 
-const useFormInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
- 
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  }
-}
 
-
-export default Register;
-  

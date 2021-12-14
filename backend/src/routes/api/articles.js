@@ -1,13 +1,12 @@
 import express from 'express';
 import {
     createArticle,
-    retrieveArticle20,
-    retrieveArticle,
+    retrieveAllArticle,
     updateArticle,
     deleteArticle,
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
-import axios from 'axios';
+import auth from '../../middleware/auth';
 
 
 
@@ -19,33 +18,52 @@ const HTTP_NO_CONTENT = 204;
 
 const router = express.Router();
 
-// API needed here,maybe 20 each time
-// async function fetchFromPokemonAPI() {
-//     const randomPokemonNum = Math.floor(Math.random() * 898) + 1;
-//     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonNum}`);
-//     const data = response.data;
-//     return {
-//         name: data.species.name.toUpperCase().substring(0, 1) + data.species.name.substring(1),
-//         imageUrl: data.sprites.front_default,
-//     };
-// }
+//create user post article
+router.post('/newarticle', auth, async (req, res) => {
+    try{
+        const {author, title, description, url, urlToImage, publishAt, content, like} = req.body;
+        const newArticle = {
+            author: author,
+            title: title,
+            description : description,
+            url : url,
+            urlToImage : urlToImage,
+            publishAt : publishAt, 
+            content : content,
+            like : like
+        };
+    
+        const dbArticle = await createArticle(newArticle);
+    
+        res.status(HTTP_CREATED) 
+            .header('Location', `/api/articles/${dbArticle._id}`)
+            .json(dbArticle);
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
+
+});
+
+
+// Retrieve all articles saved
+router.get('/', auth, async (req, res) => {
+    try{
+        res.json(await retrieveAllArticle());
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
+    
+});
+
+
 
 // save like article from api
 router.post('/likearticle', async (req, res) => {
-    
-    // const pokemon = {
-    //     name: 'Ditto',
-    //     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png'
-    // }
-    //const article = await fetchFromPokemonAPI();
-    //const dbArticle = await createArticle(article);
-
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
-    
-        
-
 });
 
 //===================================================
@@ -55,19 +73,6 @@ router.post('/',auth,createArticle); */
 //===================================================
 
 
-//create user post article
-router.post('/newarticle', async (req, res) => {
-    const dbArticle = await createArticle();
-
-    res.status(HTTP_CREATED) 
-        .header('Location', `/api/articles/${dbArticle._id}`)
-        .json(dbArticle);
-})
-
-// Retrieve all articles saved
-router.get('/', async (req, res) => {
-    res.json(await retrieveArticleList());
-});
 
 // Delete all articles
 router.delete('/', async (req, res) => {
