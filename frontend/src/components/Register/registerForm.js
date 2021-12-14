@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import './registerForm.css'
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useAlert } from "react-alert";
+//import { useAlert } from "react-alert";
 
 
 function Register() {
