@@ -3,8 +3,8 @@ import React,{useState} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
-import { Checkbox } from '@mui/material';
 import './NewArticle.css';
+import { Link } from 'react-router-dom';
 /*
     author: String,
     title: String,
@@ -50,8 +50,12 @@ function Editor() {
       await axios.post(
        "http://localhost:3001/api/articles/post",
         createText
-        
-      ); 
+      )
+      .then(()=>{
+              alert("It works");
+      }
+
+      )
 
     }catch (err) {
           console.error(err);
@@ -137,9 +141,11 @@ function Editor() {
                 value={like}  
                 />
         </div>
-        <button type="submit" className='sub_button'>
+        <Link to="/ArticleDisplay">
+                <button type="submit" className='sub_button'>
                   Submit
-              </button>
+                </button> 
+         </Link>
    
     </form>
     </div>
