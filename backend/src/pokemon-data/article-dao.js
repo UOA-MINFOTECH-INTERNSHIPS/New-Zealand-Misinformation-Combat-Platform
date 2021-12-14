@@ -1,7 +1,6 @@
 import { Article } from './articleschema';
 
 async function createArticle(article) {
-
     const dbArticle = new Article(article);
     await dbArticle.save();
     return dbArticle;

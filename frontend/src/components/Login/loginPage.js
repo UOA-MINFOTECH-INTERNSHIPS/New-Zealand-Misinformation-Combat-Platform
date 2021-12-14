@@ -14,10 +14,7 @@ function Login(props) {
       const user = {username,password}
       console.log(user);
       
-      await axios.post(
-        "http://localhost:3001/api/user/login",
-        user
-      );
+      await axios.post("http://localhost:3001/api/user/login", user);
       console.log("logged in");
     }catch (err){
 

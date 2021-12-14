@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import './registerForm.css'
-import axios from "axios";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-
+//import axios from "axios";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 export default function Register() {
+  const [category, setCategory] = useState("");  
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isFactChecker, setUserType] = useState(false);
 
   async function register(e) {
     e.preventDefault();
 
     try {
-      const registerData = {isFactChecker,username, name, email, password, confirmPassword};
-      console.log(isFactChecker);
-      await axios.post("http://localhost:3001/api/user/register", registerData);
-      
+      const factCheckerData = {category, username, name, email, password, confirmPassword};
+     // await axios.post("http://localhost:3001/api/user/register", factCheckerData);
       console.log("registered");
+  //    console.log(category)
     }catch (err) {
           console.error(err);
     }
@@ -35,12 +35,17 @@ export default function Register() {
             <h2 className ='registerHeading'>Register</h2>
             <p>Please enter your detail to create an account</p>
             <hr/>
-            <div className="radioBtn">
-            <label>Select User Type</label>
-            <RadioGroup row name="row-radio-buttons-group" defaultValue="normalUser">
-              <FormControlLabel value="normalUser" control={<Radio onChange={(e) => setUserType(!isFactChecker)}/>} label="Normal User" />
-              <FormControlLabel value="isFactChecker" control={<Radio onChange={(e) => setUserType(!isFactChecker)}/> } label="Fact Checker"/>
-            </RadioGroup>
+            <div className="selectionBox">
+                <Box sx={{ minWidth: 120}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="category-select-label">Category</InputLabel>
+                        <Select labelId="category-select-label" id="category-select" value={category} label="Age" onChange={(e) => setCategory(e.target.value)} >
+                            <MenuItem value={"category1"}>category1</MenuItem>
+                            <MenuItem value={"category2"}>category2</MenuItem>
+                            <MenuItem value={"category3"}>category3</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
             </div>
 
             <div>

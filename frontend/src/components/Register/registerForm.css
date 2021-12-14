@@ -37,4 +37,12 @@ input[type=text],input[type=email], input[type=password] {
     float: center;
     text-align: center;
 }
-
+.selection{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 470px;
+  align-items: center;
+}
+.TypeBtn{
+  margin-left: 70px;
+}

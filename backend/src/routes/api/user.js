@@ -69,19 +69,17 @@
   const token = jwt.sign( { user: dbUser._id }, process.env.JWT_SECRET );
   console.log(token);
 
+  // send the token in a HTTP-only cookie
+  res.cookie("token", token, {
+    httpOnly: true,
+  });
+
    res.status(HTTP_CREATED) 
   .header('Location', `/api/user/${dbUser._id}`)
   .json(dbUser);
 
-  // send the token in a HTTP-only cookie
-  res.cookie("token", token, {
-      httpOnly: true,
-    });
-   
-   
 
-
- });
+});
  
  
  router.post("/login", async (req, res) => {
