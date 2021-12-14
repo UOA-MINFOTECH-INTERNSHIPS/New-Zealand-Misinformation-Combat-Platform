@@ -2,6 +2,7 @@
  * This is a simple RESTful API for dealing with pokemon.
  */
 
+
 import express from 'express';
 import {
     createUser,
@@ -45,10 +46,11 @@ router.post('/register', async (req, res) => {
     const {username, name,email, password, confirmPassword} = req.body;
 
     if (!username || !name || !email || !password || !confirmPassword)
+
       return res
         .status(400)
         .json({ errorMessage: "Please enter all required fields." });
-
+  
     if (password.length < 6)
       return res.status(400).json({
         errorMessage: "Please enter a password of at least 6 characters.",
@@ -58,8 +60,9 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         errorMessage: "Please enter the same password twice.",
       });
-
+ 
     const existingUser = await User.findOne({ username });
+
     if (existingUser)
       return res.status(400).json({
         errorMessage: "An account with this email already exists.",
@@ -156,14 +159,22 @@ router.get("/logout", (req, res) => {
     res
       .cookie("token", "", {
         httpOnly: true,
-        expires: new Date(0),
-        secure: true,
-        sameSite: "none",
-      })
-      .send();
-  });
+    }).send();
 
+   } catch (err) {
+     console.error(err);
+     res.status(500).send();
+   }
+ });
+ 
+ router.get('/logout', (req, res) => {
+   res.cookie("token", "", {
+     httpOnly: true,
+     expires: new Date(0)
+   }).send();
+ })
 
+ 
 router.get("/loggedIn", (req, res) => {
   try {
     const token = req.cookies.token;
@@ -176,12 +187,13 @@ router.get("/loggedIn", (req, res) => {
     res.json(false);
   }
 });
-
-// Delete all user
-router.delete('/', async (req, res) => {
-    await deleteAllUser();
-    res.sendStatus(HTTP_NO_CONTENT);
-});
-
-export default router;
-
+ 
+ // Delete all user
+ router.delete('/', async (req, res) => {
+     await deleteAllUser();
+     res.sendStatus(HTTP_NO_CONTENT);
+ });
+ 
+ export default router;
+ 
+ 
