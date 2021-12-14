@@ -3,6 +3,8 @@ import React, { useContext, useState } from "react";
 import './registerForm.css'
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
+
 
 function Register() {
   // const username = useFormInput('');
@@ -16,6 +18,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // const alert = useAlert();
+  
  
   // handle button click of login form
   // const handleLogin = () => {
@@ -30,6 +34,7 @@ function Register() {
   async function register(e) {
     e.preventDefault();
 
+    
     try {
       const registerData = {
         username,
@@ -45,6 +50,7 @@ function Register() {
       );
 
     }catch (err) {
+          // alert.show("Oh look, an alert!");
           console.error(err);
     }
 
