@@ -25,7 +25,6 @@ function Login(props) {
 
   async function login(e){
     e.preventDefault();
-
     try {
       const loginData = {
         username,
