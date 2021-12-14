@@ -17,6 +17,7 @@ import { User } from '../../pokemon-data/userschema';
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 
 
@@ -137,11 +138,9 @@ router.post('/login', async (req, res) => {
         //send token in cookie
         res
             .cookie("token", token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
+                httpOnly: true
         })
-        .json(existingUser)
+        // .json(existingUser)
         .send();
 
     }catch(err){
