@@ -29,8 +29,18 @@
  
  
  const router = express.Router();
-
- // Create new user
+ 
+ // async function fetchFromPokemonAPI() {
+ //     const randomPokemonNum = Math.floor(Math.random() * 898) + 1;
+ //     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonNum}`);
+ //     const data = response.data;
+ //     return {
+ //         name: data.species.name.toUpperCase().substring(0, 1) + data.species.name.substring(1),
+ //         imageUrl: data.sprites.front_default,
+ //     };
+ // }
+ 
+ // Create new random pokemon
  router.post('/register', async (req, res) => {
      const {username, name,email, password, confirmPassword} = req.body;
  
@@ -130,7 +140,7 @@
              .cookie("token", token, {
                  httpOnly: true
          })
-         // .json(existingUser)
+         .json(existingUser)
          .send();
  
      }catch(err){
