@@ -8,11 +8,19 @@ import { Tooltip , IconButton, Button} from "@mui/material";
 
 export default function Article_list (){
     const [listOfArticle, setListOfArticle]=useState([]);
+     
+   /* const updateArticle = (id) => {
+        const newArticle = prompt("Enter new author");
+        axios.put("http://localhost:3001/api/articles/update", {newArticle: newArticle, id:id})
+    }*/
 
     useEffect(()=> {
-         axios.get("http://localhost:3001/api/articles/..")
+         axios.get("http://localhost:3001/api/articles")
         .then((response) =>{
-            setListOfArticle(response.data)
+           setListOfArticle(response.data);
+           //  const update = prompt("Enter val: ");
+            console.log(response);
+
         })
         .catch(()=> {
             console.log("ERR")
@@ -23,13 +31,18 @@ export default function Article_list (){
     const Article= {
     author: "Article",
     title: "Title",
-    
     url:"https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
   
     }
 
     return (
-        <div>
+
+
+
+       
+
+
+         <div>
                 <div className='UserContainer'>
                     <div>
                          <img style={{width:"200px", height:"200px",borderRadius:"200px"}} 
@@ -40,10 +53,16 @@ export default function Article_list (){
                            <h1>{Article. author}</h1>
                            <h3>{Article. title}</h3>    
                            {listOfArticle.map((val)=>{
-                               <div>
-                                   {val.author}
-                               </div>
-                           })}
+                               return <h1>
+                                         {val.author}
+                             </h1>
+                              })} 
+                              {/* <button 
+                           onClick={()=>{
+                            updateArticle(val.id)
+                           }}
+                        ></button> */}
+                          
                     </div>
                 </div>
                 
@@ -58,6 +77,6 @@ export default function Article_list (){
                     </Link>
                 </div>
        
-       </div>
+       </div> 
     );
 }
