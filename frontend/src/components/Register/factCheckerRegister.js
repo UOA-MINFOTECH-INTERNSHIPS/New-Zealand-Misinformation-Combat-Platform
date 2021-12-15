@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import './registerForm.css'
-//import axios from "axios";
+import axios from "axios";
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
+import InputLabel from "@mui/material/InputLabel";
+
 
 
 
 export default function Register() {
-  const [category, setCategory] = useState("category1");  
+  const [category, setCategory] = useState("");  
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,8 +26,8 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const factCheckerData = {category, username, name, email, password, confirmPassword};
-     // await axios.post("http://localhost:3001/api/user/register", factCheckerData);
+      const factCheckerData = {username, name, email, password, confirmPassword, category};
+      await axios.post("http://localhost:3001/api/factchecker/register", factCheckerData);
       alert("registered");
       navigate('/login');
     }catch (err) {
@@ -33,6 +35,7 @@ export default function Register() {
         setError(error.response.data.errorMessage);
     }
   }
+  //<label className="category-label">Category</label>
   return (
     <div>
         <div className='registerContainer'>
@@ -42,8 +45,8 @@ export default function Register() {
             <div className="selectionBox">
                 <Box sx={{ minWidth: 120}}>
                     <FormControl fullWidth>
-                        <label className="category-label">Category</label>
-                        <Select labelId="category-select-label" id="category-select" value={category} label="Age" onChange={(e) => setCategory(e.target.value)} >
+                        <InputLabel className="category-label" id="demo-multiple-name-label">Select Your Interest</InputLabel>
+                        <Select labelId="category-select-label" id="category-select" value={category} label="Category" onChange={(e) => setCategory(e.target.value)} >
                             <MenuItem value={"category1"}>category1</MenuItem>
                             <MenuItem value={"category2"}>category2</MenuItem>
                             <MenuItem value={"category3"}>category3</MenuItem>
