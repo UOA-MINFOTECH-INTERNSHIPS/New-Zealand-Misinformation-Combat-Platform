@@ -1,4 +1,4 @@
-import React , {useEffect,useState}from "react";
+import React from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
@@ -16,9 +16,7 @@ export default function Profile (){
         <div>
                 <div className='UserContainer'>
                     <div>
-                         <img style={{width:"200px", height:"200px",borderRadius:"200px"}} 
-                              src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
-                         />
+                         
                      </div>
                      <div>
                            <h1>UserName: {user.username}</h1>

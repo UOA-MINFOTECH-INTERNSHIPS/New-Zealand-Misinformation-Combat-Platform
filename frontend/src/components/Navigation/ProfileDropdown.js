@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import {Box, Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Tooltip, Button} from '@mui/material';
-import {Logout, Settings, PersonAdd} from '@mui/icons-material';
+import {Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Button} from '@mui/material';
+import {Logout} from '@mui/icons-material';
 
 
 
@@ -15,12 +15,7 @@ export default function Profile() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  /*const user = {
-        username: "llia464",
-        name: "Linda",
-        email: "123@bla.com",
-        password: "123"
-  }*/
+
   const user = null;
   return (
     <React.Fragment>
@@ -59,7 +54,7 @@ export default function Profile() {
            </div>
       ) : (
         <div className='notLogged'>        
-          <Button component={Link} to='/login' variant = 'outlined' sx={{ ml:110, mr: 1 }}>Login</Button>
+          <Button component={Link} to='/login' variant = 'outlined' sx={{ ml:110, mr: 1 }} >Login</Button>
           <Button component={Link} to='/register' variant ='outlined'>Register</Button>
         </div>
 
