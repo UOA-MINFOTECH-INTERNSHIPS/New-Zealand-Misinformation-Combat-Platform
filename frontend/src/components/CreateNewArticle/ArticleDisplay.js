@@ -8,11 +8,19 @@ import { Tooltip , IconButton, Button} from "@mui/material";
 
 export default function Article_list (){
     const [listOfArticle, setListOfArticle]=useState([]);
+     
+   /* const updateArticle = (id) => {
+        const newArticle = prompt("Enter new author");
+        axios.put("http://localhost:3001/api/articles/update", {newArticle: newArticle, id:id})
+    }*/
 
     useEffect(()=> {
-         axios.get("http://localhost:3001/api/articles/..")
+         axios.get("http://localhost:3001/api/articles")
         .then((response) =>{
-            setListOfArticle(response.data)
+            setListOfArticle(response.data);
+           //  const update = prompt("Enter val: ");
+           // console.log(update);
+
         })
         .catch(()=> {
             console.log("ERR")
@@ -39,11 +47,17 @@ export default function Article_list (){
                      <div>
                            <h1>{Article. author}</h1>
                            <h3>{Article. title}</h3>    
-                           {listOfArticle.map((val)=>{
+                        
+                           {listOfArticle.map((response)=>{
                                <div>
-                                   {val.author}
+                                   {response.author}
                                </div>
-                           })}
+                           })}  
+                          {/* <button 
+                           onClick={()=>{
+                            updateArticle(val.id)
+                           }}
+                        ></button> */}
                     </div>
                 </div>
                 
