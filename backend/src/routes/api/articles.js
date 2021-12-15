@@ -51,7 +51,7 @@ const auth = require("../../middleware/auth");
 // });
 
 //create user post article
-router.post('/post', auth, async (req, res) => {
+router.post('/post', async (req, res) => {
     try {
         const {author, title,description, url, urlToImage,content} = req.body;
     
@@ -119,4 +119,3 @@ router.post('/update', auth, async (req, res) => {
 });
 
 export default router;
-

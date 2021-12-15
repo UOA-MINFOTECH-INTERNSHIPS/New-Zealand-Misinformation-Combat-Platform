@@ -4,7 +4,13 @@ import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerForm';
-import Editor from './components/Upload_NewArticle/editor';
+import Editor from './components/CreateNewArticle/NewArticle';
+ import Article_list from './components/CreateNewArticle/ArticleDisplay';
+ 
+
+
+
+
 function App() {
   return (
     <Routes>
@@ -15,6 +21,7 @@ function App() {
       <Route path='/login' element ={<Login/>}/>
       <Route path='/register' element ={<Register/>}/>
       <Route path='/editor' element ={<Editor/>}/>
+     <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
     </Routes>
   );
 }

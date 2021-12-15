@@ -1,0 +1,32 @@
+.container{
+    width: 580px;
+    margin: 40px auto;
+    padding: 25px 28px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #867c7c;
+}
+
+.sub_button{
+    background-color: #1A2634;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.sub_button:hover{
+    background-color: #c9b8b8;
+  }
+
+  .data{
+    color: #c9b8b8;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border:#1d1717;
+    cursor: pointer;
+    width: 30%;
+  
+}
