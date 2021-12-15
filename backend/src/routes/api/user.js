@@ -9,7 +9,8 @@ import {
     retrieveUser,
     updateUser,
     deleteUser,
-    deleteAllUser
+    deleteAllUser,
+    upgradeUser
 } from '../../pokemon-data/user-dao';
 import axios from 'axios';
 import { User } from '../../pokemon-data/userschema';
@@ -42,7 +43,7 @@ const router = express.Router();
 
 // Create new random pokemon
 router.post('/register', async (req, res) => {
-    const {username, name,email, password, confirmPassword} = req.body;
+    const {username, name,email, password, confirmPassword, userType, category} = req.body;
 
     if (!username || !name || !email || !password || !confirmPassword)
       return res
@@ -64,19 +65,35 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         errorMessage: "An account with this email already exists.",
       });
-    
 
     // hash the password
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-
-
-
+    
+    
+      
     const newUser = {
-        username: username,
-        name : name,
-        email : email,
-        password : passwordHash};
+      username: username,
+      name : name,
+      email : email,
+      password : passwordHash,
+      userType:'normal',
+      category:null,
+      arrayOfLiked:[],
+      arrayOfChecked:[]
+    };
+
+
+    if(userType=="fact checker"){
+      newUser.userType="fact checker";
+      newUser.category=category;
+    }
+
+    
+
+
+
+    
     // const pokemon = {
     //     name: 'Ditto',
     //     imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png'
@@ -181,6 +198,13 @@ router.get("/loggedIn", (req, res) => {
 router.delete('/', async (req, res) => {
     await deleteAllUser();
     res.sendStatus(HTTP_NO_CONTENT);
+});
+
+//upgrade user to fact checker
+router.post('/upgrade',async (req, res) => {
+    const {id,category}=req.body;
+    const newFactCheker = await upgradeUser(id,category);
+    res.json(newFactCheker);
 });
 
 export default router;
