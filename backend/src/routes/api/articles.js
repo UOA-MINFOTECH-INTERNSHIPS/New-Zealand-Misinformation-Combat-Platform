@@ -85,6 +85,11 @@ router.get('/', async (req, res) => {
     res.json(await retrieveArticle20());
 });
 
+// Retrieve one article saved
+router.get('/find', async (req, res) => {
+    const {id} = req.body;
+    res.json(await retrieveArticle(id));
+});
 
 // Delete one article
 router.delete('/', auth, async (req, res) => {
@@ -92,6 +97,8 @@ router.delete('/', auth, async (req, res) => {
     await deleteArticle(id);
     res.sendStatus(HTTP_NO_CONTENT);
 });
+
+
 
 // Update one article
 router.post('/update', auth, async (req, res) => {
