@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './login.css'
-import { useNavigate } from "react-router-dom";
 // import { AutoFixOffSharp } from '@mui/icons-material';
 import axios from "axios";
 
 function Login(props) {
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
   // handle button click of login form
   async function handleLogin (e) {
     e.preventDefault();
@@ -15,11 +16,11 @@ function Login(props) {
       
       await axios.post("http://localhost:3001/api/user/login", user);
     }catch (err){
+      setError(error.response.data.errorMessage);
 
     }
     
   }
-
 
   return (
     <div>
@@ -35,11 +36,13 @@ function Login(props) {
               <input type="password"  autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} 
                 value={password}  />
             </div>
+            
+            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
            
             <button type="submit" className="registerbtn" onClick={handleLogin}>
                     Login
             </button>
-            <div class="SignInRedicted">
+            <div className="SignInRedicted">
               <p>Do not have an account? <a href="/register">Register</a></p>
             </div>
           </div>

@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import './registerForm.css'
 //import axios from "axios";
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function Register() {
-  const [category, setCategory] = useState("");  
+  const [category, setCategory] = useState("category1");  
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
 
   async function register(e) {
     e.preventDefault();
@@ -22,23 +26,23 @@ export default function Register() {
     try {
       const factCheckerData = {category, username, name, email, password, confirmPassword};
      // await axios.post("http://localhost:3001/api/user/register", factCheckerData);
-      console.log("registered");
-  //    console.log(category)
+      alert("registered");
+      navigate('/login');
     }catch (err) {
-          console.error(err);
+        console.error(err);
+        setError(error.response.data.errorMessage);
     }
-
   }
   return (
     <div>
-        <div className='loginContainer'>
+        <div className='registerContainer'>
             <h2 className ='registerHeading'>Register</h2>
             <p>Please enter your detail to create an account</p>
             <hr/>
             <div className="selectionBox">
                 <Box sx={{ minWidth: 120}}>
                     <FormControl fullWidth>
-                        <label>Category</label>
+                        <label className="category-label">Category</label>
                         <Select labelId="category-select-label" id="category-select" value={category} label="Age" onChange={(e) => setCategory(e.target.value)} >
                             <MenuItem value={"category1"}>category1</MenuItem>
                             <MenuItem value={"category2"}>category2</MenuItem>
@@ -72,6 +76,7 @@ export default function Register() {
               ConfirmPassword<br />
               <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
             </div>
+            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
 
             <form onSubmit={register}>
               <button type="submit" className="registerbtn">

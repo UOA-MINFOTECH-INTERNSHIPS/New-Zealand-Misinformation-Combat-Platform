@@ -5,23 +5,25 @@ import FactChecker from "./factCheckerRegister"
 import NormalUser from './registerForm';
 
 export default function RegisterPage() {
-    const [showNormForm, setShowNorm] = useState(false);
+    const [showNormForm, setShowNorm] = useState(true);
 
     function handleShowNorm () {
         setShowNorm(!showNormForm);
         console.log(showNormForm)
     }
 
-    //useEffect
 
     return(
-        <div className='selection'>
-            <h1>What roles do you want to become</h1>
+        <div>
+            <h1 className='heading'>What roles do you want to become</h1>
             <div className='TypeBtn'>
-                <Button variant="outlined" sx={{mr: 20 }} onclick = {()=>handleShowNorm()} >Normal User</Button>
-                <Button variant="outlined" onclick ={()=>handleShowNorm()} >Fact Checker</Button>
+                <Button variant="outlined" sx={{mr: 20 }} onClick = {()=>handleShowNorm()} >Normal User</Button>
+                <Button variant="outlined" onClick ={()=>handleShowNorm()} >Fact Checker</Button>
             </div>
-            {showNormForm ?  <NormalUser/>: <FactChecker/>} 
+            <br/>
+            <div className='form'>
+            {showNormForm ? <NormalUser/>: <FactChecker/>} 
+            </div>
         </div>
     )
 }

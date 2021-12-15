@@ -1,4 +1,4 @@
-import React , {useEffect,useState}from "react";
+import React from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
