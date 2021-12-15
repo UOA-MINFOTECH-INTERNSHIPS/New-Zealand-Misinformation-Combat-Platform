@@ -38,7 +38,7 @@ export default function Register() {
             <div className="selectionBox">
                 <Box sx={{ minWidth: 120}}>
                     <FormControl fullWidth>
-                        <InputLabel id="category-select-label">Category</InputLabel>
+                        <label>Category</label>
                         <Select labelId="category-select-label" id="category-select" value={category} label="Age" onChange={(e) => setCategory(e.target.value)} >
                             <MenuItem value={"category1"}>category1</MenuItem>
                             <MenuItem value={"category2"}>category2</MenuItem>

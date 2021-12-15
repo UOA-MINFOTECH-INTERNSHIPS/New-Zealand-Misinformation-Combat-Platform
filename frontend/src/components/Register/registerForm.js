@@ -13,16 +13,12 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isFactChecker, setUserType] = useState(false);
-
   async function register(e) {
     e.preventDefault();
 
     try {
-      const registerData = {isFactChecker,username, name, email, password, confirmPassword};
-      console.log(isFactChecker);
+      const registerData = {username, name, email, password, confirmPassword};
       await axios.post("http://localhost:3001/api/user/register", registerData);
-      
       console.log("registered");
     }catch (err) {
           console.error(err);
@@ -35,13 +31,6 @@ export default function Register() {
             <h2 className ='registerHeading'>Register</h2>
             <p>Please enter your detail to create an account</p>
             <hr/>
-            <div className="radioBtn">
-            <label>Select User Type</label>
-            <RadioGroup row name="row-radio-buttons-group" defaultValue="normalUser">
-              <FormControlLabel value="normalUser" control={<Radio onChange={(e) => setUserType(!isFactChecker)}/>} label="Normal User" />
-              <FormControlLabel value="isFactChecker" control={<Radio onChange={(e) => setUserType(!isFactChecker)}/> } label="Fact Checker"/>
-            </RadioGroup>
-            </div>
 
             <div>
                 <label>Username</label>

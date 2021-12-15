@@ -19,7 +19,6 @@ const HTTP_NO_CONTENT = 204;
 
 
 const router = express.Router();
-const auth = require("../../middleware/auth");
 
 //create user post article
 router.post('/newarticle', auth, async (req, res) => {

@@ -4,8 +4,8 @@ import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerPage';
-import Editor from './components/Upload_NewArticle/editor';
 import Article_list from './components/CreateNewArticle/ArticleDisplay';
+import Editor from './components/CreateNewArticle/NewArticle';
 import axios from 'axios';
 
 //axios.defaults.withCredentials = true;
