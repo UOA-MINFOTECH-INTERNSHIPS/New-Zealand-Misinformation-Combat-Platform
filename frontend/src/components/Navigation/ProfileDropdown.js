@@ -17,6 +17,7 @@ export default function Profile() {
   };
 
   const user = null;
+  
   return (
     <React.Fragment>
       {user ? (

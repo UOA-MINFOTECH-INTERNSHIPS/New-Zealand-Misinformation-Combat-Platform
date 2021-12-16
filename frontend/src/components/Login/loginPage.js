@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import './login.css'
 // import { AutoFixOffSharp } from '@mui/icons-material';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 
 function Login(props) {
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-
+  const Navigate = useNavigate();
   // handle button click of login form
   async function handleLogin (e) {
     e.preventDefault();
     try{
       const user = {username,password}
       
-      await axios.post("http://localhost:3001/api/user/login", user);
+      await axios.post("http://localhost:3001/api/factchecker/login", user);
+      Navigate("/")
     }catch (err){
       setError(error.response.data.errorMessage);
 
