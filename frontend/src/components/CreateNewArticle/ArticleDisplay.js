@@ -37,34 +37,27 @@ export default function Article_list (){
 
     return (
 
-
+      //  <img style={{width:"200px", height:"200px",borderRadius:"200px"}} src={Article.url} />
 
        
 
 
          <div>
-                <div className='UserContainer'>
-                    <div>
-                         <img style={{width:"200px", height:"200px",borderRadius:"200px"}} 
-                              src={Article.url}
-                         />
-                     </div>
                      <div>
-                           <h1>{Article. author}</h1>
-                           <h3>{Article. title}</h3>    
+                             
                            {listOfArticle.map((val)=>{
-                               return <h1>
-                                         {val.author}
-                             </h1>
+                               return  <h2 className='UserContainer'>
+                                         {val.Title}
+                                      </h2>
+                                     
                               })} 
                               {/* <button 
                            onClick={()=>{
                             updateArticle(val.id)
                            }}
-                        ></button> */}
+                        ></button> 
                           
                     </div>
-                </div>
                 
                 <div>
                 <Link to="/editor">
@@ -76,7 +69,8 @@ export default function Article_list (){
                      </Tooltip>
                     </Link>
                 </div>
-       
+       */}
        </div> 
+       </div>
     );
 }
