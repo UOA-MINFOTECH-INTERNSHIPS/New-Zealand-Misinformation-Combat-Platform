@@ -6,7 +6,11 @@ const userSchema = new Schema({
     username: {type:String,required:true},
     name: {type:String,required:true},
     email:{type:String,required:true},
-    password:{type:String,required:true}
+    password:{type:String,required:true},
+    arrayOfLiked:[Schema.Types.ObjectId],
+    userType:{type:String},
+    category:{type:String},
+    arrayOfChecked:[Schema.Types.ObjectId]
 }, {
     timestamps: {}
 });

@@ -33,6 +33,15 @@ async function updateUser(user) {
     return false;
 }
 
+async function upgradeUser(id,category) {
+    const dbUser = await User.findById(id);
+    dbUser.userType = "fact checker";
+    dbUser.category = category;
+    await dbUser.save();
+    return dbUser;
+
+}
+
 async function deleteUser(id) {
     await User.deleteOne({ _id: id });
 }
@@ -47,5 +56,6 @@ export {
     retrieveUser,
     updateUser,
     deleteUser,
-    deleteAllUser
+    deleteAllUser,
+    upgradeUser
 }
