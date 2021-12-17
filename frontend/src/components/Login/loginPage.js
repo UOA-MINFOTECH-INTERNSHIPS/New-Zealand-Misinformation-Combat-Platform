@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css'
 // import { AutoFixOffSharp } from '@mui/icons-material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
-
-function Login(props) {
+function Login() {
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -16,15 +15,14 @@ function Login(props) {
     try{
       const user = {username,password}
       
-      await axios.post("http://localhost:3001/api/factchecker/login", user);
-      Navigate("/")
+      await axios.post("http://localhost:3001/api/user/login", user);
+      Navigate("/articles")
     }catch (err){
       setError(error.response.data.errorMessage);
 
     }
-    
   }
-
+  
   return (
     <div>
       <div className='loginContainer'>
