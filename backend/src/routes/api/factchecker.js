@@ -91,12 +91,12 @@ router.post('/login', async (req, res) => {
         if (!username||!password) return res.status(400).json({errorMessage: "Please enter all required fields."});
         
         const existingFactChecker = await FactChecker.findOne({ username });
-        if (!existingUser)
+        if (!existingFactChecker)
         return res.status(401).json({ errorMessage: "Wrong username." });
 
         const passwordCorrect = await bcrypt.compare(
             password,
-            existingUser.password
+            existingFactChecker.password
           );
 
         if (!passwordCorrect)

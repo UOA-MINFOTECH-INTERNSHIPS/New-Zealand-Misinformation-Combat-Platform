@@ -1,13 +1,13 @@
 import express from 'express';
 import {
     createArticle,
+    retrieveArticle20,
     retrieveAllArticle,
     updateArticle,
     deleteArticle,
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
-import axios from 'axios';
 import { Article } from '../../pokemon-data/articleschema';
 
 
