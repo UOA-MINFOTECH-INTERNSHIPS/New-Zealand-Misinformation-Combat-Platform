@@ -3,11 +3,12 @@ import axios from 'axios';
 
 const AppContext = createContext();
 
-export function AppContextProvider(props) {
+function AppContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(undefined);
+    console.log(loggedIn);
 
     async function getLoggedIn(){
-        const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn");
+        const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn ");
         setLoggedIn(loggedInRes.data);
     }
 
@@ -23,3 +24,4 @@ export function AppContextProvider(props) {
 }
 
 export default AppContext;
+export {AppContextProvider};

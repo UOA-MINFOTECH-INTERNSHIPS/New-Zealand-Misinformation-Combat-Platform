@@ -11,10 +11,12 @@ axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>
+    <AppContextProvider>
       <Router>
           <Navbar/>
           <App />
       </Router>
+    </AppContextProvider>
   </React.StrictMode>
   ,
   document.getElementById('root')
