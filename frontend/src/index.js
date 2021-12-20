@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContextProvider } from './AppContextProvider';
 import App from './App';
-import { CssBaseline } from '@mui/material';
 import Navbar from './components/Navigation/Navbar';
+
+axios.defaults.withCredentials = true;
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-        <Navbar/>
-        <App />
-    </Router>
-  </React.StrictMode>,
+      <Router>
+          <Navbar/>
+          <App />
+      </Router>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );

@@ -3,16 +3,19 @@ import ArticlesPage from './components/ArticlePage';
 import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
-import Register from  './components/Register/registerForm';
+import Register from  './components/Register/registerPage';
+import Article_list from './components/CreateNewArticle/ArticleDisplay';
 import Editor from './components/CreateNewArticle/NewArticle';
- import Article_list from './components/CreateNewArticle/ArticleDisplay';
- 
+import EditArticle from './components/CreateNewArticle/EditArticle';
+import axios from 'axios';
+
+//axios.defaults.withCredentials = true;
+
+export default function App() {
 
 
-
-
-function App() {
   return (
+
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
@@ -22,8 +25,15 @@ function App() {
       <Route path='/register' element ={<Register/>}/>
       <Route path='/editor' element ={<Editor/>}/>
      <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+     <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
+     <Route
+      path="*"
+      element={
+        <main style={{ padding: "1rem" }}>
+          <p>There's nothing here!</p>
+        </main>
+      }
+    />
     </Routes>
   );
 }
-
-export default App;
