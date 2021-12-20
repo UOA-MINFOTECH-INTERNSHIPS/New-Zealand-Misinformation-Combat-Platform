@@ -26,7 +26,7 @@ async function updateArticle(id,newArticle) {
     dbArticle.description=newArticle.description;
     dbArticle.url = newArticle.url;
     dbArticle.urlToImage = newArticle.urlToImage;
-    dbArticle.publishAt = Date.now;
+    dbArticle.publishAt = newArticle.publishAt;
     dbArticle.content = newArticle.content;
 
     await dbArticle.save();

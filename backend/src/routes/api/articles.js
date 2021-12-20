@@ -2,8 +2,10 @@ import express from 'express';
 import {
     createArticle,
     retrieveAllArticle,
+    retrieveArticle20,
     updateArticle,
     deleteArticle,
+    retrieveArticle,
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
@@ -21,7 +23,7 @@ const HTTP_NO_CONTENT = 204;
 const router = express.Router();
 
 //create user post article
-router.post('/newarticle', auth, async (req, res) => {
+router.post('/newarticle', async (req, res) => {
     try{
         const {author, title, description, url, urlToImage, publishAt, content, like} = req.body;
         const newArticle = {
@@ -73,12 +75,13 @@ router.get('/', async (req, res) => {
 
 // Retrieve one article saved
 router.get('/find', async (req, res) => {
-    const {id} = req.body;
+   // const {id} = req.body;
+    var  id = req.query.id;
     res.json(await retrieveArticle(id));
 });
 
 // Delete one article
-router.delete('/', auth, async (req, res) => {
+router.delete('/',  async (req, res) => {
     const {id} = req.body;
     await deleteArticle(id);
     res.sendStatus(HTTP_NO_CONTENT);
@@ -87,21 +90,23 @@ router.delete('/', auth, async (req, res) => {
 
 
 // Update one article
-router.post('/update', auth, async (req, res) => {
-    const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
+router.put('/update',  async (req, res) => {
+    const {bdid,author,title,description,url,urlToImage,content} = req.body;
+    console.log(req.body);
     const newArticle=new Article({
         author: author,
-        title: newTitle,
-        description:newDescription,
-        url:newUrl,
-        urlToImage:newUrlToImage,
+        title: title,
+        description:description,
+        url:url,
+        urlToImage:urlToImage,
         publishAt:Date.now(),
-        content:newContent
+        content:content
     });
-    const dbArticle = await updateArticle(id,newArticle);
+    const dbArticle = await updateArticle(bdid,newArticle);
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
 });
+
 
 export default router;
