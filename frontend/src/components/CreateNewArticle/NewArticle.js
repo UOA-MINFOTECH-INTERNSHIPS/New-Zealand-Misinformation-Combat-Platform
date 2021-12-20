@@ -42,13 +42,12 @@ function Editor() {
         urlToImage,
         publishAt,
         content,
-        like,
-        content
+        like
       };
-    //  console.log(createText)
+       console.log(createText)
 
       await axios.post(
-       "http://localhost:3001/api/articles/post",
+       "http://localhost:3001/api/articles/newarticle",
         createText
       )
       .then(()=>{
@@ -141,11 +140,11 @@ function Editor() {
                 value={like}  
                 />
         </div>
-        <Link to="/ArticleDisplay">
+        
                 <button type="submit" className='sub_button'>
                   Submit
                 </button> 
-         </Link>
+         
    
     </form>
     </div>

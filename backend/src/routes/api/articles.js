@@ -2,8 +2,10 @@ import express from 'express';
 import {
     createArticle,
     retrieveAllArticle,
+    retrieveArticle20,
     updateArticle,
     deleteArticle,
+    retrieveArticle,
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
@@ -105,7 +107,6 @@ const router = express.Router();
 router.post('/post', async (req, res) => {
     try {
         const {author, title,description, url, urlToImage,content} = req.body;
-    
         const newArticle = {
             author: author,
             title: title,
@@ -217,7 +218,8 @@ router.get('/articlelist',paginatedResults(Article), async (req, res) => {
  *           $ref: '#/definitions/Finder'
  */
 router.get('/find', async (req, res) => {
-    const {id} = req.body;
+   // const {id} = req.body;
+    var  id = req.query.id;
     res.json(await retrieveArticle(id));
 });
 
@@ -345,14 +347,14 @@ router.post('/update', auth, async (req, res) => {
     const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
     const newArticle=new Article({
         author: author,
-        title: newTitle,
-        description:newDescription,
-        url:newUrl,
-        urlToImage:newUrlToImage,
+        title: title,
+        description:description,
+        url:url,
+        urlToImage:urlToImage,
         publishAt:Date.now(),
-        content:newContent
+        content:content
     });
-    const dbArticle = await updateArticle(id,newArticle);
+    const dbArticle = await updateArticle(bdid,newArticle);
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
