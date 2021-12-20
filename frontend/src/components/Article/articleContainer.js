@@ -66,7 +66,7 @@ export default function ArticleContainer (){
                         <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
                         } Like 
                     </Button>
-                    <Button size="small">Read More</Button>
+                    <Button size="small" >Read More</Button>
                  </CardActions>
                  </Card>
             ) ) } 

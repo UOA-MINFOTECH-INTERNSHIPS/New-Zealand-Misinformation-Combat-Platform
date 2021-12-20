@@ -8,7 +8,7 @@ import Article_list from './components/CreateNewArticle/ArticleDisplay';
 import Editor from './components/CreateNewArticle/NewArticle';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
-
+import PageNotFound from './components/pageNotFound';
 
 //axios.defaults.withCredentials = true;
 
@@ -20,20 +20,24 @@ export default function App() {
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/recommendation' element ={<Recommendation/>}/>
-      {loggedIn ? (
-          <>
-            <Route path="/register" element ={<Register />} />
-            <Route path="/login" element={<Login />} />
-          </>
-        )
-      :
+      {!loggedIn ?
       (
         <>
-          <Route path='/profile' element ={<Profile/>} />
+          <Route path="/login" element={<Login />} /> 
+          <Route path="/register" element ={<Register />} />
         </>
-      )}
+      ) :
+      (
+        <>
+          <Route path='/profile' element ={<Profile/>}/>
+          <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+        </>
+      ) }
 
-     <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+
+
+      <Route path= "/*" element={<PageNotFound/> } />
+
     </Routes>
   );
 }
