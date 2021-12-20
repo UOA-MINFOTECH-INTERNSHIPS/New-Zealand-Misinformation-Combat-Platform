@@ -2,19 +2,17 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const factCheckerSchema = new Schema({
     username: {type:String,required:true},
     name: {type:String,required:true},
     email:{type:String,required:true},
     password:{type:String,required:true},
-    arrayOfLiked:[Schema.Types.ObjectId],
-    userType:{type:String},
-    category:{type:String},
-    arrayOfChecked:[Schema.Types.ObjectId]
+    category:{type:String,required:true},
+    arrayOfID:[Schema.Types.ObjectId]
 }, {
     timestamps: {}
 });
 
-const User = mongoose.model('User', userSchema);
+const FactChecker = mongoose.model('FactChecker', factCheckerSchema);
 
-export { User };
+export { FactChecker };

@@ -1,35 +1,19 @@
-import React, { useContext, useState } from "react";
+
+import React, { useState } from "react";
 import './registerForm.css'
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-//import { useAlert } from "react-alert";
+import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
-  // const username = useFormInput('');
-  // const password = useFormInput('');
-  // const name = useFormInput('');
-  // const email = useFormInput('');
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const alert = useAlert();
-  
- 
-  // handle button click of login form
-  // const handleLogin = () => {
-  //   const user = {
-  //     username: username,
-  //     name: name,
-  //     email: email,
-  //     password: password
-  //   }
-  //   console.log(user);
-  // }
+  const navigate = useNavigate();
+
   async function register(e) {
     e.preventDefault();
 
@@ -42,21 +26,26 @@ function Register() {
         password,
         confirmPassword,
       };
-
+      
       await axios.post(
         "http://localhost:3001/api/user/register",
         registerData
       );
 
-    }catch (err) {
-          // alert.show("Oh look, an alert!");
-          console.error(err);
+      alert("Signed up Success");
+      navigate('/login');
+
+
+    }catch (error) {
+      console.error(error.response.data.errorMessage);
+      setError(error.response.data.errorMessage);
+      // navigate('/login');
     }
 
   }
   return (
     <div>
-        <div className='loginContainer'>
+        <div className='registerContainer'>
             <h2 className ='registerHeading'>Register</h2>
             <p>Please enter your detail to create an account</p>
             <hr/>
@@ -101,7 +90,7 @@ function Register() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
-            {/* {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />  */}
+            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
             <form onSubmit={register}>
               <button type="submit" className="registerbtn">
                   Register
@@ -130,3 +119,4 @@ function Register() {
 
 
 export default Register;
+  

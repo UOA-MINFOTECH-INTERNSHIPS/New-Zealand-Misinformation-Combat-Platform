@@ -1,10 +1,13 @@
 import { Article } from './articleschema';
 
 async function createArticle(article) {
-
     const dbArticle = new Article(article);
     await dbArticle.save();
     return dbArticle;
+}
+
+async function retrieveAllArticle() {
+    return await Article.find();
 }
 
 async function retrieveArticle20() {
@@ -23,7 +26,7 @@ async function updateArticle(id,newArticle) {
     dbArticle.description=newArticle.description;
     dbArticle.url = newArticle.url;
     dbArticle.urlToImage = newArticle.urlToImage;
-    dbArticle.publishAt = Date.now;
+    dbArticle.publishAt = newArticle.publishAt;
     dbArticle.content = newArticle.content;
 
     await dbArticle.save();
@@ -57,6 +60,7 @@ async function deleteAllArticle() {
 
 export {
     createArticle,
+    retrieveAllArticle,
     retrieveArticle20,
     retrieveArticle,
     updateArticle,

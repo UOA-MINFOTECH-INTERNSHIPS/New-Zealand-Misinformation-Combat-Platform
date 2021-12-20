@@ -1,9 +1,6 @@
-import {handleClick}from 'react';
 import {NavLink} from 'react-router-dom';
 import './navStyle.css';
 import Profile from './ProfileDropdown';
-import { IconButton, Avatar} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Navbar (){
 
@@ -15,7 +12,7 @@ export default function Navbar (){
             </div>
             <div>
                 <ul>
-                    <li><NavLink  to = '/articles' activeclassname='is-active'>Articles</NavLink></li>
+                    <li><NavLink  to = '/articles' activeclassname='is-active' >Articles</NavLink></li>
                     <li><NavLink to = '/recommendation' activeclassname='is-active'>Recommendation</NavLink></li>
                 </ul>
             
@@ -23,7 +20,6 @@ export default function Navbar (){
             
             <Profile/>
 
-            
         </nav>
 
     </div>

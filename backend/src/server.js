@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Serve up the frontend's "build" directory, if we're running in production mode.
 if (process.env.NODE_ENV === 'production') {
-    console.log('Running in production!');
+    console.log('Running in production!');
 
     // Make all files in that folder public
     app.use(express.static(path.join(__dirname, '../../frontend/build')));
@@ -59,4 +59,3 @@ mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true ,useUnif
 const logger = require('./Logger/logger');
 logger.log('info','catch');
 logger.log('error','error3');
-
