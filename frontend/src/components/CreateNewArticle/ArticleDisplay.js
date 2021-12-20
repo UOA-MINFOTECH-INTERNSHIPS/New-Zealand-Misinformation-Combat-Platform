@@ -16,7 +16,7 @@ export default function Article_list (){
     }*/
 
     useEffect(()=> {
-         axios.get("http://localhost:3001/api/articles")
+         axios.get("http://localhost:3001/api/articles/articlelist")
         .then((response) =>{
            setListOfArticle(response.data);
            //  const update = prompt("Enter val: ");
