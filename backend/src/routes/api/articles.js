@@ -175,7 +175,7 @@ router.post('/post', async (req, res) => {
 /**
  * @swagger
  * /api/articles/articlelist:
- *   get:
+ *   post:
  *     description: logout user
  *     tags: [Articles]
  *     produces:
@@ -193,7 +193,7 @@ router.post('/post', async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/Paginating'
  */
-router.get('/articlelist',paginatedResults(Article), async (req, res) => {
+router.post('/articlelist',paginatedResults(Article), async (req, res) => {
     res.json(res.paginatedResults);
 });
 
@@ -211,7 +211,7 @@ router.get('/articlelist',paginatedResults(Article), async (req, res) => {
 /**
  * @swagger
  * /api/articles/find:
- *   get:
+ *   post:
  *     description: find a article exist
  *     tags: [Articles]
  *     produces:
@@ -229,7 +229,7 @@ router.get('/articlelist',paginatedResults(Article), async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/Finder'
  */
-router.get('/find', async (req, res) => {
+router.post('/find', async (req, res) => {
     const {id} = req.body;
     res.json(await retrieveArticle(id));
 });
