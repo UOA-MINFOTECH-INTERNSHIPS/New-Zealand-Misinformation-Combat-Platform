@@ -1,7 +1,6 @@
 import express from 'express';
 import {
     createArticle,
-    retrieveArticle20,
     retrieveAllArticle,
     retrieveArticle20,
     updateArticle,

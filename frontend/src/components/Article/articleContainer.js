@@ -13,13 +13,15 @@ export default function ArticleContainer (){
     const [listOfArticle, setListOfArticle]=useState([]);
     const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
-    console.log(page)
+    
 
     useEffect(()=> {
-        axios.get("http://localhost:3001/api/articles")
+        console.log(page);
+        axios.get("http://localhost:3001/api/articles/articlelist", page)
        .then((response) =>{
-            setListOfArticle(response.data);
-            console.log(response.data);
+            
+            setListOfArticle(response.results);
+            console.log(response.results);
         })
        .catch(()=> {console.log("ERR") } )
    }, [page]);
