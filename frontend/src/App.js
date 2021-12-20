@@ -9,6 +9,8 @@ import Editor from './components/CreateNewArticle/NewArticle';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
+import EditArticle from './components/CreateNewArticle/EditArticle';
+
 
 //axios.defaults.withCredentials = true;
 
@@ -20,6 +22,7 @@ export default function App() {
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/recommendation' element ={<Recommendation/>}/>
+
       {!loggedIn ?
       (
         <>
@@ -30,14 +33,14 @@ export default function App() {
       (
         <>
           <Route path='/profile' element ={<Profile/>}/>
+          <Route path='/editor' element ={<Editor/>}/>
           <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+          <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
         </>
       ) }
 
 
-
       <Route path= "/*" element={<PageNotFound/> } />
-
     </Routes>
   );
 }
