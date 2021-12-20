@@ -41,7 +41,83 @@ const router = express.Router();
 //     };
 // }
 
-// Create new random pokemon
+
+
+
+// register new user
+/**
+ * @swagger
+ * definitions:
+ *   Register:
+ *     required:
+ *       - username
+ *       - name
+ *       - email
+ *       - password
+ *       - confirmPassword
+ *     properties:
+ *       username:
+ *         type: string
+ *       name:
+ *         type: string
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *       confirmPassword:
+ *         type: string
+ */
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: User management system
+ */
+
+
+/**
+ * @swagger
+ * /api/user/register:
+ *   post:
+ *     description: register a new user
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give new user a username, must be unique
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: name
+ *         description: give new user a name
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: email
+ *         description: input the email
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: password
+ *         description: User's password.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: confirmPassword
+ *         description: confirm the password
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: register
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Register'
+ */
 router.post('/register', async (req, res) => {
     const {username, name,email, password, confirmPassword, userType, category} = req.body;
 
@@ -126,6 +202,48 @@ router.post('/register', async (req, res) => {
 });
 
 // login
+/**
+ * @swagger
+ * definitions:
+ *   Login:
+ *     required:
+ *       - username
+ *       - password
+ *     properties:
+ *       username:
+ *         type: string
+ *       password:
+ *         type: string
+ */
+
+
+
+/**
+ * @swagger
+ * /api/user/login:
+ *   post:
+ *     description: Login to the application
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: the username of user
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: password
+ *         description: User's password.
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: login
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Login'
+ */
 router.post('/login', async (req, res) => {
     try{
         const {username, password}=req.body;
@@ -169,6 +287,16 @@ router.post('/login', async (req, res) => {
 });
 
 //log out
+/**
+   * @swagger
+   * /api/user/logout:
+   *   get:
+   *     description: logout user
+   *     tags: [Users]
+   *     responses:
+   *       200:
+   *         description: logout
+   */
 router.get("/logout", (req, res) => {
     res
       .cookie("token", "", {
@@ -181,6 +309,16 @@ router.get("/logout", (req, res) => {
   });
 
 
+/**
+   * @swagger
+   * /api/user/loggedIn:
+   *   get:
+   *     description: check if logged in
+   *     tags: [Users]
+   *     responses:
+   *       200:
+   *         description: true if logged in
+   */
 router.get("/loggedIn", (req, res) => {
   try {
     const token = req.cookies.token;
@@ -200,6 +338,49 @@ router.delete('/', async (req, res) => {
     res.sendStatus(HTTP_NO_CONTENT);
 });
 
+
+/**
+ * @swagger
+ * definitions:
+ *   Upgrade:
+ *     required:
+ *       - id
+ *       - category
+ *     properties:
+ *       id:
+ *         type: string
+ *       category:
+ *         type: string
+ */
+
+
+
+/**
+ * @swagger
+ * /api/user/upgrade:
+ *   post:
+ *     description: upgrade normal user to fact checker
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: the exsiting user's id
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: category
+ *         description: the fact checker's category
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: upgrade
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/Upgrade'
+ */
 //upgrade user to fact checker
 router.post('/upgrade',async (req, res) => {
     const {id,category}=req.body;

@@ -1,6 +1,9 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
 
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -30,8 +33,22 @@ app.use(express.json());
 
 // Setup our routes.
 import routes from './routes';
-
 app.use('/', routes);
+
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'Hello World',
+      version: '1.0.0',
+    }
+  },
+  apis: ['./src/routes/api/*.js'],
+};
+// console.log(swaggerOptions)
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+console.log(swaggerDocs)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 
 // Make the "public" folder available statically
