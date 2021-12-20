@@ -3,16 +3,18 @@ import ArticlesPage from './components/ArticlePage';
 import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
-import Register from  './components/Register/registerForm';
+import Register from  './components/Register/registerPage';
+import Article_list from './components/CreateNewArticle/ArticleDisplay';
 import Editor from './components/CreateNewArticle/NewArticle';
- import Article_list from './components/CreateNewArticle/ArticleDisplay';
- 
+import axios from 'axios';
+
+//axios.defaults.withCredentials = true;
+
+export default function App() {
 
 
-
-
-function App() {
   return (
+
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
@@ -25,5 +27,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

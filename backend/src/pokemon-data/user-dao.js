@@ -1,4 +1,5 @@
 import { User } from './userschema';
+import jwt from 'jsonwebtoken';
 
 async function createUser(user) {
 
