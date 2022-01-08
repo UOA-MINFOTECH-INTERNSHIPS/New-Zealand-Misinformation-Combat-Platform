@@ -10,7 +10,8 @@ const userSchema = new Schema({
     arrayOfLiked:[Schema.Types.ObjectId],
     userType:{type:String},
     category:{type:String},
-    arrayOfChecked:[Schema.Types.ObjectId]
+    arrayOfChecked:[Schema.Types.ObjectId],
+    arrayOfPosted:[Schema.Types.ObjectId]
 }, {
     timestamps: {}
 });
