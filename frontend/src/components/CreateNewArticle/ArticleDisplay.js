@@ -36,15 +36,10 @@ export default function Article_list (){
   
     };
 
-    
-
 
     return (
 
       //  <img style={{width:"200px", height:"200px",borderRadius:"200px"}} src={Article.url} />
-
-       
-
 
          <div>
                      <div>
@@ -61,10 +56,11 @@ export default function Article_list (){
                                                    <button>
                                                      Modify
                                                    </button>
+                                                   
+                                                   </Link>
                                                    <button >
                                                      Delete
                                                    </button>
-                                                   </Link>
                                             </div>
                                       </div>
                                      

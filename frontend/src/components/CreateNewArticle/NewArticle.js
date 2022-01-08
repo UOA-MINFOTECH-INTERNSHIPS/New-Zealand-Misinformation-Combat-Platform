@@ -47,7 +47,7 @@ function Editor() {
        console.log(createText)
 
       await axios.post(
-       "http://localhost:3001/api/articles/newarticle",
+       "http://localhost:3001/api/articles/post",
         createText
       )
       .then(()=>{
@@ -61,8 +61,6 @@ function Editor() {
     }
 
   }
-
-
 
   return (
 

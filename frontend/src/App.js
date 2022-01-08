@@ -22,12 +22,17 @@ export default function App() {
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/recommendation' element ={<Recommendation/>}/>
+      <Route path='/profile' element ={<Profile/>}/>
+          <Route path='/editor' element ={<Editor/>}/>
+          <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+          <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
 
       {!loggedIn ?
       (
         <>
           <Route path="/login" element={<Login />} /> 
           <Route path="/register" element ={<Register />} />
+          
         </>
       ) :
       (
