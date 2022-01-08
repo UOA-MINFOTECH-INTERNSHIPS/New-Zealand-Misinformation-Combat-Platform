@@ -11,6 +11,7 @@ import {
 import auth from '../../middleware/auth';
 import axios from 'axios';
 import { Article } from '../../pokemon-data/articleschema';
+import { User } from '../../pokemon-data/userschema';
 
 
 
@@ -360,6 +361,51 @@ router.post('/update', auth, async (req, res) => {
         .json(dbArticle);
 });
 
+//find user's self-created articles
+/**
+ * @swagger
+ * definitions:
+ *   postArticleFinder:
+ *     required:
+ *       - username
+ *     properties:
+ *       username:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/articles/myarticles:
+ *   post:
+ *     description: find user's self-created articles
+ *     tags: [Articles]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give a username will response all articles posted by this user
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: articles found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/postArticleFinder'
+ */
+router.post('/myarticles',auth,async (req, res) =>{
+  const {username}=req.body;
+  const existingUser = await User.findOne({ username });
+  if (!existingUser)
+      return res.status(400).json({
+        errorMessage: "An account with this username does not exists.",
+      });
+  var myArticleIds = existingUser.arrayOfPosted;
+  // console.log(existingUser.arrayOfPosted);
+  // var obj_ids = myArticleIds.map(function(id) { return ObjectId(id); });
+  const myArticleList = await Article.find({'_id':{$in: myArticleIds}})
+  res.json(myArticleList);
+})
 
 function paginatedResults(model) {
     return async (req, res, next) => {
