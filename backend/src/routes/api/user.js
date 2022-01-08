@@ -14,6 +14,8 @@ import {
 } from '../../pokemon-data/user-dao';
 import axios from 'axios';
 import { User } from '../../pokemon-data/userschema';
+import { Article } from '../../pokemon-data/articleschema';
+import { retrieveArticle } from '../../pokemon-data/article-dao';
 
 
 const bcrypt = require("bcryptjs");
@@ -435,8 +437,13 @@ router.post('/addToPostList',async (req, res) =>{
       return res.status(400).json({
         errorMessage: "An account with this username does not exists.",
       });
-  existingUser.arrayOfPosted.push(id);
-  existingUser.save();
+  const existingArticle = await retrieveArticle(id);
+  if (!existingArticle)
+      return res.status(400).json({
+        errorMessage: "Does not exsit this article id",
+      });
+  await existingUser.arrayOfPosted.push(id);
+  await existingUser.save();
   res.json(existingUser);
 });
 
