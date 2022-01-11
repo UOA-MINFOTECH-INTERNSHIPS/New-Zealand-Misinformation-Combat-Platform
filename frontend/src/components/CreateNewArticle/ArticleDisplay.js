@@ -9,7 +9,7 @@ import { Tooltip , IconButton, Button} from "@mui/material";
 export default function Mission_list (){
     const  id  = useParams();
     const [listOfArticle, setListOfArticle]=useState([]);
-     
+   // const [page, setPage] = useState(1);
    /* const updateArticle = (id) => {
         const newArticle = prompt("Enter new author");
         axios.put("http://localhost:3001/api/articles/update", {newArticle: newArticle, id:id})
@@ -20,7 +20,7 @@ export default function Mission_list (){
         .then((response) =>{
            setListOfArticle(response.data);
            //  const update = prompt("Enter val: ");
-            console.log(response);
+           // console.log(response);
 
         })
         .catch(()=> {
@@ -43,7 +43,7 @@ export default function Mission_list (){
 
          <div>
                      <div>
-                             
+                            {console.log(listOfArticle)} 
                            {listOfArticle.map((article)=>{
                                return <div className='UserContainer'>
                                             <div>
@@ -51,7 +51,7 @@ export default function Mission_list (){
                                             </div>
                                              <div>
                                                <Link 
-                                               to={`/ArticleDisplay/${article._id}`}
+                                               to={'/ArticleDisplay/${article._id}'}
                                                key={article._id}>
                                                    <button>
                                                      Modify
