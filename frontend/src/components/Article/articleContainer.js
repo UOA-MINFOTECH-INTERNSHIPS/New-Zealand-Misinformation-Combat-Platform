@@ -7,31 +7,58 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Pagination from './pagination';
+import Pagination from "@mui/material/Pagination";
+import { makeStyles } from '@mui/styles';
+import { collapseClasses } from '@mui/material';
+import { margin } from '@mui/system';
+import Article from './article';
+import { useNavigate,NavLink } from 'react-router-dom';
+
+
+
+const useStyles = makeStyles(() => ({
+    ul: {
+      "& .MuiPaginationItem-root": {
+        color: "#fff",
+        padding: "20px 20px",
+      }
+    },
+    container:{
+        justifyContent:"center",
+        alignItems:"center",
+        marginTop: "50px",
+        width:"100%"
+    },
+  }));
+
 
 export default function ArticleContainer (){
+    const navigate = useNavigate();
     const [listOfArticle, setListOfArticle]=useState([]);
     const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
+    const classes = useStyles();
     
 
     useEffect(()=> {
-        console.log(page);
-        axios.get("http://localhost:3001/api/articles/articlelist", page)
+        const pageNum ={page};
+        axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
        .then((response) =>{
-            
-            setListOfArticle(response.results);
-            console.log(response.results);
+            setListOfArticle(response.data.results);
         })
        .catch(()=> {console.log("ERR") } )
    }, [page]);
       
+    const handleChange = (event, value) => {
+        setPage(value);
+        console.log(page); 
+    };
 
     return (
         <div>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-            {listOfArticle.map((article, key)=> (
-                 <Card className="articleContainer" sx={{ maxWidth: 600 }}>
+            {listOfArticle.map((article)=> (
+                 <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
                  <CardMedia
                    component="img"
                    alt="green iguana"
@@ -63,16 +90,19 @@ export default function ArticleContainer (){
                  
                  <CardActions>
                     <Button size="small" onClick={()=> setLike(!like)} > 
-                        {
+                        {/*
                         !like ? <i className="material-icons">favorite_border</i> : 
                         <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
-                        } Like 
+                        */} Verification Request  
                     </Button>
-                    <Button size="small" >Read More</Button>
+                    <Button size="small" ><NavLink to = {'/articles/' + article._id} >Read More </NavLink> </Button>
                  </CardActions>
                  </Card>
+                 
             ) ) } 
-            <Pagination setPage={setPage} page={page}/>
+            <div className={classes.container}>
+                    <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
+            </div>
         </div>
     )
 }

@@ -27,3 +27,25 @@
     height: max-content;
     margin: 30px 0 10px 30%; 
 }
+.page {
+    display: flex;
+    justify-content: center;
+}
+
+.singleArticleContainer{
+    border: 1px solid black;
+    width: 70%;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.singleImg{
+    width: 700px;
+    border: 1px solid black;
+    margin-left: 17.5%;
+}
+.ArtiContainer{
+    display:inline-block;
+    justify-content: center;
+    align-items: center;
+    
+}
