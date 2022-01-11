@@ -83,14 +83,7 @@ function Editor() {
                 value={title}  
                 />
         </div>
-        <div>
-                <label>Description</label>
-                <input 
-                type="text" 
-                onChange={(e) => setDescription(e.target.value)} 
-                value={description}  
-                />
-        </div>
+        
         <div>
                 <label>URL</label>
                 <input 
@@ -107,7 +100,16 @@ function Editor() {
                 value={urlToImage}  
                 />
         </div>
-      {/*  <div>
+     
+      <div>
+                <label>Question Description</label>
+                <input 
+                type="text" 
+                onChange={(e) => setDescription(e.target.value)} 
+                value={description}  
+                />
+        </div>
+     {/*   <div>
                 <label>Publish</label>
                 <input 
                 className='data'
@@ -117,7 +119,7 @@ function Editor() {
                 />
       </div> */}
         <div className="editor">
-
+        <label>Background Information</label>
             <CKEditor
                editor={ClassicEditor}
                data={content}

@@ -1,90 +1,108 @@
-import React,{useState, useEffect} from 'react';
-import axios from "axios";
-import { Link,useParams } from 'react-router-dom';
-import './ArticleDisplay.css';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Tooltip , IconButton, Button} from "@mui/material";
+import React, {useState, useEffect } from 'react';
+import './articleStyle.css';
+import axios from 'axios';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Pagination from "@mui/material/Pagination";
+import { makeStyles } from '@mui/styles';
+import { useNavigate,Link } from 'react-router-dom';
 
 
-export default function Mission_list (){
-    const  id  = useParams();
+
+const useStyles = makeStyles(() => ({
+    ul: {
+      "& .MuiPaginationItem-root": {
+        color: "#fff",
+        padding: "20px 20px",
+      }
+    },
+    container:{
+        justifyContent:"center",
+        alignItems:"center",
+        marginTop: "50px",
+        width:"100%"
+    },
+  }));
+
+
+export default function ArticleContainer (){
+    const navigate = useNavigate();
     const [listOfArticle, setListOfArticle]=useState([]);
-   // const [page, setPage] = useState(1);
-   /* const updateArticle = (id) => {
-        const newArticle = prompt("Enter new author");
-        axios.put("http://localhost:3001/api/articles/update", {newArticle: newArticle, id:id})
-    }*/
+    const [like, setLike] = useState(false);
+    const [page, setPage] = useState(1);
+    const classes = useStyles();
+    //const [user, setUser] = useState("Linda");
+    const user = {
+        username: "linda1",
+        name: "Linda",
+        email: "123@bla.com"
+    }
 
     useEffect(()=> {
-         axios.get("http://localhost:3001/api/articles/articlelist")
-        .then((response) =>{
-           setListOfArticle(response.data);
-           //  const update = prompt("Enter val: ");
-           // console.log(response);
-
+      //  const pageNum ={page};
+        const userName={user}
+        axios.post("http://localhost:3001/api/articles/myarticles", userName)
+       .then((response) =>{
+            setListOfArticle(response.data.results);
         })
-        .catch(()=> {
-            console.log("ERR")
-        })
-    },[]);
-    
-
-    const Article= {
-    author: "Article",
-    title: "Title",
-    url:"https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
-  
+       .catch(()=> {console.log("ERR") } )
+   }, [page]);
+      
+    const handleChange = (event, value) => {
+        setPage(value);
+        console.log(page); 
     };
 
-
     return (
+        <div>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+            {listOfArticle.map((article)=> (
+                 <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
+                 <CardMedia
+                   component="img"
+                   alt="green iguana"
+                   height="200"
+                   image= {article.urlToImage}
+                 />
+                <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                        {article.title}
+                    </Typography>
 
-      //  <img style={{width:"200px", height:"200px",borderRadius:"200px"}} src={Article.url} />
+                    <Typography variant="body2" color="text.secondary">
+                        {article.description}
+                    </Typography>
 
-         <div>
-                     <div>
-                            {console.log(listOfArticle)} 
-                           {listOfArticle.map((article)=>{
-                               return <div className='UserContainer'>
-                                            <div>
-                                               {article._id}
-                                            </div>
-                                             <div>
-                                               <Link 
-                                               to={'/ArticleDisplay/${article._id}'}
-                                               key={article._id}>
-                                                   <button>
-                                                     Modify
-                                                   </button>
-                                                   
-                                                   </Link>
-                                                   <button >
-                                                     Delete
-                                                   </button>
-                                            </div>
-                                      </div>
-                                     
-                              })} 
-                              {/* <button 
-                           onClick={()=>{
-                            updateArticle(val.id)
-                           }}
-                        ></button> 
-                          
-                    </div>  
-                
-                <div>
-                <Link to="/editor">
-                    <Tooltip title="Add Article">
-                        <IconButton size="small" sx={{ ml: 1 }}>
-                             <AddCircleIcon style={{width:"60px", height:"60px",borderRadius:"180px", margin:"50px"}} >
-                             </AddCircleIcon>
-                         </IconButton>
-                     </Tooltip>
-                    </Link>
-                </div>*/}
-       
-       </div> 
-       </div>
-    );
+                    <br/>
+                    {article.author != null ?
+                    <Typography variant="body2" color="text.secondary">
+                        Author: {article.author}
+                    </Typography> : 
+                    <Typography variant="body2" color="text.secondary">
+                        Author: Undefined
+                    </Typography> }
+
+                    <Typography variant="body2" color="text.secondary">
+                        Published Date: {article.publishAt}
+                    </Typography>
+                 </CardContent>
+                 
+                 <CardActions>
+                    <Button size="small"  > 
+                         Delect  
+                    </Button>
+                    <Link to = {'/ArticleDisplay/' + article._id}  > <Button size="small" >Modify  </Button></Link>
+                 </CardActions>
+                 </Card>
+                 
+            ) ) } 
+           {/*<div className={classes.container}>
+                    <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
+            </div> */} 
+        </div>
+    )
 }

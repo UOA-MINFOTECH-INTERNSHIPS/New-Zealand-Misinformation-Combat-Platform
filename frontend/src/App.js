@@ -24,7 +24,7 @@ export default function App() {
       <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
           <Route path='/editor' element ={<Editor/>}/>
-          <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
+          <Route path='/ArticleDisplay' element ={<Mission_list/>}/> 
           <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
 
       {!loggedIn ?

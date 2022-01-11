@@ -96,7 +96,7 @@ router.post('/login', async (req, res) => {
 
         const passwordCorrect = await bcrypt.compare(
             password,
-            existingUser.password
+            existingFactChecker.password
           );
 
         if (!passwordCorrect)
