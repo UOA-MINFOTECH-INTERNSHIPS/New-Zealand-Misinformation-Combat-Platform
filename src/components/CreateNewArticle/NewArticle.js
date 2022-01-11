@@ -5,8 +5,6 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import './NewArticle.css';
 import { Link } from 'react-router-dom';
-import MultipleSelectChip from './Category';
-
 /*
     author: String,
     title: String,
@@ -28,8 +26,8 @@ function Editor() {
   const [urlToImage,setUrlToImage] = useState('');
   const [publishAt,setPublishAt] = useState('');
   const [content,setContent] = useState('');
-  //const [like,setLike] = useState('');
- 
+  const [like,setLike] = useState('');
+
 
 
   async function submitArticle(e) {
@@ -43,7 +41,8 @@ function Editor() {
         url,
         urlToImage,
         publishAt,
-        content
+        content,
+        like
       };
        console.log(createText)
 
@@ -141,11 +140,11 @@ function Editor() {
                 value={like}  
                 />
         </div> */}
-       < MultipleSelectChip   />
+        
                 <button type="submit" className='sub_button'>
                   Submit
                 </button> 
-                
+         
    
     </form>
     </div>
