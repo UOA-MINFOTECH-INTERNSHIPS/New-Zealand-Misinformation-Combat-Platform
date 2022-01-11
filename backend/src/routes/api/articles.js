@@ -407,6 +407,7 @@ router.post('/myarticles',auth,async (req, res) =>{
   res.json(myArticleList);
 })
 
+
 //retrieve total number of articles in db
 /**
  * @swagger
@@ -422,6 +423,7 @@ router.get('/articleNum',async (req, res) =>{
   const articleNum = await Article.count();
   res.json(articleNum);
 })
+
 
 function paginatedResults(model) {
     return async (req, res, next) => {
