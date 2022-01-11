@@ -344,7 +344,7 @@ router.delete('/', auth, async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/Updater'
  */
-router.post('/update', auth, async (req, res) => {
+router.post('/update',  async (req, res) => {
     const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
     const newArticle=new Article({
         author: author,
