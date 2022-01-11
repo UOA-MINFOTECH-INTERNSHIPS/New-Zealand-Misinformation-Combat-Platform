@@ -6,7 +6,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Tooltip , IconButton, Button} from "@mui/material";
 
 
-export default function Article_list (){
+export default function Mission_list (){
     const  id  = useParams();
     const [listOfArticle, setListOfArticle]=useState([]);
      

@@ -107,7 +107,7 @@ function Editor() {
                 value={urlToImage}  
                 />
         </div>
-        <div>
+      {/*  <div>
                 <label>Publish</label>
                 <input 
                 className='data'
@@ -115,7 +115,7 @@ function Editor() {
                 onChange={(e) => setPublishAt(e.target.value)} 
                 value={publishAt}  
                 />
-        </div>
+      </div> */}
         <div className="editor">
 
             <CKEditor
@@ -130,14 +130,14 @@ function Editor() {
                          }}
             />
        </div>
-        <div>
+       {/*  <div>
                 <label>Like</label>
                 <input
                 type="checkbox" 
                 onChange={(e) => setLike(e.target.value)} 
                 value={like}  
                 />
-        </div>
+        </div> */}
         
                 <button type="submit" className='sub_button'>
                   Submit
