@@ -407,6 +407,7 @@ router.post('/myarticles',auth,async (req, res) =>{
   res.json(myArticleList);
 })
 
+
 function paginatedResults(model) {
     return async (req, res, next) => {
       const page = parseInt(req.body.page);
