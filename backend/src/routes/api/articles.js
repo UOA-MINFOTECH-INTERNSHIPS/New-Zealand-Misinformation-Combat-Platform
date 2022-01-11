@@ -9,7 +9,6 @@ import {
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
-import axios from 'axios';
 import { Article } from '../../pokemon-data/articleschema';
 import { User } from '../../pokemon-data/userschema';
 

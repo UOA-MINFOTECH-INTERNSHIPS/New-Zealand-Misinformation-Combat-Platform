@@ -13,7 +13,7 @@ export default function Recommendation (){
     const [listOfArticle, setListOfArticle]=useState([]);
 
     useEffect(()=> {
-        axios.get("http://localhost:3001/api/articles")
+        axios.get("http://localhost:3001/api/articles/articlelist")
        .then((response) =>{
             setListOfArticle(response.data);
             console.log(response.data);

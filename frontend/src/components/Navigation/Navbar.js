@@ -33,8 +33,10 @@ export default function Navbar (){
             </div>
             <div>
                 <ul>
-                    <li><NavLink  to = '/articles' activeclassname='is-active' >Articles</NavLink></li>
-                    <li><NavLink to = '/recommendation' activeclassname='is-active'>Recommendation</NavLink></li>
+                    <li><NavLink  to = '/articles' activeclassname='is-active' >News Article</NavLink></li>
+                    <li><NavLink to = '/recommendation' activeclassname='is-active'>Verified Articles</NavLink></li>
+                    <li><NavLink to = '/requests' activeclassname='is-active'>Fact Check Request</NavLink></li>
+
                 </ul>
             
             </div>
@@ -76,7 +78,7 @@ export default function Navbar (){
             
              {loggedIn === false && (
                 <div className='notLogged'>        
-                <Button component={Link} to='/login' variant = 'outlined' sx={{ ml:110, mr: 1 }} >Login</Button>
+                <Button component={Link} to='/login' variant = 'outlined' sx={{ ml:50, mr: 1 }} >Login</Button>
                 <Button component={Link} to='/register' variant ='outlined'>Register</Button>
                 </div>
             )}; 
