@@ -22,7 +22,7 @@ function EditArticle() {
     useEffect(()=>{
        console.log(id);
 
-       axios.get("http://localhost:3001/api/articles/find?id="+id.id)
+       axios.post("http://localhost:3001/api/articles/find?id="+id.id)
        .then((response) =>{
        setListOfArticle(response.data);
        //  const update = prompt("Enter val: ");

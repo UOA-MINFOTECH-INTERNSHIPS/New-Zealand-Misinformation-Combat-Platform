@@ -9,6 +9,7 @@ import {
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
+import axios from 'axios';
 import { Article } from '../../pokemon-data/articleschema';
 import { User } from '../../pokemon-data/userschema';
 
@@ -343,7 +344,7 @@ router.delete('/', auth, async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/Updater'
  */
-router.post('/update', auth, async (req, res) => {
+router.post('/update',  async (req, res) => {
     const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
     const newArticle=new Article({
         author: author,
@@ -406,6 +407,7 @@ router.post('/myarticles',auth,async (req, res) =>{
   res.json(myArticleList);
 })
 
+
 //retrieve total number of articles in db
 /**
  * @swagger
@@ -421,6 +423,7 @@ router.get('/articleNum',async (req, res) =>{
   const articleNum = await Article.count();
   res.json(articleNum);
 })
+
 
 function paginatedResults(model) {
     return async (req, res, next) => {
