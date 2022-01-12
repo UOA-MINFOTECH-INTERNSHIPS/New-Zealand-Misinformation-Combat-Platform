@@ -132,7 +132,7 @@ router.post('/post', async (req, res) => {
 
 
 // Retrieve all articles saved
-router.get('/all', auth, async (req, res) => {
+router.get('/all', async (req, res) => {
     try{
         res.json(await retrieveAllArticle());
     }catch(err){

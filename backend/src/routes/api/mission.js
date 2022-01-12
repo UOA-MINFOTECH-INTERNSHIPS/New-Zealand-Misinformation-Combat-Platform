@@ -28,7 +28,7 @@ const router = express.Router();
 /**
  * @swagger
  * definitions:
- *   Poster:
+ *   Poster1:
  *     required:
  *       - url
  *       - title
@@ -51,7 +51,7 @@ const router = express.Router();
  *       question:
  *         type: string
  *       keywords:
- *         type: string array
+ *         type: [string]
  */
 /**
  * @swagger
@@ -64,43 +64,53 @@ const router = express.Router();
  *     parameters:
  *       - name: url
  *         description: give the url of new mission
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: title
  *         description: give new mission a title
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: author
  *         description: set author to username
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: image
  *         description: give image if available
+ *         in: formData
  *         required: false
  *         type: string
  *       - name: backgroundInfo
  *         description: set background information
+ *         in: formData
  *         required: ture
  *         type: string
  *       - name: question
  *         description: user's question
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: keywords
  *         description: keywords of the mission (can input an array)
+ *         in: formData
  *         required: true
- *         type: string array
+ *         type: array
+ *         items:
+ *           type: string
  *     responses:
  *       200:
  *         description: post success
  *         schema:
  *           type: object
- *           $ref: '#/definitions/Poster'
+ *           $ref: '#/definitions/Poster1'
  */
 
 router.post('/post', async (req, res) => {
     try {
         const {url, title,author, image, backgroundInfo,question,keywords} = req.body;
+        console.log(keywords.length);
         const newMission = {
             url: url,
             title : title,
@@ -110,7 +120,7 @@ router.post('/post', async (req, res) => {
             question : question,
             status : false,
             support : 0, 
-            keywords : keywords
+            keywords:keywords
         };
     
         const dbMission = await createMission(newMission);
@@ -123,6 +133,14 @@ router.post('/post', async (req, res) => {
     }
 });
 
+// function newArrayForKeywords(array){
+//     const newArray = [];
+//     const myArray = array.split(",");
+//     console.log(myArray.length);
+//     for(var i=0;i<myArray.length;i++)
+//         newArray.push(myArray[i]);
+//     return newArray;
+// }
 
 /**
  * @swagger
@@ -145,6 +163,7 @@ router.post('/post', async (req, res) => {
  *     parameters:
  *       - name: id
  *         description: give the mission id
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
@@ -180,6 +199,7 @@ router.post('/vote', async (req, res) => {
  *     parameters:
  *       - name: id
  *         description: give the mission id
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
@@ -230,6 +250,7 @@ router.get('/missionNum',async (req, res) =>{
  *     parameters:
  *       - name: page
  *         description: give the page number
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
@@ -303,7 +324,7 @@ function paginatedResults(model) {
  *       question:
  *         type: string
  *       keywords:
- *         type: string array
+ *         type: [string]
  */
 /**
  * @swagger
@@ -316,32 +337,41 @@ function paginatedResults(model) {
  *     parameters:
  *       - name: id
  *         description: give the mission id
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: url
  *         description: give the new url
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: title
  *         description: give the new title
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: image
  *         description: give the new image if available
+ *         in: formData
  *         required: false
  *         type: string
  *       - name: backgroundInfo
  *         description: give the new backgroundInfo
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: question
  *         description: give the new question
+ *         in: formData
  *         required: true
  *         type: string
  *       - name: keywords
  *         description: give the new keywords (can input an array)
+ *         in: formData
  *         required: true
- *         type: string array
+ *         type: array
+ *         items:
+ *           type: string
  *     responses:
  *       200:
  *         description: mission update success
@@ -388,6 +418,7 @@ router.post('/update', auth, async (req, res) => {
  *     parameters:
  *       - name: id
  *         description: give the mission id
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
@@ -425,6 +456,7 @@ router.delete('/delete', auth, async (req, res) => {
  *     parameters:
  *       - name: id
  *         description: give the mission id
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
@@ -459,6 +491,7 @@ router.post('/find', async (req, res) => {
  *     parameters:
  *       - name: confirmation
  *         description: enter 'delete all missions' as input to confirm this action
+ *         in: formData
  *         required: true
  *         type: string
  *     responses:
