@@ -5,11 +5,11 @@ import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerPage';
 import Mission_list from './components/CreateNewArticle/ArticleDisplay';
-import Editor from './components/CreateNewArticle/NewArticle';
+import Editor from './components/CreateNewArticle/NewMission';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
-import EditArticle from './components/CreateNewArticle/EditArticle';
+import EditArticle from './components/CreateNewArticle/MissionVerify';
 
 
 //axios.defaults.withCredentials = true;

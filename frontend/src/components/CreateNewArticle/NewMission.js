@@ -108,7 +108,7 @@ function Editor() {
                 value={publishAt}  
                 />
       </div> */}
-        <div className="editor">
+        <div >
         <label>Background Information</label>
             <CKEditor
                editor={ClassicEditor}
@@ -122,7 +122,7 @@ function Editor() {
                          }}
             />
        </div>
-       <div className="editor">
+       <div>
         <label>Question</label>
             <CKEditor
                editor={ClassicEditor}

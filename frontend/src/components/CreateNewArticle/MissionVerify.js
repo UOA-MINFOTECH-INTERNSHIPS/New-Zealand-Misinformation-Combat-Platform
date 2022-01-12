@@ -8,11 +8,18 @@ import { ConstructionRounded } from '@mui/icons-material';
 
 
 function EditArticle() {
-    const  id  = useParams();
-    const [author,setAuthor] = useState('');
-    const [title,setTitle] = useState('');
+  const [url,setUrl] = useState('');
+  const [title,setTitle] = useState('');
+  const [author,setAuthor] = useState('');
+  const [image,setImage] = useState('');
+  const [backgroundInfo,setBackgroundInfo] = useState('');
+  const [question,setQuestion] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const  id  = useParams();
+    
+    
     const [description,setDescription] = useState('');
-    const [url,setUrl] = useState('');
+    
     const [urlToImage,setUrlToImage] = useState('');
     const [publishAt,setPublishAt] = useState('');
     const [content,setContent] = useState('');
@@ -22,7 +29,7 @@ function EditArticle() {
     useEffect(()=>{
        console.log(id);
 
-       axios.post("http://localhost:3001/api/articles/find?id="+id.id)
+       axios.post("http://localhost:3001/api/articles/find=",id.id)
        .then((response) =>{
        setListOfArticle(response.data);
        //  const update = prompt("Enter val: ");
@@ -56,9 +63,9 @@ function EditArticle() {
       e.preventDefault();
   
       try {
-        var bdid = id.id;
+        var missionid = id.id;
         const createText = {
-          bdid,
+          missionid,
           author,
           title,
           description,
