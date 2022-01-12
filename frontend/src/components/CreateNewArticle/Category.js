@@ -20,14 +20,14 @@ const MenuProps = {
 };
 
 const names = [
-  'Health',
-  'Economic',
-  'Environment',
-  'Technology',
-  'Life Style',
-  'International',
-  
-];
+    'Health',
+    'Economic',
+    'Environment',
+    'Technology',
+    'Life Style',
+    'International',
+    
+  ];
 
 function getStyles(name, categoryName, theme) {
   return {
