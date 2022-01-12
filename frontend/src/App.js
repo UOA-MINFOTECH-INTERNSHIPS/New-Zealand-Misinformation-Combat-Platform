@@ -9,8 +9,9 @@ import Editor from './components/CreateNewArticle/NewMission';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
+import Article from './components/Article/article';
+import FactChecked from './components/factCheckedArticles/factCheckedContainer';
 import EditArticle from './components/CreateNewArticle/MissionVerify';
-
 
 //axios.defaults.withCredentials = true;
 
@@ -21,6 +22,10 @@ export default function App() {
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
+
+      <Route path='/articles/:id' element ={<Article/>}/>
+      <Route path ='/verified' element = {<FactChecked/>} />
+
       <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
           <Route path='/editor' element ={<Editor/>}/>
