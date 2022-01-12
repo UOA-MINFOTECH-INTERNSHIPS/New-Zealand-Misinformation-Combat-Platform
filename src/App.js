@@ -4,14 +4,13 @@ import Profile from './components/Profile/Profile';
 import Recommendation from './components/Article/RecommendationPage';
 import Login from './components/Login/loginPage';
 import Register from  './components/Register/registerPage';
-import Mission_list from './components/CreateNewArticle/ArticleDisplay';
-import Editor from './components/CreateNewArticle/NewMission';
+import Article_list from './components/CreateNewArticle/ArticleDisplay';
+import Editor from './components/CreateNewArticle/NewArticle';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
-import Article from './components/Article/article';
-import FactChecked from './components/factCheckedArticles/factCheckedContainer';
-import EditArticle from './components/CreateNewArticle/MissionVerify';
+import EditArticle from './components/CreateNewArticle/EditArticle';
+
 
 //axios.defaults.withCredentials = true;
 
@@ -22,10 +21,6 @@ export default function App() {
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
-
-      <Route path='/articles/:id' element ={<Article/>}/>
-      <Route path ='/verified' element = {<FactChecked/>} />
-
       <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
           <Route path='/editor' element ={<Editor/>}/>
@@ -44,6 +39,7 @@ export default function App() {
         <>
           <Route path='/profile' element ={<Profile/>}/>
           <Route path='/editor' element ={<Editor/>}/>
+          <Route path='/ArticleDisplay' element ={<Article_list/>}/> 
           <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
         </>
       ) }

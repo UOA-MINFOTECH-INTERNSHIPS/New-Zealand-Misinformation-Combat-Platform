@@ -14,6 +14,8 @@ import {
 } from '../../pokemon-data/user-dao';
 import axios from 'axios';
 import { User } from '../../pokemon-data/userschema';
+import { Article } from '../../pokemon-data/articleschema';
+import { retrieveArticle } from '../../pokemon-data/article-dao';
 
 
 const bcrypt = require("bcryptjs");
@@ -386,6 +388,63 @@ router.post('/upgrade',async (req, res) => {
     const {id,category}=req.body;
     const newFactCheker = await upgradeUser(id,category);
     res.json(newFactCheker);
+});
+
+//add posted article to user 
+/**
+ * @swagger
+ * definitions:
+ *   postedArticleAdder:
+ *     required:
+ *       - username
+ *       - id
+ *     properties:
+ *       username:
+ *         type: string
+ *       id:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/user/addToPostList:
+ *   post:
+ *     description: add a article id to user's myarticles
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give a username to find the user
+ *         in: formData
+ *         required: true
+ *         type: string
+ *       - name: id
+ *         description: give a article id to link the article to user
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: article added
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/postedArticleAdder'
+ */
+router.post('/addToPostList',async (req, res) =>{
+  const {username,id}=req.body;
+  const existingUser = await User.findOne({ username });
+  if (!existingUser)
+      return res.status(400).json({
+        errorMessage: "An account with this username does not exists.",
+      });
+  const existingArticle = await retrieveArticle(id);
+  if (!existingArticle)
+      return res.status(400).json({
+        errorMessage: "Does not exsit this article id",
+      });
+  await existingUser.arrayOfPosted.push(id);
+  await existingUser.save();
+  res.json(existingUser);
 });
 
 export default router;
