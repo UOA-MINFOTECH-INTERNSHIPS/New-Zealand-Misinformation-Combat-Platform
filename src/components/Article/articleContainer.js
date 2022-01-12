@@ -9,7 +9,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
-import { useNavigate,Link } from 'react-router-dom';
+import { collapseClasses } from '@mui/material';
+import { margin } from '@mui/system';
+import Article from './article';
+import { useNavigate,NavLink } from 'react-router-dom';
 
 
 
@@ -29,23 +32,17 @@ const useStyles = makeStyles(() => ({
   }));
 
 
-export default function Mission_list (){
+export default function ArticleContainer (){
     const navigate = useNavigate();
     const [listOfArticle, setListOfArticle]=useState([]);
-  //  const [like, setLike] = useState(false);
+    const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
     const classes = useStyles();
-    //const [user, setUser] = useState("Linda");
-    const user = {
-        username: "linda1",
-        name: "Linda",
-        email: "123@bla.com"
-    }
+    
 
     useEffect(()=> {
-      //  const pageNum ={page};
-        const userName={user}
-        axios.post("http://localhost:3001/api/articles/myarticles", userName)
+        const pageNum ={page};
+        axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
        .then((response) =>{
             setListOfArticle(response.data.results);
         })
@@ -92,17 +89,20 @@ export default function Mission_list (){
                  </CardContent>
                  
                  <CardActions>
-                    <Button size="small"  > 
-                         Delect  
+                    <Button size="small" onClick={()=> setLike(!like)} > 
+                        {/*
+                        !like ? <i className="material-icons">favorite_border</i> : 
+                        <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
+                        */} Verification Request  
                     </Button>
-                    <Link to = {'/ArticleDisplay/' + article._id}  > <Button size="small" >Modify  </Button></Link>
+                    <Button size="small" ><NavLink to = {'/articles/' + article._id} >Read More </NavLink> </Button>
                  </CardActions>
                  </Card>
                  
             ) ) } 
-           {/*<div className={classes.container}>
+            <div className={classes.container}>
                     <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
-            </div> */} 
+            </div>
         </div>
     )
 }

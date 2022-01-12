@@ -47,7 +47,7 @@ function Editor() {
        console.log(createText)
 
       await axios.post(
-       "http://localhost:3001/api/articles/newarticle",
+       "http://localhost:3001/api/articles/post",
         createText
       )
       .then(()=>{
@@ -61,8 +61,6 @@ function Editor() {
     }
 
   }
-
-
 
   return (
 
@@ -85,14 +83,7 @@ function Editor() {
                 value={title}  
                 />
         </div>
-        <div>
-                <label>Description</label>
-                <input 
-                type="text" 
-                onChange={(e) => setDescription(e.target.value)} 
-                value={description}  
-                />
-        </div>
+        
         <div>
                 <label>URL</label>
                 <input 
@@ -109,7 +100,16 @@ function Editor() {
                 value={urlToImage}  
                 />
         </div>
-        <div>
+     
+      <div>
+                <label>Question Description</label>
+                <input 
+                type="text" 
+                onChange={(e) => setDescription(e.target.value)} 
+                value={description}  
+                />
+        </div>
+     {/*   <div>
                 <label>Publish</label>
                 <input 
                 className='data'
@@ -117,9 +117,9 @@ function Editor() {
                 onChange={(e) => setPublishAt(e.target.value)} 
                 value={publishAt}  
                 />
-        </div>
+      </div> */}
         <div className="editor">
-
+        <label>Background Information</label>
             <CKEditor
                editor={ClassicEditor}
                data={content}
@@ -132,14 +132,14 @@ function Editor() {
                          }}
             />
        </div>
-        <div>
+       {/*  <div>
                 <label>Like</label>
                 <input
                 type="checkbox" 
                 onChange={(e) => setLike(e.target.value)} 
                 value={like}  
                 />
-        </div>
+        </div> */}
         
                 <button type="submit" className='sub_button'>
                   Submit

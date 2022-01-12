@@ -9,7 +9,9 @@ import {
     deleteAllArticle
 } from '../../pokemon-data/article-dao';
 import auth from '../../middleware/auth';
+import axios from 'axios';
 import { Article } from '../../pokemon-data/articleschema';
+import { User } from '../../pokemon-data/userschema';
 
 
 
@@ -130,7 +132,7 @@ router.post('/post', async (req, res) => {
 
 
 // Retrieve all articles saved
-router.get('/all', auth, async (req, res) => {
+router.get('/all', async (req, res) => {
     try{
         res.json(await retrieveAllArticle());
     }catch(err){
@@ -162,7 +164,7 @@ router.post('/likearticle', async (req, res) => {
  * @swagger
  * /api/articles/articlelist:
  *   post:
- *     description: logout user
+ *     description: display article list
  *     tags: [Articles]
  *     produces:
  *       - application/json
@@ -341,22 +343,85 @@ router.delete('/', auth, async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/Updater'
  */
-router.post('/update', auth, async (req, res) => {
+router.post('/update',  async (req, res) => {
     const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
     const newArticle=new Article({
         author: author,
-        title: title,
-        description:description,
-        url:url,
-        urlToImage:urlToImage,
+        title: newTitle,
+        description:newDescription,
+        url:newUrl,
+        urlToImage:newUrlToImage,
         publishAt:Date.now(),
-        content:content
+        content:newContent
     });
-    const dbArticle = await updateArticle(bdid,newArticle);
+    const dbArticle = await updateArticle(id,newArticle);
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
 });
+
+//find user's self-created articles
+/**
+ * @swagger
+ * definitions:
+ *   postArticleFinder:
+ *     required:
+ *       - username
+ *     properties:
+ *       username:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/articles/myarticles:
+ *   post:
+ *     description: find user's self-created articles
+ *     tags: [Articles]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give a username will response all articles posted by this user
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: articles found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/postArticleFinder'
+ */
+router.post('/myarticles',auth,async (req, res) =>{
+  const {username}=req.body;
+  const existingUser = await User.findOne({ username });
+  if (!existingUser)
+      return res.status(400).json({
+        errorMessage: "An account with this username does not exists.",
+      });
+  var myArticleIds = existingUser.arrayOfPosted;
+  // console.log(existingUser.arrayOfPosted);
+  // var obj_ids = myArticleIds.map(function(id) { return ObjectId(id); });
+  const myArticleList = await Article.find({'_id':{$in: myArticleIds}})
+  res.json(myArticleList);
+})
+
+
+//retrieve total number of articles in db
+/**
+ * @swagger
+ * /api/articles/articleNum:
+ *   get:
+ *     description: retrieve total number of articles in db
+ *     tags: [Articles]
+ *     responses:
+ *       200:
+ *         description: number of articles counted
+ */
+router.get('/articleNum',async (req, res) =>{
+  const articleNum = await Article.count();
+  res.json(articleNum);
+})
 
 
 function paginatedResults(model) {

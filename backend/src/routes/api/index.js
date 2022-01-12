@@ -11,4 +11,10 @@ router.use('/articles', article);
 import factchecker from './factchecker';
 router.use('/factchecker', factchecker);
 
+import mission from './mission';
+router.use('/mission', mission);
+
+import result from './result';
+router.use('/result', result);
+
 export default router;
