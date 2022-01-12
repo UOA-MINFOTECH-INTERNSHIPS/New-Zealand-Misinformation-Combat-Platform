@@ -29,10 +29,10 @@ const useStyles = makeStyles(() => ({
   }));
 
 
-export default function Mission_list (){
+export default function ArticleContainer (){
     const navigate = useNavigate();
     const [listOfArticle, setListOfArticle]=useState([]);
-  //  const [like, setLike] = useState(false);
+    const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
     const classes = useStyles();
     //const [user, setUser] = useState("Linda");
