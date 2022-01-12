@@ -12,6 +12,8 @@ import PageNotFound from './components/pageNotFound';
 import EditArticle from './components/CreateNewArticle/EditArticle';
 import Article from './components/Article/article';
 import FactChecked from './components/factCheckedArticles/factCheckedContainer';
+import FactCheckedArticle from './components/factCheckedArticles/verifiedArticle';
+
 
 //axios.defaults.withCredentials = true;
 
@@ -24,6 +26,9 @@ export default function App() {
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/articles/:id' element ={<Article/>}/>
       <Route path ='/verified' element = {<FactChecked/>} />
+      <Route path ='/verified:id' element = {<FactCheckedArticle/>} />
+
+
       {!loggedIn ?
       (
         <>
