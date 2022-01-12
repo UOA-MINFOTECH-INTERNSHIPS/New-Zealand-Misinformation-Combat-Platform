@@ -165,7 +165,7 @@ router.post('/likearticle', async (req, res) => {
  * @swagger
  * /api/articles/articlelist:
  *   post:
- *     description: logout user
+ *     description: display article list
  *     tags: [Articles]
  *     produces:
  *       - application/json
@@ -348,14 +348,14 @@ router.post('/update',  async (req, res) => {
     const {id,author,newTitle,newDescription,newUrl,newUrlToImage,newContent} = req.body;
     const newArticle=new Article({
         author: author,
-        title: title,
-        description:description,
-        url:url,
-        urlToImage:urlToImage,
+        title: newTitle,
+        description:newDescription,
+        url:newUrl,
+        urlToImage:newUrlToImage,
         publishAt:Date.now(),
-        content:content
+        content:newContent
     });
-    const dbArticle = await updateArticle(bdid,newArticle);
+    const dbArticle = await updateArticle(id,newArticle);
     res.status(HTTP_CREATED) 
         .header('Location', `/api/articles/${dbArticle._id}`)
         .json(dbArticle);
