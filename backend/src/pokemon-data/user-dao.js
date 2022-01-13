@@ -16,18 +16,18 @@ async function retrieveUser(id) {
     return await User.findById(id);
 }
 
-async function updateUser(user) {
+async function updateUser(id) {
 
-    const dbUser = await User.findById(user._id);
+    const dbUser = await User.findById(id);
     if (dbUser) {
 
-        dbUser.username = user.username;
+        // dbUser.username = user.username;
         dbUser.name = user.name;
         dbUser.email=user.email;
         dbUser.password=user.password;
 
         await dbUser.save();
-        return true;
+        return dbUser;
     }
 
     return false;

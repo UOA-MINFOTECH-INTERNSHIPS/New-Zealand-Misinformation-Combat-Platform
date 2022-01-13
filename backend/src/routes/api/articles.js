@@ -132,6 +132,16 @@ router.post('/post', async (req, res) => {
 
 
 // Retrieve all articles saved
+/**
+ * @swagger
+ * /api/articles/all:
+ *   get:
+ *     description: retrieve all articles in db
+ *     tags: [Articles]
+ *     responses:
+ *       200:
+ *         description: all articles got
+ */
 router.get('/all', async (req, res) => {
     try{
         res.json(await retrieveAllArticle());
