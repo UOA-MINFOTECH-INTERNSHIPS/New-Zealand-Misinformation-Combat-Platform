@@ -43,9 +43,9 @@ export default function Mission_list (){
     }
 
     useEffect(()=> {
-      //  const pageNum ={page};
-        const userName={user}
-        axios.post("http://localhost:3001/api/articles/myarticles", userName)
+        const pageNum ={page};
+      //  const userName={user}
+        axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
        .then((response) =>{
             setListOfArticle(response.data.results);
         })
@@ -100,9 +100,9 @@ export default function Mission_list (){
                  </Card>
                  
             ) ) } 
-           {/*<div className={classes.container}>
+           <div className={classes.container}>
                     <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
-            </div> */} 
+            </div> 
         </div>
     )
 }

@@ -23,6 +23,7 @@ function Editor() {
   const [question,setQuestion] = useState('');
   //const [keyword,setKeyword] = useState('');
   const [keyword, setKeyword] = useState('');
+ 
 
   const handleChange = (event) => {
         setKeyword(event.target.value);
@@ -128,11 +129,11 @@ function Editor() {
                editor={ClassicEditor}
                data={question}
                onReady={ editor => {
-                         console.log( 'Editor is ready to use!', editor );
+                  console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                                const content = editor.getData()
-                                  setQuestion(content)
+                  const content = editor.getData()
+                  setQuestion(content)
                          }}
             />
        </div>

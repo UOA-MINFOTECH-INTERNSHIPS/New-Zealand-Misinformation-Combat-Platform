@@ -9,7 +9,7 @@ import Editor from './components/CreateNewArticle/NewMission';
 import AppContext from './AppContextProvider';
 import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
-import EditArticle from './components/CreateNewArticle/MissionVerify';
+import EditArticle from './components/CreateNewArticle/MissionModify';
 
 
 //axios.defaults.withCredentials = true;
