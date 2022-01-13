@@ -39,8 +39,7 @@ function Editor() {
         author,
         image,
         backgroundInfo,
-        question,
-        keyword
+        question
         };
       // console.log(createText)
 
