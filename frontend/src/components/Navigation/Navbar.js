@@ -26,7 +26,7 @@ export default function Navbar (){
     };
 
     return(
-    <div className='NavContainer'>
+    <div className='nav'>
         <nav>
             <div className ='logo'>
                 <p>ARTI</p>
@@ -34,11 +34,9 @@ export default function Navbar (){
             <div>
                 <ul>
                     <li><NavLink  to = '/articles' activeclassname='is-active' >News Article</NavLink></li>
-                    <li><NavLink to = '/recommendation' activeclassname='is-active'>Verified Articles</NavLink></li>
+                    <li><NavLink to = '/verified' activeclassname='is-active'>Verified Articles</NavLink></li>
                     <li><NavLink to = '/requests' activeclassname='is-active'>Fact Check Request</NavLink></li>
-
                 </ul>
-            
             </div>
             
             {loggedIn === true && (

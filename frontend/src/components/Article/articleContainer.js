@@ -9,10 +9,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
-import { collapseClasses } from '@mui/material';
-import { margin } from '@mui/system';
-import Article from './article';
-import { useNavigate,NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Category from '../factCheckedArticles/Category'
+
 
 
 
@@ -39,7 +39,6 @@ export default function ArticleContainer (){
     const [page, setPage] = useState(1);
     const classes = useStyles();
     
-
     useEffect(()=> {
         const pageNum ={page};
         axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
@@ -56,53 +55,59 @@ export default function ArticleContainer (){
 
     return (
         <div>
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-            {listOfArticle.map((article)=> (
-                 <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
-                 <CardMedia
-                   component="img"
-                   alt="green iguana"
-                   height="200"
-                   image= {article.urlToImage}
-                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
-                        {article.title}
-                    </Typography>
+            <Grid container spacing={2}>
 
-                    <Typography variant="body2" color="text.secondary">
-                        {article.description}
-                    </Typography>
+                <Grid item xs={4}>
+                    <Category />
+                </Grid>
 
-                    <br/>
-                    {article.author != null ?
-                    <Typography variant="body2" color="text.secondary">
-                        Author: {article.author}
-                    </Typography> : 
-                    <Typography variant="body2" color="text.secondary">
-                        Author: Undefined
-                    </Typography> }
+                <Grid >
+                    <div className='articlesContainer' >
+                    {listOfArticle.map((article)=> (
+                        <Card key={article._id} className="articleContainer" sx={{ maxWidth: 730 }}>
+                            <CardMedia component="img" alt="green iguana" height="200" image= {article.urlToImage}/>
+                            <CardContent>
+                                <Typography gutterBottom variant="h6" component="div">
+                                    {article.title}
+                                </Typography>
 
-                    <Typography variant="body2" color="text.secondary">
-                        Published Date: {article.publishAt}
-                    </Typography>
-                 </CardContent>
-                 
-                 <CardActions>
-                    <Button size="small" onClick={()=> setLike(!like)} > 
-                        {/*
-                        !like ? <i className="material-icons">favorite_border</i> : 
-                        <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
-                        */} Verification Request  
-                    </Button>
-                    <Button size="small" ><NavLink to = {'/articles/' + article._id} >Read More </NavLink> </Button>
-                 </CardActions>
-                 </Card>
-                 
-            ) ) } 
-            <div className={classes.container}>
-                    <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
-            </div>
+                                <Typography variant="body2" color="text.secondary">
+                                    {article.description}
+                                </Typography>
+
+                                <br/>
+                                {article.author != null ?
+                                <Typography variant="body2" color="text.secondary">
+                                    Author: {article.author}
+                                </Typography> : 
+                                <Typography variant="body2" color="text.secondary">
+                                    Author: Undefined
+                                </Typography> }
+
+                                <Typography variant="body2" color="text.secondary">
+                                    Published Date: {article.publishAt}
+                                </Typography>
+                            </CardContent>
+                            
+                            <CardActions>
+                                <Button size="small" onClick={()=> setLike(!like)} > 
+                                    {/* 
+                                    !like ? <i className="material-icons">favorite_border</i> : 
+                                    <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
+                                    */} Verification Request  
+                                </Button>
+                                <Button size="small" ><NavLink to = {'/articles/' + article._id} >Read More </NavLink> </Button>
+                            </CardActions>
+                        </Card>
+                        ) ) } 
+                    </div>
+                    {/*
+                    <div className={classes.container}>
+                        <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
+                    </div>*/}
+                    </Grid>
+            </Grid>
+
         </div>
     )
 }

@@ -45,7 +45,7 @@ export default function Mission_list (){
     useEffect(()=> {
         const pageNum ={page};
       //  const userName={user}
-        axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
+        axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
             setListOfArticle(response.data.results);
         })

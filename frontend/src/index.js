@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <AppContextProvider>
       <Router>
-          <Navbar/>
+          {/* <Navbar/> */}
           <App />
       </Router>
     </AppContextProvider>

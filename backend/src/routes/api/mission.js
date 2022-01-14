@@ -2,6 +2,7 @@ import express from 'express';
 import {
     createMission,
     retrieveMission,
+    retrieveAllMission,
     updateMission,
     deleteMission,
     voteMission,
@@ -110,7 +111,7 @@ const router = express.Router();
 router.post('/post', async (req, res) => {
     try {
         const {url, title,author, image, backgroundInfo,question,keywords} = req.body;
-        console.log(keywords.length);
+        // console.log(keywords.length);
         const newMission = {
             url: url,
             title : title,
@@ -147,8 +148,11 @@ router.post('/post', async (req, res) => {
  * definitions:
  *   voter:
  *     required:
+ *       - username
  *       - id
  *     properties:
+ *       username:
+ *         type: string
  *       id:
  *         type: string
  */
@@ -161,6 +165,11 @@ router.post('/post', async (req, res) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: username
+ *         description: give the username of logged in user
+ *         in: formData
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: give the mission id
  *         in: formData
@@ -174,8 +183,8 @@ router.post('/post', async (req, res) => {
  *           $ref: '#/definitions/voter'
  */
 router.post('/vote', async (req, res) => {
-    const {id} = req.body;
-    res.json(await voteMission(id));
+    const {username,id} = req.body;
+    res.json(await voteMission(username,id));
 });
 
 /**
@@ -183,6 +192,7 @@ router.post('/vote', async (req, res) => {
  * definitions:
  *   unvoter:
  *     required:
+ *       - username
  *       - id
  *     properties:
  *       id:
@@ -197,6 +207,11 @@ router.post('/vote', async (req, res) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: username
+ *         description: give the username of logged in user
+ *         in: formData
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: give the mission id
  *         in: formData
@@ -210,8 +225,8 @@ router.post('/vote', async (req, res) => {
  *           $ref: '#/definitions/unvoter'
  */
 router.post('/unvote', async (req, res) => {
-    const {id} = req.body;
-    res.json(await unvoteMission(id));
+    const {username, id} = req.body;
+    res.json(await unvoteMission(username,id));
 });
 
 /**
@@ -476,8 +491,8 @@ router.post('/find', async (req, res) => {
  *   delete_all:
  *     required:
  *       - confirmation
- *     properties:
- *       confirmation:
+ *       properties:
+ *        confirmation:
  *         type: string
  */
 /**
@@ -502,6 +517,25 @@ router.delete('/deleteAll', async (req, res) => {
     const {confirmation} = req.body;
     if(confirmation=='delete all missions')
         res.json(await deleteAllMission());
+});
+
+/**
+ * @swagger
+ * /api/mission/all:
+ *   get:
+ *     description: retrieve all missions in db
+ *     tags: [Missions]
+ *     responses:
+ *       200:
+ *         description: all missions got
+ */
+router.get('/all', async (req, res) => {
+    try{
+        res.json(await retrieveAllMission());
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
 });
 
 export default router;

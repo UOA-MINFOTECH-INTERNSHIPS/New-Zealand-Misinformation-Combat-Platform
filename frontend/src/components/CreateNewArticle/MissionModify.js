@@ -22,16 +22,17 @@ function EditArticle() {
   const [question,setQuestion] = useState('');
   const [keyword, setKeyword] = useState('');
   const [listOfArticle, setListOfArticle] = useState([]);
-  const  id  = useParams();
+  const  findid  = useParams();
 
   const handleChange = (event) => {
     setKeyword(event.target.value);
   };
     
     useEffect(()=>{
-       console.log(id);
-       const missionid={"id":id};
-       axios.post("http://localhost:3001/api/articles/find",missionid)
+       console.log(findid);
+      // const missionid={"findid":findid};
+      const missionid={"id":findid._id};
+       axios.post("http://localhost:3001/api/mission/find",missionid)
        .then((response) =>{
        setListOfArticle(response.data);
        //  const update = prompt("Enter val: ");
@@ -62,9 +63,9 @@ function EditArticle() {
       e.preventDefault();
   
       try {
-        var dbid = id.id;
+        var id = findid.id;
         const createText = {
-          dbid,
+          id,
           url,
           title,
           author,
@@ -76,7 +77,7 @@ function EditArticle() {
        console.log(createText)
   
         await axios.put(
-         "http://localhost:3001/api/articles/update",
+         "http://localhost:3001/api/mission/update",
           createText
         )
         .then(()=>{
