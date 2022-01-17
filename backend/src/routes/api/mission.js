@@ -394,7 +394,7 @@ function paginatedResults(model) {
  *           type: object
  *           $ref: '#/definitions/updater'
  */
-router.post('/update', auth, async (req, res) => {
+router.put('/update', auth, async (req, res) => {
     const {id, url, title, image, backgroundInfo,question,keywords} = req.body;
     const newMission=new Mission({
         url: url,
@@ -491,8 +491,8 @@ router.post('/find', async (req, res) => {
  *   delete_all:
  *     required:
  *       - confirmation
- *     properties:
- *       confirmation:
+ *       properties:
+ *        confirmation:
  *         type: string
  */
 /**
