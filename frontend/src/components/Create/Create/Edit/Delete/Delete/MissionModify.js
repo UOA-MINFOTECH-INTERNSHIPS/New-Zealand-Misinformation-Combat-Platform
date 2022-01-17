@@ -3,7 +3,7 @@ import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link ,useParams} from 'react-router-dom';
-import './ArticleDisplay.css';
+import './NewMission.css';
 import { ConstructionRounded } from '@mui/icons-material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,47 +13,45 @@ import Box from '@mui/material/Box';
 
 
 
-function EditArticle() {
+function EditMission() {
   const [url,setUrl] = useState('');
   const [title,setTitle] = useState('');
   const [author,setAuthor] = useState('');
   const [image,setImage] = useState('');
   const [backgroundInfo,setBackgroundInfo] = useState('');
   const [question,setQuestion] = useState('');
-  const [keyword, setKeyword] = useState('');
-  const [listOfArticle, setListOfArticle] = useState([]);
+  const [keywords, setKeywords] = useState('');
+  const [listOfMission, setListOfMission] = useState([]);
   const  findid  = useParams();
 
   const handleChange = (event) => {
-    setKeyword(event.target.value);
+    setKeywords(event.target.value);
   };
     
     useEffect(()=>{
-       console.log(findid);
+       
       // const missionid={"findid":findid};
       const missionid={"id":findid._id};
        axios.post("http://localhost:3001/api/mission/find",missionid)
        .then((response) =>{
-       setListOfArticle(response.data);
+        setListOfMission(response.data);
        //  const update = prompt("Enter val: ");
-       
-        console.log(response);
+        console.log(findid);
+      //  console.log(response);
         setUrl(response.data.url);
         setTitle(response.data.title);
         setAuthor(response.data.author);
+        setImage(response.data.image);
+        setBackgroundInfo(response.data.backgroundInfo);
+        setQuestion(response.data.question);
+        
         
         
     })
     .catch(()=> {
         console.log("ERR")
     }) 
-    // setAuthor();
-    // setTitle("history from database");
-    // setDescription("");
-    // setUrl("");
-    // setUrlToImage("");
-    // setPublishAt("");
-    // setContent("");
+  
     
 
   },[]);
@@ -61,9 +59,8 @@ function EditArticle() {
   
     async function submitArticle(e) {
       e.preventDefault();
-  
       try {
-        var id = findid.id;
+        var id=findid._id;
         const createText = {
           id,
           url,
@@ -72,13 +69,14 @@ function EditArticle() {
           image,
           backgroundInfo,
           question,
-          keyword
+          keywords
         };
+      
        console.log(createText)
   
         await axios.put(
          "http://localhost:3001/api/mission/update",
-          createText
+          createText, { withCredentials: true }
         )
         .then(()=>{
                 alert("It works");
@@ -192,7 +190,7 @@ function EditArticle() {
              <Select
                labelId="demo-simple-select-label"
                id="demo-simple-select"
-               value={keyword}
+               value={keywords}
                onChange={handleChange}
              >
                <MenuItem value={"Health"}>Health</MenuItem>
@@ -212,5 +210,5 @@ function EditArticle() {
     );
   }
   
-  export default EditArticle;
+  export default EditMission;
   
