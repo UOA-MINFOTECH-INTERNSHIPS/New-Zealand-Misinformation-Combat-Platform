@@ -26,7 +26,6 @@ export default function App() {
     <Routes>
       <Route path='/' element ={<ArticlesPage/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
-
       <Route path='/articles/:id' element ={<Article/>}/>
       <Route path ='/verified' element = {<FactChecked/>} />
 

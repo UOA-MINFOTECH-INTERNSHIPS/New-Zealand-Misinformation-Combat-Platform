@@ -3,6 +3,7 @@ import './login.css'
 // import { AutoFixOffSharp } from '@mui/icons-material';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 
 function Login() {
   const [username,setUsername] = useState('');
@@ -15,8 +16,11 @@ function Login() {
     try{
       const user = {username,password}
       
-      await axios.post("http://localhost:3001/api/user/login", user);
-      Navigate("/articles")
+      const userDetail = await axios.post("http://localhost:3001/api/user/login", user);
+     // console.log(userDetail.data.username);
+      const cookies= new Cookies();
+      cookies.set('username',userDetail.data.username, {path: '/'});
+      Navigate("/profile")
     }catch (err){
       setError(error.response.data.errorMessage);
 

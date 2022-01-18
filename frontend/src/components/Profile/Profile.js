@@ -2,25 +2,24 @@ import React from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
-
+import { Cookies } from 'react-cookie';
 
 
 export default function Profile (){
-    const user = {
-        username: "llia464",
-        name: "Linda",
-        email: "123@bla.com"
-    }
+   
+    const cookies = new Cookies();
+    const userDetail=cookies.get('username');
+    console.log(userDetail);
+   // console.log(cookies.get('username')); 
 
     return (
         <div>
                 <div className='UserContainer'>
                     <div>
-                         
                      </div>
                      <div>
-                           <h1>UserName: {user.username}</h1>
-                           <h3>E-mail:</h3>    
+                           <h1>UserName: {userDetail}</h1>
+                           
                     </div>
                 </div>
                 <div>
