@@ -1,0 +1,92 @@
+.home{
+    margin: 0;
+    padding: 0;
+}
+
+.bkimg{
+    width: 100%;
+}
+
+.container {
+    width: auto;
+    padding-left: 20px ;
+    padding-right: 20px ;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: minmax(min-content, max-content);    
+    gap:10px;
+    box-sizing: border-box;
+    border: none;
+    margin-left: 4%;
+    margin-right: 4%;
+    background-color: transparent;
+
+}
+
+.newest{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.popular {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    margin-left: 10px;
+    margin-right: 50px;
+}
+
+.newest button{
+    background-color: #1A2634;
+    text-decoration: none;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.newest button:hover {
+    background-color: rgba(192, 142, 49, 1);
+}
+
+
+.card {
+    margin-bottom: 30px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px 40px;
+
+}
+
+.card:hover{
+    box-shadow: 1px 2px 5px #888888;
+
+}
+
+.popular div {
+    background-color: white;
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+.popular div:hover {
+    box-shadow: 1px 2px 5px #888888;    
+}
+
+.action{
+    background-color: rgba(192, 142, 49, 1);
+    border-radius: 25px;
+    margin-left: 20px;
+}
+.action a{
+    color: white;
+    font-size: 13px;
+}
+
+.action:hover{
+    background-color: rgb(233, 183, 91);
+}
