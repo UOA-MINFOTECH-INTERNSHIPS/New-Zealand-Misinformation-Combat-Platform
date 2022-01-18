@@ -1,4 +1,5 @@
 import { Mission } from './missionschema';
+import { User } from './userschema';
 
 async function createMission(mission) {
     const dbMission = new Mission(mission);
@@ -39,22 +40,40 @@ async function deleteMission(id) {
     await Mission.findByIdAndDelete({_id:id});
 }
 
-async function voteMission(id) {
+async function voteMission(username,id) {
     const dbMission = await Mission.findById(id);
+    const existingUser = await User.findOne({ username });
+    if(!dbMission)
+        return 'mission does not exsit'
+    if(!existingUser)
+        return 'user does not exsit'
+    if(existingUser.arrayOfVoted.includes(id))
+        return 'you already voted this mission'
     if (dbMission){
         dbMission.support += 1;
+        await existingUser.arrayOfVoted.push(id);
     }
     await dbMission.save();
-    return dbMission;
+    await existingUser.save();
+    return [dbMission,existingUser];
 }
 
-async function unvoteMission(id) {
+async function unvoteMission(username,id) {
     const dbMission = await Mission.findById(id);
+    const existingUser = await User.findOne({ username });
+    if(!dbMission)
+        return 'mission does not exsit'
+    if(!existingUser)
+        return 'user does not exsit'
+    if(!existingUser.arrayOfVoted.includes(id))
+        return "you didn't vote this mission before"
     if (dbMission){
         dbMission.support -= 1;
+        await existingUser.arrayOfVoted.pull(id);
     }
     await dbMission.save();
-    return dbMission;
+    await existingUser.save();
+    return [dbMission,existingUser];
 }
 
 async function deleteAllMission() {

@@ -40,6 +40,8 @@ async function likeResult(username,id) {
         return 'result does not exsit'
     if(!existingUser)
         return 'user does not exsit'
+    if(existingUser.arrayOfLiked.includes(id))
+        return 'you already like this result'
     if (dbResult && existingUser){
         await existingUser.arrayOfLiked.push(id);
     }
@@ -54,6 +56,8 @@ async function unlikeResult(username,id) {
         return 'result does not exsit'
     if(!existingUser)
         return 'user does not exsit'
+    if(!existingUser.arrayOfLiked.includes(id))
+        return "you didn't like this result before"
     if (dbResult && existingUser){
         await existingUser.arrayOfLiked.pull(id);
     }

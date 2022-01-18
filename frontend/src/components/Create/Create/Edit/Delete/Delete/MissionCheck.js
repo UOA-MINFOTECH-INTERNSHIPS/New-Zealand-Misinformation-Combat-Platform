@@ -29,25 +29,20 @@ const useStyles = makeStyles(() => ({
   }));
 
 
-export default function Mission_list (){
+export default function MissionCheck (){
     const navigate = useNavigate();
-    const [listOfArticle, setListOfArticle]=useState([]);
+    const [listOfMission, setListOfMission]=useState([]);
   //  const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
     const classes = useStyles();
-    //const [user, setUser] = useState("Linda");
-    const user = {
-        username: "linda1",
-        name: "Linda",
-        email: "123@bla.com"
-    }
+  
 
     useEffect(()=> {
-      //  const pageNum ={page};
-        const userName={user}
-        axios.post("http://localhost:3001/api/articles/myarticles", userName)
+        const pageNum ={page};
+      //  const userName={user}
+        axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
-            setListOfArticle(response.data.results);
+            setListOfMission(response.data.results);
         })
        .catch(()=> {console.log("ERR") } )
    }, [page]);
@@ -60,49 +55,50 @@ export default function Mission_list (){
     return (
         <div>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-            {listOfArticle.map((article)=> (
-                 <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
+            {listOfMission.map((mission)=> (
+                 <Card key={mission._id} className="articleContainer" sx={{ maxWidth: 600 }}>
                  <CardMedia
                    component="img"
-                   alt="green iguana"
+                   alt="picture is disappear"
                    height="200"
-                   image= {article.urlToImage}
+                   image= {mission.Image}
                  />
                 <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
-                        {article.title}
+                        {mission.title}
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary">
-                        {article.description}
+                        {mission.backgroundInfo}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {mission.question}
                     </Typography>
 
                     <br/>
-                    {article.author != null ?
+                    {mission.author != null ?
                     <Typography variant="body2" color="text.secondary">
-                        Author: {article.author}
+                        Author: {mission.author}
                     </Typography> : 
                     <Typography variant="body2" color="text.secondary">
                         Author: Undefined
                     </Typography> }
 
                     <Typography variant="body2" color="text.secondary">
-                        Published Date: {article.publishAt}
+                        Published Date: {mission.publishAt}
                     </Typography>
                  </CardContent>
                  
                  <CardActions>
-                    <Button size="small"  > 
-                         Delect  
-                    </Button>
-                    <Link to = {'/ArticleDisplay/' + article._id}  > <Button size="small" >Modify  </Button></Link>
+                    
+                    <Link to = {'/MissionCheck/' + mission._id}  > <Button size="small" > Verify  </Button></Link>
                  </CardActions>
                  </Card>
                  
             ) ) } 
-           {/*<div className={classes.container}>
+           <div className={classes.container}>
                     <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
-            </div> */} 
+            </div> 
         </div>
     )
 }

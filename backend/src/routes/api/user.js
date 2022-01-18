@@ -33,17 +33,6 @@ const HTTP_NO_CONTENT = 204;
 
 const router = express.Router();
 
-// async function fetchFromPokemonAPI() {
-//     const randomPokemonNum = Math.floor(Math.random() * 898) + 1;
-//     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${randomPokemonNum}`);
-//     const data = response.data;
-//     return {
-//         name: data.species.name.toUpperCase().substring(0, 1) + data.species.name.substring(1),
-//         imageUrl: data.sprites.front_default,
-//     };
-// }
-
-
 
 
 // register new user
@@ -155,9 +144,11 @@ router.post('/register', async (req, res) => {
       name : name,
       email : email,
       password : passwordHash,
+      arrayOfUserMission:[],
+      arrayOfVoted:[],
+      arrayOfLiked:[],
       userType:'normal',
       category:null,
-      arrayOfLiked:[],
       arrayOfChecked:[]
     };
 
@@ -445,6 +436,25 @@ router.post('/addToPostList',async (req, res) =>{
   await existingUser.arrayOfPosted.push(id);
   await existingUser.save();
   res.json(existingUser);
+});
+
+/**
+ * @swagger
+ * /api/user/all:
+ *   get:
+ *     description: retrieve all users in db
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: all users got
+ */
+ router.get('/all', async (req, res) => {
+  try{
+      res.json(await retrieveUserList());
+  }catch(err){
+      console.error(err);
+      res.status(500).send();
+  }
 });
 
 export default router;
