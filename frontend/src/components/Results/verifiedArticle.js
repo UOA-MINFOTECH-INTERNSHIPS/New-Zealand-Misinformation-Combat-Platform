@@ -1,45 +1,39 @@
-import Button from '@mui/material/Button';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './articleStyle.css';
+import axios from 'axios';
+import Button from '@mui/material/Button';
 
 
-
-export default function Article() {
+export default function VerifiedArticle() {
     const { id } = useParams();
-    const [article, setArticle] = useState([]);
-    const articleID = {"id" : id};
     const navigate = useNavigate();
-
+     const [article, setArticle] = useState([]);
+    const articleID = {"id" : id};
+    
     useEffect(()=> {
         axios.post("http://localhost:3001/api/articles/find", articleID).then((response) =>{
         setArticle(response.data);
         })
     }, []);
- 
+
     const handleBack = () => {
         navigate('/articles')
     }
 
+
     return (
-        <div className='ArtiContainer'>
-        
+        <div className='verifiedContainer'> 
             <div className='artiBtn'>
                 <Button variant="outlined" onClick={handleBack}>Back</Button>
             </div>
 
-            <div className='artiContent'>
-                
+            <div className='verifiedContent'>
+            
                 <div className='singleArticleContainer'>
                     <h2>{article.title}</h2>
                     <p>{article.author}</p>
                     <p>{article.publishAt}</p>
                     <img className='singleImg' src={article.urlToImage} />
-                    
-                    {/*content.map((val, key) =>(
-                        <p> {val} </p>
-                    ))*/}
                 </div>
 
             </div>
