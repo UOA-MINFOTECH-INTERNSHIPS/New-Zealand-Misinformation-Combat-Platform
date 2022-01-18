@@ -1,9 +1,8 @@
 import {Routes, Route, useSearchParams} from 'react-router-dom';
 import ArticlesPage from './components/ArticlePage';
 import Profile from './components/Profile/Profile';
-import Recommendation from './components/Article/RecommendationPage';
-import Login from './components/Login/loginPage';
-import Register from  './components/Register/registerPage';
+import Login from './components/Auth/signin';
+import Register from  './components/Auth/signup';
 import Mission_list from './components/Create/Create/Edit/Delete/Delete/MissionDisplay';
 import MissionCheck from './components/Create/Create/Edit/Delete/Delete/MissionCheck';
 import FactCheckerVerify from './components/Create/Create/Edit/Delete/Delete/FactCheckerVerify';
@@ -13,36 +12,40 @@ import { useState } from 'react';
 import PageNotFound from './components/pageNotFound';
 import EditMission from './components/Create/Create/Edit/Delete/Delete/MissionModify';
 import Article from './components/Article/article';
-import FactChecked from './components/factCheckedArticles/factCheckedContainer';
+import Results from './components/Results/resultsContainer';
+import Mission from './components/Mission/missionsContainer'
+import Home from './components/Home/home'
+import UserContext, { UserContextProvider } from './UserContextProvider';
+import Recommendation from './components/Article/RecommendationPage';
 
 
-
-//axios.defaults.withCredentials = true;
 
 export default function App() {
   const {loggedIn} = useState(AppContext);
+  const {user, setUser} = useState(UserContext);
 
   return (
-    <Routes>
-      <Route path='/' element ={<ArticlesPage/>}/>
-      <Route path='/articles' element ={<ArticlesPage/>}/>
-      <Route path='/articles/:id' element ={<Article/>}/>
-      <Route path ='/verified' element = {<FactChecked/>} />
-
+    <UserContextProvider value = {{user, setUser}}>
+  
+      <Route path='/' element ={<Home/>}/>
+      <Route path ='/result' element = {<Results/>} />
+      <Route path='/mission' element ={<Mission/>}/>
       <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
-          <Route path='/editor' element ={<Editor/>}/>
-          <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
-          <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/> 
-          <Route path='/MissionCheck' element ={<MissionCheck/>}/> 
-          <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/> 
-
+      <Route path='/editor' element ={<Editor/>}/>
+      <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
+      <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/> 
+      <Route path='/MissionCheck' element ={<MissionCheck/>}/> 
+      <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/> 
+      <Route path='/articles' element ={<ArticlesPage/>}/>
+      <Route path='/articles/:id' element ={<Article/>}/>
+        
 
       {!loggedIn ?
       (
         <>
-          <Route path="/login" element={<Login />} /> 
-          <Route path="/register" element ={<Register />} />
+           <Route path="/signin" element={<Login />} /> 
+        <Route path="/signup" element ={<Register />} />
           
         </>
       ) :
@@ -56,6 +59,9 @@ export default function App() {
 
 
       <Route path= "/*" element={<PageNotFound/> } />
-    </Routes>
+    
+    </UserContextProvider>
+
   );
+
 }

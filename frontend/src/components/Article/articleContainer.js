@@ -11,7 +11,6 @@ import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
-import Category from '../factCheckedArticles/Category'
 
 
 
@@ -39,6 +38,7 @@ export default function ArticleContainer (){
     const [page, setPage] = useState(1);
     const classes = useStyles();
     
+    
     useEffect(()=> {
         const pageNum ={page};
         axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
@@ -55,12 +55,18 @@ export default function ArticleContainer (){
 
     return (
         <div>
+            <div className='category'>
+                    <ul>
+                        <li><a class="active" href="verified/all">All</a></li>
+                        <li> <a  href="verified/health" >Health</a></li>
+                        <li><a  href="verified/economic" >Economic</a></li>
+                        <li><a  href="verified/environment" >Environment</a></li>
+                        <li><a href="verified/technology" >Technology</a></li>
+                        <li><a href="verified/lifestyle"  >Life Style</a></li>
+                        <li><a href="verified/international" >International</a></li>
+                    </ul>
+            </div>
             <Grid container spacing={2}>
-
-                <Grid item xs={4}>
-                    <Category />
-                </Grid>
-
                 <Grid >
                     <div className='articlesContainer' >
                     {listOfArticle.map((article)=> (

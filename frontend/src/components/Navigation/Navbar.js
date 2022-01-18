@@ -7,8 +7,8 @@ import {Logout} from '@mui/icons-material';
 import AppContext from '../../AppContextProvider';
 
 export default function Navbar (){
-    const {loggedIn} = useContext(AppContext);
-   // console.log(loggedIn);
+    const {loggedIn, setLoggedIn} = useContext(AppContext);
+    console.log(loggedIn);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -28,14 +28,14 @@ export default function Navbar (){
     return(
     <div className='nav'>
         <nav>
-            <div className ='logo'>
-                <p>ARTI</p>
-            </div>
             <div>
+                <div className ='logo'>
+                    <p>ARTI</p>
+                </div>
                 <ul>
                     <li><NavLink  to = '/articles' activeclassname='is-active' >News Article</NavLink></li>
                     <li><NavLink to = '/verified' activeclassname='is-active'>Verified Articles</NavLink></li>
-                    <li><NavLink to = '/requests' activeclassname='is-active'>Fact Check Request</NavLink></li>
+                    <li><NavLink to = '/mission' activeclassname='is-active'>Fact Check Request</NavLink></li>
                 </ul>
             </div>
             
@@ -80,7 +80,6 @@ export default function Navbar (){
                 <Button component={Link} to='/register' variant ='outlined'>Register</Button>
                 </div>
             )}; 
-
         </nav>
 
     </div>

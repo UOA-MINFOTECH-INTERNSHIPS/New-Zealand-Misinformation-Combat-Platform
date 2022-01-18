@@ -149,7 +149,6 @@ router.get('/all', async (req, res) => {
         console.error(err);
         res.status(500).send();
     }
-    
 });
 
 
