@@ -62,9 +62,7 @@ conn.once("open", function () {
 
 router.get('/:filename', async (req, res) => {
     try {
-        console.log(req.params.filename);
         const file = await gfs.files.findOne({ filename: req.params.filename });
-        console.log(file);
         const readStream = gridfsBucket.openDownloadStreamByName(file.filename);
         readStream.pipe(res);
     } catch (error) {
