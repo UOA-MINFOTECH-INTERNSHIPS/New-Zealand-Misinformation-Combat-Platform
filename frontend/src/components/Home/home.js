@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './home.css'
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import bkImg from '../Image/bkimg.jpg'
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-
+import AppContext from '../../AppContextProvider';
 
 export default function Home() {
     const [newest, setNewest] = useState([]);
     const [mission, setMission] = useState([]);
     const [page, setPage] = useState(1);
+    const {user} = useContext(AppContext)
+
 
 
     useEffect(()=> {

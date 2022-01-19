@@ -2,15 +2,13 @@ import React , {useContext} from 'react';
 import './nav.css';
 import logo from './luxury.png';
 import AppContext from '../../AppContextProvider';
-import UserContext from '../../UserContextProvider';
 import {Logout} from '@mui/icons-material';
 import {Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Button} from '@mui/material';
 import axios from 'axios';
 
 
 export default function Nav() {
-    const {user, setUser} = useContext(UserContext);
-    const {loggedIn, setLoggedIn, getLoggedIn} = useContext(AppContext);
+    const {loggedIn, getLoggedIn,user, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
   

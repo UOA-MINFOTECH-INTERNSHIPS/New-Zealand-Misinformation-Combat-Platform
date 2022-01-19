@@ -3,12 +3,12 @@ import './auth.css'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
-import UserContext from '../../UserContextProvider';
+import AppContext from '../../AppContextProvider';
 
 
 
 function Login() {
-  const {user, setUser} = useContext(UserContext);
+  const {user, setUser} = useContext(AppContext);
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -26,13 +26,11 @@ function Login() {
       const cookies= new Cookies();
       cookies.set('username',userDetail.data.username, {path: '/'});
       Navigate("/profile")
-
+    
       const user_temp = {username,password}
       const res = await axios.post("http://localhost:3001/api/user/login", user_temp);
       setUser(res.data);
-      //console.log(user);
-
-      //Navigate("/articles")
+      Navigate("/home")
 
     }catch (err){
       setError(error.response.data.errorMessage);

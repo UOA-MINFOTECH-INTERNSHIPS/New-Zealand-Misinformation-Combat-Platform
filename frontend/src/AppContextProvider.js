@@ -5,6 +5,7 @@ const AppContext = createContext();
 
 function AppContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(undefined);
+    const [user, setUser] = useState({});
 
 
     async function getLoggedIn(){
@@ -19,7 +20,7 @@ function AppContextProvider(props) {
     }, []);
     
     return (
-        <AppContext.Provider value={{ loggedIn, setLoggedIn, getLoggedIn}}>
+        <AppContext.Provider value={{ loggedIn, setLoggedIn, getLoggedIn, user, setUser}}>
             {props.children}
         </AppContext.Provider>
     )
