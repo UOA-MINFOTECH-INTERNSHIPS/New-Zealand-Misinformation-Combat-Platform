@@ -8,6 +8,8 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+
+
 // Setup Express
 const app = express();
 const port = process.env.PORT || 3001;
@@ -43,7 +45,7 @@ const swaggerOptions = {
       version: '1.0.0',
     }
   },
-  apis: ['./src/routes/api/*.js'],
+  apis: ['./src/routes/api/*.js','./src/routes/upload.js','./src/server.js']
 };
 // console.log(swaggerOptions)
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -68,6 +70,8 @@ if (process.env.NODE_ENV === 'production') {
 
 }
 
+
+
 // Start the DB running. Then, once it's connected, start the server.
 require('dotenv').config()
 mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true ,useUnifiedTopology: true, })
@@ -76,3 +80,114 @@ mongoose.connect(process.env.CONNECTION_STRING, { useNewUrlParser: true ,useUnif
 const logger = require('./Logger/logger');
 logger.log('info','catch');
 logger.log('error','error3');
+
+
+
+//upload images
+
+let gfs, gridfsBucket;
+
+const upload = require("./routes/upload");
+const Grid = require("gridfs-stream");
+const conn = mongoose.connection;
+conn.once("open", function () {
+    gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {bucketName: 'photos'});
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("photos");
+});
+app.use("/file", upload);
+
+/**
+ * @swagger
+ * definitions:
+ *   image_finder:
+ *     required:
+ *       - filename
+ *     properties:
+ *       file:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /file/find:
+ *   post:
+ *     description: find a image file in db
+ *     tags: [Images]
+ *     produces:
+ *       - image/png
+ *       - image/jpg
+ *       - image/jpeg
+ *     parameters:
+ *       - name: filename
+ *         description: give the filename to find image
+ *         in: formData
+ *         required: true
+ *         type: string       
+ *     responses:
+ *       200:
+ *         description: image found
+ *         content:
+ *           image/png:
+ *             schema:
+ *               type: string
+ *               format: binary
+ */
+app.post("/file/find", async (req, res) => {
+  const {filename}=req.body;
+  try {
+      const file = await gfs.files.findOne({ filename: filename });
+      const readStream = gridfsBucket.openDownloadStreamByName(file.filename);
+      res.setHeader('Content-Type', 'image/png');
+      readStream.pipe(res);
+  } catch (error) {
+      res.send("not found");
+  }
+});
+
+
+/**
+ * @swagger
+ * definitions:
+ *   image_finder:
+ *     required:
+ *       - filename
+ *     properties:
+ *       file:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /file/delete:
+ *   delete:
+ *     description: delete a image file in db
+ *     tags: [Images]
+ *     produces:
+ *       - image/png
+ *       - image/jpg
+ *       - image/jpeg
+ *     parameters:
+ *       - name: filename
+ *         description: give the filename to find image
+ *         in: formData
+ *         required: true
+ *         type: string       
+ *     responses:
+ *       200:
+ *         description: image deleted
+ *         content:
+ *           image/png:
+ *             schema:
+ *               type: string
+ *               format: binary
+ */
+app.delete("/file/delete", async (req, res) => {
+  const {filename}=req.body;
+  try {
+      await gfs.files.deleteOne({ filename: filename });
+      res.send("success");
+  } catch (error) {
+      console.log(error);
+      res.send("An error occured.");
+  }
+});
+
