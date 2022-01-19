@@ -32,7 +32,7 @@ export default function App() {
       <Route path='/mission' element ={<Mission/>}/>
       <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
-      <Route path='/editor' element ={<Editor/>}/>
+      <Route path='/NewMission' element ={<Editor/>}/>
       <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
       <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/> 
       <Route path='/MissionCheck' element ={<MissionCheck/>}/> 

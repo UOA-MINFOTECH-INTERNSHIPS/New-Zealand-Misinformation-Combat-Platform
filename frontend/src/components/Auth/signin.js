@@ -33,7 +33,7 @@ function Login() {
       console.log(user);
       //setUser(response.data)
 
-      Navigate("/articles")
+      //Navigate("/articles")
 
     }catch (err){
       setError(error.response.data.errorMessage);
