@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import './auth.css'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../../UserContextProvider';
+import { UserContext } from '../../UserContextProvider';
 
 
 function Login() {
@@ -19,8 +19,7 @@ function Login() {
       const user_temp = {username,password}
       const res = await axios.post("http://localhost:3001/api/user/login", user_temp);
       setUser(res.data);
-      console.log(user);
-      //setUser(response.data)
+      //console.log(user);
 
       Navigate("/articles")
     }catch (err){

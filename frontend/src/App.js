@@ -24,8 +24,7 @@ export default function App() {
   const {user, setUser} = useState(UserContext);
 
   return (
-    <UserContextProvider value = {{user, setUser}}>
-      
+    <UserContextProvider>
       <Routes>
         <Route path='/' element ={<Home/>}/>
         <Route path='/articles' element ={<ArticlesPage/>}/>
@@ -41,8 +40,10 @@ export default function App() {
         <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
     
 
-      
+
         <Route path="/signin" element={<Login />} /> 
+
+
         <Route path="/signup" element ={<Register />} />
 
         <Route path='/profile' element ={<Profile/>}/>
@@ -52,7 +53,7 @@ export default function App() {
 
         <Route path= "/*" element={<PageNotFound/> } />
       </Routes>
-    </UserContextProvider>
+      </UserContextProvider>
 
   );
 

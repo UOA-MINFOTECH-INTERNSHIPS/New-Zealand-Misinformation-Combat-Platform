@@ -9,12 +9,12 @@ import axios from 'axios';
 
 
 export default function Nav() {
-    //const {user} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
     const {loggedIn, setLoggedIn, getLoggedIn} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
   
-    //console.log(user);
+    console.log(user);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -26,6 +26,7 @@ export default function Nav() {
         await axios.get("http://localhost:3001/api/user/logout");
         getLoggedIn();
         console.log(getLoggedIn());
+        setUser({});
     }
 
     return (
@@ -43,7 +44,7 @@ export default function Nav() {
             <div className='webstatus'>
                 <IconButton  onClick={handleClick} >
                     <Avatar sx={{width: 35, height: 35, }}> l </Avatar>
-                    <Typography variant ="h6" color ='white' ml ='10px'> user.username </Typography>
+                    <Typography variant ="h6" color ='white' ml ='10px'> {user.username} </Typography>
                 </IconButton>
 
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
