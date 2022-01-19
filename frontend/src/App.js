@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <UserContextProvider value = {{user, setUser}}>
-  
+    <Routes>
       <Route path='/' element ={<Home/>}/>
       <Route path ='/result' element = {<Results/>} />
       <Route path='/mission' element ={<Mission/>}/>
