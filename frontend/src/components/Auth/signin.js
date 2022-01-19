@@ -29,7 +29,6 @@ function Login() {
   }
   
   return (
-    
     <div className="auth">
       <div className='authContainer'>
             <div >
