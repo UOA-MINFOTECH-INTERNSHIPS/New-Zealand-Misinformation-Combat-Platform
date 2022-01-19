@@ -457,6 +457,42 @@ router.post('/addToPostList',async (req, res) =>{
   }
 });
 
+/**
+ * @swagger
+ * definitions:
+ *   user_finder:
+ *     required:
+ *       - username
+ *     properties:
+ *       username:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/user/find:
+ *   post:
+ *     description: find a specific user by username
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give the username
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: user found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/user_finder'
+ */
+ router.post('/find', async (req, res) => {
+  const {username} = req.body;
+  res.json(await User.findOne({username}));
+});
+
 export default router;
 
 
