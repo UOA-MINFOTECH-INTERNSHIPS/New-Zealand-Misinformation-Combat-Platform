@@ -14,11 +14,8 @@ import EditMission from './components/Create/Create/Edit/Delete/Delete/MissionMo
 import Article from './components/Article/article';
 import Results from './components/Results/resultsContainer';
 import Mission from './components/Mission/missionsContainer'
-import EditArticle from './components/CreateNewArticle/MissionVerify';
 import Home from './components/Home/home'
 import UserContext, { UserContextProvider } from './UserContextProvider';
-
-
 
 export default function App() {
   const {loggedIn} = useState(AppContext);
@@ -30,7 +27,6 @@ export default function App() {
       <Route path='/' element ={<Home/>}/>
       <Route path ='/result' element = {<Results/>} />
       <Route path='/mission' element ={<Mission/>}/>
-      <Route path='/recommendation' element ={<Recommendation/>}/>
       <Route path='/profile' element ={<Profile/>}/>
       <Route path='/editor' element ={<Editor/>}/>
       <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
@@ -38,7 +34,6 @@ export default function App() {
       <Route path='/MissionCheck' element ={<MissionCheck/>}/> 
       <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/> 
       <Route path='/ArticleDisplay' element ={<Mission_list/>}/> 
-      <Route path='/ArticleDisplay/:id' element ={<EditArticle/>}/> 
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/articles/:id' element ={<Article/>}/>
         
@@ -58,8 +53,6 @@ export default function App() {
         </>
       ) 
       }
-
-
       <Route path= "/*" element={<PageNotFound/> } />
       </Routes>
       </UserContextProvider>
