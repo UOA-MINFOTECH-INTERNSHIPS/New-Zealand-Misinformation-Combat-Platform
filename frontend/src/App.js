@@ -37,7 +37,6 @@ export default function App() {
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/articles/:id' element ={<Article/>}/>
         
-
       {!loggedIn ?
       (
         <>
