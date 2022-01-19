@@ -2,7 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import './auth.css'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 import UserContext from '../../UserContextProvider';
+
 
 
 function Login() {
@@ -16,13 +18,23 @@ function Login() {
     e.preventDefault();
 
     try{
+
+      const user = {username,password}
+      
+      const userDetail = await axios.post("http://localhost:3001/api/user/login", user);
+     // console.log(userDetail.data.username);
+      const cookies= new Cookies();
+      cookies.set('username',userDetail.data.username, {path: '/'});
+      Navigate("/profile")
+
       const user_temp = {username,password}
       const res = await axios.post("http://localhost:3001/api/user/login", user_temp);
       setUser(res.data);
       console.log(user);
       //setUser(response.data)
 
-      Navigate("/articles")
+      //Navigate("/articles")
+
     }catch (err){
       setError(error.response.data.errorMessage);
 

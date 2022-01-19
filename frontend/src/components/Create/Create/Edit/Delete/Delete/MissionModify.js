@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Link ,useParams} from 'react-router-dom';
+import { Link ,useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
 import { ConstructionRounded } from '@mui/icons-material';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,8 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-
-
 
 function EditMission() {
   const [url,setUrl] = useState('');
@@ -23,6 +21,7 @@ function EditMission() {
   const [keywords, setKeywords] = useState('');
   const [listOfMission, setListOfMission] = useState([]);
   const  findid  = useParams();
+  const Navigate = useNavigate();
 
   const handleChange = (event) => {
     setKeywords(event.target.value);
@@ -44,19 +43,13 @@ function EditMission() {
         setImage(response.data.image);
         setBackgroundInfo(response.data.backgroundInfo);
         setQuestion(response.data.question);
-        
-        
-        
     })
     .catch(()=> {
         console.log("ERR")
     }) 
   
-    
-
   },[]);
 
-  
     async function submitArticle(e) {
       e.preventDefault();
       try {
@@ -76,7 +69,8 @@ function EditMission() {
   
         await axios.put(
          "http://localhost:3001/api/mission/update",
-          createText, { withCredentials: true }
+          createText, { withCredentials: true },
+          Navigate("/MissionDisplay")
         )
         .then(()=>{
                 alert("It works");
@@ -89,9 +83,6 @@ function EditMission() {
       }
   
     }
-  
-  
-  
     return (
   
       <div className='container' >
@@ -128,24 +119,6 @@ function EditMission() {
                   value={image}  
                   />
           </div>
-       
-         {/*  <div>
-                  <label>Background Information</label>
-                  <input 
-                  type="text" 
-                  onChange={(e) => setDescription(e.target.value)} 
-                  value={description}  
-                  />
-          </div>
-       <div>
-                  <label>Publish</label>
-                  <input 
-                  className='data'
-                  type="Date" 
-                  onChange={(e) => setPublishAt(e.target.value)} 
-                  value={publishAt}  
-                  />
-        </div> */}
           <div >
           <label>Background Information</label>
               <CKEditor
@@ -203,8 +176,6 @@ function EditMission() {
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 
-                  
-     
       </form>
       </div>
     );

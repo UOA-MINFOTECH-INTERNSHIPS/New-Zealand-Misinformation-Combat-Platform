@@ -63,7 +63,7 @@ function EditArticle() {
           reference
           
         };
-       console.log(createText)
+      // console.log(createText)
   
         await axios.post(
          "http://localhost:3001/api/result/post",
@@ -88,9 +88,18 @@ function EditArticle() {
       <div className='container' >
       <form  onSubmit={submitResult}  >
           <div>
-          <label>{}</label>
+          <label>Title:</label>
+          <label>{listOfResult.title}</label>
           </div>
-
+          <div>
+          <label>Question:</label>
+          <label>{listOfResult.question}</label>
+          </div>
+          <div>
+          <label>Background Information:</label>
+          <label>{listOfResult.backgroundInfo}</label>
+          </div>
+          <br/>
           <div >
           <label>Analysis</label>
               <CKEditor
@@ -139,9 +148,9 @@ function EditArticle() {
                value={verdict}
                onChange={handleChange}
              >
-               <MenuItem value={"Health"}>Health</MenuItem>
-               <MenuItem value={"Economic"}>Economic</MenuItem>
-               <MenuItem value={"Environment"}>Environment</MenuItem>
+               <MenuItem value={"True"}>True</MenuItem>
+               <MenuItem value={"Partly True"}>Partly True</MenuItem>
+               <MenuItem value={"False"}>False</MenuItem>
               
              </Select>
             </FormControl>
