@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
 import { useNavigate,Link } from 'react-router-dom';
-
+import { Cookies } from 'react-cookie';
 
 
 const useStyles = makeStyles(() => ({
@@ -48,6 +48,10 @@ export default function Mission_list (){
         axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
             setListOfArticle(response.data.results);
+           
+            const cookies = new Cookies();
+            console.log(cookies.get('username')); 
+
         })
        .catch(()=> {console.log("ERR") } )
    }, [page]);
@@ -74,7 +78,10 @@ export default function Mission_list (){
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary">
-                        {article.description}
+                        {article.backgroundInfo}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {article.question}
                     </Typography>
 
                     <br/>
