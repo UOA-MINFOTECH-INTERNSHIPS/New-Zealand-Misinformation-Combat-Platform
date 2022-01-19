@@ -2,6 +2,7 @@ import express from 'express';
 import {
     createResult,
     retrieveResult,
+    retrieveAllResult,
     updateResult,
     deleteResult,
     likeResult,
@@ -495,5 +496,23 @@ router.delete('/deleteAll', async (req, res) => {
         res.json(await deleteAllResult());
 });
 
+/**
+ * @swagger
+ * /api/result/all:
+ *   get:
+ *     description: retrieve all results in db
+ *     tags: [Results]
+ *     responses:
+ *       200:
+ *         description: all results got
+ */
+ router.get('/all', async (req, res) => {
+    try{
+        res.json(await retrieveAllResult());
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
+});
 
 export default router;

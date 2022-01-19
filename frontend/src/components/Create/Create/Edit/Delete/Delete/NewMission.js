@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
-import './NewArticle.css';
+import './NewMission.css';
 import { Link } from 'react-router-dom';
 import * as react from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -19,15 +19,36 @@ function Editor() {
   const [author,setAuthor] = useState('');
   const [image,setImage] = useState('');
   const [backgroundInfo,setBackgroundInfo] = useState('');
-  //const [urlToImage,setUrlToImage] = useState('');
   const [question,setQuestion] = useState('');
-  //const [keyword,setKeyword] = useState('');
-  const [keyword, setKeyword] = useState('');
+  const [keywords, setKeywords] = useState('');
+  //const [status, setStatus] = useState('');
+  //const [support, setSupport] = useState('');
+ 
 
   const handleChange = (event) => {
-        setKeyword(event.target.value);
+        setKeywords(event.target.value);
   };
 
+  function uploadAdapter(loader) {
+    return {
+      upload: () => {
+        return new Promise((resolve, reject) => {
+          const body = new FormData();
+          loader.file.then((file) => {
+            body.append("files", file);
+            // axios.post("localhost:3000/api/image/upload", file)
+            // axios.get("localhost:3000/api/image/get/12121773.jpg")
+          });
+        });
+      }
+    };
+  }
+
+  function uploadPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return uploadAdapter(loader);
+    };
+  }
 
   async function submitArticle(e) {
     e.preventDefault();
@@ -39,7 +60,8 @@ function Editor() {
         image,
         backgroundInfo,
         question,
-        keyword
+        keywords,
+        
         };
       // console.log(createText)
 
@@ -111,8 +133,13 @@ function Editor() {
         <div >
         <label>Background Information</label>
             <CKEditor
+               config={{
+                extraPlugins: [uploadPlugin]
+               }}
                editor={ClassicEditor}
                data={backgroundInfo}
+               onBlur={(event, editor) => {}}
+               onFocus={(event, editor) => {}}
                onReady={ editor => {
                          console.log( 'Editor is ready to use!', editor );
                        } }
@@ -128,11 +155,11 @@ function Editor() {
                editor={ClassicEditor}
                data={question}
                onReady={ editor => {
-                         console.log( 'Editor is ready to use!', editor );
+                  console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                                const content = editor.getData()
-                                  setQuestion(content)
+                  const content = editor.getData()
+                  setQuestion(content)
                          }}
             />
        </div>
@@ -144,7 +171,7 @@ function Editor() {
                 value={like}  
                 />
         </div> */}
-        <label>keyword</label>
+        <label>Keyword</label>
          {/*< MultipleSelectChip   />*/}  
          <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
@@ -152,7 +179,7 @@ function Editor() {
            <Select
              labelId="demo-simple-select-label"
              id="demo-simple-select"
-             value={keyword}
+             value={keywords}
              onChange={handleChange}
            >
              <MenuItem value={"Health"}>Health</MenuItem>
