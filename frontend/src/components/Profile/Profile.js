@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
 import { Tooltip , IconButton} from "@mui/material";
@@ -12,6 +12,12 @@ export default function Profile (){
     console.log(userDetail);
    // console.log(cookies.get('username')); 
    Navigate("/NewMission")
+
+
+
+
+
+
     return (
         <div>
                 <div className='UserContainer'>

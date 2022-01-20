@@ -86,6 +86,7 @@ function Editor() {
                 type="text" 
                 onChange={(e) => setUrl(e.target.value)} 
                 value={url}  
+                required
                 />
         </div>
         <div>
@@ -94,6 +95,7 @@ function Editor() {
                 type="text" 
                 onChange={(e) => setTitle(e.target.value)} 
                 value={title}  
+                required
                 />
         </div>
         <div>
@@ -102,6 +104,7 @@ function Editor() {
                 type="text" 
                 onChange={(e) => setAuthor(e.target.value)} 
                 value={author}  
+                required
                 />
         </div>
         <div>
@@ -110,6 +113,7 @@ function Editor() {
                 type="text" 
                 onChange={(e) => setImage(e.target.value)} 
                 value={image}  
+                
                 />
         </div>
      
@@ -147,6 +151,7 @@ function Editor() {
                                 const content = editor.getData()
                                   setBackgroundInfo(content)
                          }}
+                         required
             />
        </div>
        <div>
@@ -161,6 +166,9 @@ function Editor() {
                   const content = editor.getData()
                   setQuestion(content)
                          }}
+                       
+                  rules={{ required: "Question Field is required" }}
+                        
             />
        </div>
        {/*  <div>
@@ -181,6 +189,7 @@ function Editor() {
              id="demo-simple-select"
              value={keywords}
              onChange={handleChange}
+             required
            >
              <MenuItem value={"Health"}>Health</MenuItem>
              <MenuItem value={"Economic"}>Economic</MenuItem>
