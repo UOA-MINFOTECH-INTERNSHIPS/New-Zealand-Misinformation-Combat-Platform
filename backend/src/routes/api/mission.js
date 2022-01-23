@@ -11,6 +11,7 @@ import {
 } from '../../pokemon-data/missiondao';
 import auth from '../../middleware/auth';
 import { Mission } from '../../pokemon-data/missionschema';
+import { User } from '../../pokemon-data/userschema';
 
 const HTTP_OK = 200; 
 const HTTP_CREATED = 201;
@@ -31,6 +32,7 @@ const router = express.Router();
  * definitions:
  *   Poster1:
  *     required:
+ *       - username
  *       - url
  *       - title
  *       - author
@@ -39,6 +41,8 @@ const router = express.Router();
  *       - question
  *       - keywords
  *     properties:
+ *       username:
+ *         type: string
  *       url:
  *         type: string
  *       title:
@@ -63,6 +67,11 @@ const router = express.Router();
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: username
+ *         description: give the username of loggedin user
+ *         in: formData
+ *         required: true
+ *         type: string
  *       - name: url
  *         description: give the url of new mission
  *         in: formData
@@ -110,8 +119,12 @@ const router = express.Router();
 
 router.post('/post', async (req, res) => {
     try {
-        const {url, title,author, image, backgroundInfo,question,keywords} = req.body;
+        const {username, url, title,author, image, backgroundInfo,question,keywords} = req.body;
         // console.log(keywords.length);
+        if (!url || !title || !author || !backgroundInfo || !question || !keywords)
+            return res
+                .status(400)
+                .json({ errorMessage: "Please enter all required fields." });
         const newMission = {
             url: url,
             title : title,
@@ -125,9 +138,13 @@ router.post('/post', async (req, res) => {
         };
     
         const dbMission = await createMission(newMission);
+        const exsitUser = await User.findOne({username});
+
+        exsitUser.arrayOfUserMission.push(dbMission._id);
+        await exsitUser.save();
     
         res.status(HTTP_CREATED) 
-            .json(dbMission);
+            .json([dbMission,exsitUser]);
     }catch(err){
         console.error(err);
         res.status(500).send();
@@ -396,6 +413,10 @@ function paginatedResults(model) {
  */
 router.post('/update', auth, async (req, res) => {
     const {id, url, title, image, backgroundInfo,question,keywords} = req.body;
+    if (!url || !title || !backgroundInfo || !question || !keywords)
+        return res
+            .status(400)
+            .json({ errorMessage: "Please enter all required fields." });
     const newMission=new Mission({
         url: url,
         title : title,
