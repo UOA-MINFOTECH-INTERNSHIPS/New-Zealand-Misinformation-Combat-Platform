@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './mission.css';
+import { Cookies } from 'react-cookie';
+import {Link} from 'react-router-dom'
 
 
 export default function Mission({data}) {
+    const cookies = new Cookies();
+    const userType = cookies.get('userType');
+
+    console.log(userType)
+
     return (
         <div className='missioncard'>
             { data.map((val)=> (
@@ -14,8 +21,10 @@ export default function Mission({data}) {
                     </div>
 
                     <div className='missionbtn'>
-                        <button><a href= {`/request`}>Like</a></button>
-                        <button> <a href= {`/result/${val._id}`}>Read more</a></button>
+                        <button><Link to= {`/mission`}>Vote</Link></button>
+                        <button> <Link to= {`/mission/${val._id}/read`}>Read more</Link></button>
+                        {userType == 'fact checker' && (<button> <Link to= {`/MissionCheck/${val._id}`}>Verify</Link></button>)}
+
                     </div>
                 </div>
             ) ) } 

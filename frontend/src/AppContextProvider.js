@@ -4,16 +4,14 @@ import axios from 'axios';
 const AppContext = createContext();
 
 function AppContextProvider(props) {
-    const [loggedIn, setLoggedIn] = useState(undefined);
+    const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({});
 
 
     async function getLoggedIn(){
         const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn ");
         setLoggedIn(loggedInRes.data);
-        console.log(loggedInRes.data);
     }
-
 
     useEffect (()=>{
         getLoggedIn();

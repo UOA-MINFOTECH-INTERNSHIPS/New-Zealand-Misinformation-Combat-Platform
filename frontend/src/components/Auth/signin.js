@@ -8,7 +8,7 @@ import AppContext from '../../AppContextProvider';
 
 
 function Login() {
-  const {user, setUser} = useContext(AppContext);
+  const {loggedIn, setLoggedIn, user, setUser} = useContext(AppContext);
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -18,19 +18,15 @@ function Login() {
     e.preventDefault();
 
     try{
-
-      const user = {username,password}
-      
-      const userDetail = await axios.post("http://localhost:3001/api/user/login", user);
-     // console.log(userDetail.data.username);
+      const user_temp = {username,password}
+      const userDetail = await axios.post("http://localhost:3001/api/user/login", user_temp);
       const cookies= new Cookies();
       cookies.set('username',userDetail.data.username, {path: '/'});
-      Navigate("/profile")
-    
-      const user_temp = {username,password}
-      const res = await axios.post("http://localhost:3001/api/user/login", user_temp);
-      setUser(res.data);
-      Navigate("/home")
+      cookies.set('email',userDetail.data.email, {path: '/'});
+      cookies.set('userType',userDetail.data.userType, {path: '/'});
+      setUser(userDetail.data);
+      Navigate('/')
+
 
     }catch (err){
       setError(error.response.data.errorMessage);
