@@ -2,19 +2,19 @@ import React, {useEffect, useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import './results.css'
+import './mission.css'
 
 
 
 export default function MissionDetail() {
     const { id } = useParams();
-    const [result, setResult] = useState([]);
-    const ResultID = {"id" : id}; 
+    const [mission, setMission] = useState([]);
+    const missionID = {"id" : id}; 
 
 
     useEffect(()=> {
-        axios.post("http://localhost:3001/api/result/find", ResultID).then((response) =>{
-            setResult(response.data);
+        axios.post("http://localhost:3001/api/mission/find", missionID).then((response) =>{
+            setMission(response.data);
         })
     }, []);
 
@@ -33,13 +33,14 @@ export default function MissionDetail() {
                 <div className='missionContent'>
                     
                     <div >
-                        <h2>{result.title}</h2>
-                        <p><strong>Author: </strong>&nbsp;{result.author} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                            <strong>Mission created:&nbsp;</strong> {result.createdAt} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong>Recent update:&nbsp;</strong> {result.updatedAt}</p>
-                        <p><strong>Potential false URL:&nbsp;</strong> {result.url}</p>
+                        <h2>{mission.title}</h2>
+                        <p><strong>Author: </strong>&nbsp;{mission.author} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            <strong>Mission created:&nbsp;</strong> {mission.createdAt} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <strong>Recent update:&nbsp;</strong> {mission.updatedAt}</p>
+                        <p><strong>Potential false URL:&nbsp;</strong> {mission.url}</p>
                         <p><strong>Description</strong></p>
-                        <p>{result.backgroundInfo}</p>
+                        <p>{mission.backgroundInfo}</p>
+
                     </div>
 
 

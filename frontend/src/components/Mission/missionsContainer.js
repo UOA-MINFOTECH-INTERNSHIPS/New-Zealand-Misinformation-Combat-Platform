@@ -10,7 +10,7 @@ import AppContext from '../../AppContextProvider';
 import './mission.css'
 
 export default function Missions() {
-    const {loggedIn} = useContext(AppContext);
+    const {user, loggedIn} = useContext(AppContext);
     const [missionList, setMissionList] = useState([]);
     const [filteredResult, setFilteredResult] = useState ([]);
     const [page, setPage] = useState(2);
@@ -21,7 +21,6 @@ export default function Missions() {
         axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
             setMissionList(response.data.results);
-            console.log(missionList)
         })
        .catch(()=> {console.log("ERR") } )
    }, []);
@@ -36,7 +35,7 @@ export default function Missions() {
 
     const handleRequest = () => {
         if (loggedIn) {
-            navigate('/editor')
+            navigate('/NewMission')
         }else {
             alert('You are not logged in')
             navigate('/signin')
@@ -57,9 +56,6 @@ export default function Missions() {
                 </ul>
             </div>
 
-
-
-
             <div className='missions'>
                 <div className='mission'>
                 <p className='title'> Missions 
@@ -78,6 +74,7 @@ export default function Missions() {
                 </div>
 
                 { filteredResult.length != 0 ? (<Mission data={filteredResult}/>) :(<Mission data={missionList}/>)}
+                
                 </div>
             </div>
             

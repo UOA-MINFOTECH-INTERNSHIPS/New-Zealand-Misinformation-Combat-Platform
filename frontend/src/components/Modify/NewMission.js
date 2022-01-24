@@ -1,4 +1,4 @@
-
+import Button from '@mui/material/Button';
 import React,{useState} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -78,6 +78,10 @@ function Editor() {
   }
 
   return (
+    <div>
+      <div className='returnBtn'>
+        <Link to='/mission'><Button variant="outlined"> Back </Button></Link>
+      </div>
     <div className='container' >
     <form  onSubmit={submitArticle}  >
         <div>
@@ -204,6 +208,7 @@ function Editor() {
                 
    
     </form>
+    </div>
     </div>
   );
 }

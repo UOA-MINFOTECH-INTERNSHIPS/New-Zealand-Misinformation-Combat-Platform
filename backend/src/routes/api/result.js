@@ -16,6 +16,7 @@ import {
 import auth from '../../middleware/auth';
 import { Mission } from '../../pokemon-data/missionschema';
 import { Result } from '../../pokemon-data/resultschema';
+import { User } from '../../pokemon-data/userschema';
 
 const HTTP_OK = 200; 
 const HTTP_CREATED = 201;
@@ -35,12 +36,15 @@ const router = express.Router();
  * definitions:
  *   Poster:
  *     required:
+ *       - username
  *       - missionID
  *       - analysis
  *       - conclusion
  *       - verdict
  *       - reference
  *     properties:
+ *       username:
+ *         type: string
  *       missionID:
  *         type: string
  *       analysis:
@@ -61,6 +65,11 @@ const router = express.Router();
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: username
+ *         description: give the username of loggedin user
+ *         in: formData
+ *         required: true
+ *         type: string
  *       - name: missionID
  *         description: give the mission ID that fact checker going to work on
  *         in: formData
@@ -95,7 +104,11 @@ const router = express.Router();
  */
 router.post('/post',auth, async (req, res) => {
     try {
-        const {missionID, analysis,conclusion, verdict, reference} = req.body;
+        const {username, missionID, analysis,conclusion, verdict, reference} = req.body;
+        if (!analysis || !conclusion || !verdict || !reference )
+            return res
+                .status(400)
+                .json({ errorMessage: "Please enter all required fields." });
         const exsitingMission = await retrieveMission(missionID);
         const existingResult = await Result.findOne({ missionID });
         if(existingResult)
@@ -119,9 +132,13 @@ router.post('/post',auth, async (req, res) => {
             };
             
             const dbResult = await createResult(newResult);
+            const exsitUser = await User.findOne({username});
+
+            exsitUser.arrayOfChecked.push(dbResult._id);
+            await exsitUser.save();
             
             res.status(HTTP_CREATED) 
-                .json(dbResult);
+                .json([dbResult,exsitUser]);
         }
         
     
@@ -197,6 +214,10 @@ router.post('/post',auth, async (req, res) => {
  */
 router.post('/update', auth, async (req, res) => {
     const {id, analysis, conclusion, verdict, reference} = req.body;
+    if (!analysis || !conclusion || !verdict || !reference )
+        return res
+            .status(400)
+            .json({ errorMessage: "Please enter all required fields." });
     const newResult=new Result({
         missionID : '',
         url: '',
@@ -514,5 +535,6 @@ router.delete('/deleteAll', async (req, res) => {
         res.status(500).send();
     }
 });
+
 
 export default router;

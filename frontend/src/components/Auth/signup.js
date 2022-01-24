@@ -24,11 +24,11 @@ export default function Register() {
 
     try {
       const factCheckerData = {username, name, email, password, confirmPassword, userType, category};
+      console.log(factCheckerData)
       await axios.post("http://localhost:3001/api/user/register", factCheckerData);
-      navigate('/login');
+      //navigate('/login');
     }catch (err) {
-        console.error(err);
-        setError(error.response.data.errorMessage);
+        setError(err.response.data.errorMessage);
     }
   }
 
@@ -90,6 +90,7 @@ export default function Register() {
               ConfirmPassword<br />
               <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
             </div>
+
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
 
             <form onSubmit={register}>
