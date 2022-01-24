@@ -32,17 +32,6 @@
     justify-content: center;
 }
 
-.singleArticleContainer{
-    border: 1px solid black;
-    width: 70%;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-.singleImg{
-    width: 700px;
-    border: 1px solid black;
-    margin-left: 17.5%;
-}
 .ArtiContainer{
     display: block;
     justify-content: center;
@@ -93,4 +82,11 @@
 .category li a:hover {
     color: rgba(192, 142, 49, 1);
     font-weight: bold;
+}
+
+.artiImg{
+    width: 750px;
+    border: 1px solid grey;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }

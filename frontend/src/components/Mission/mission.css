@@ -49,3 +49,27 @@
 .missionRadioBtn{
     margin-bottom: 30px;
 }
+
+.missionContent{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    padding:30px 50px;
+    border: 1px solid grey ;
+}
+
+.missionContent p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.missionDetailContainers{
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.returnBtn{
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
