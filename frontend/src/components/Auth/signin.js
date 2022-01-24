@@ -22,15 +22,19 @@ function Login() {
       const user = {username,password}
       
       const userDetail = await axios.post("http://localhost:3001/api/user/login", user);
-     // console.log(userDetail.data.username);
+      console.log(userDetail);
       const cookies= new Cookies();
       cookies.set('username',userDetail.data.username, {path: '/'});
-      Navigate("/profile")
+      cookies.set('email',userDetail.data.email, {path: '/'});
+      cookies.set('userType',userDetail.data.userType, {path: '/'});
+      //const email1=cookies.get('email');
+      //console.log(email1);
+       Navigate("/profile")
 
       const user_temp = {username,password}
       const res = await axios.post("http://localhost:3001/api/user/login", user_temp);
-      setUser(res.data);
-      console.log(user);
+      //setUser(res.data);
+      //console.log(user);
       //setUser(response.data)
 
       //Navigate("/articles")
