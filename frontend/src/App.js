@@ -21,6 +21,8 @@ import VerifiedArticle from './components/Results/verifiedArticle'
 export default function App() {
   const {loggedIn} = useState(AppContext);
 
+  
+
   return (
 
       <Routes>

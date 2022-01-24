@@ -35,7 +35,7 @@ export default function Missions() {
 
     const handleRequest = () => {
         if (loggedIn) {
-            navigate('/editor')
+            navigate('/NewMission')
         }else {
             alert('You are not logged in')
             navigate('/signin')

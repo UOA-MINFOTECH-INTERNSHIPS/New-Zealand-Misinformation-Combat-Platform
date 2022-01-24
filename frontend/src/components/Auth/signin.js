@@ -13,7 +13,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const Navigate = useNavigate();
-
   async function handleLogin (e) {
     e.preventDefault();
 
@@ -24,6 +23,7 @@ function Login() {
       cookies.set('username',userDetail.data.username, {path: '/'});
       cookies.set('email',userDetail.data.email, {path: '/'});
       cookies.set('userType',userDetail.data.userType, {path: '/'});
+      setLoggedIn(true);
       setUser(userDetail.data);
       Navigate('/')
 
