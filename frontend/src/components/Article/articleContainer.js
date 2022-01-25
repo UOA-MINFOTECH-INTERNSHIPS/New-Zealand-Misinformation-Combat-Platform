@@ -60,7 +60,7 @@ export default function ArticleContainer (){
         <div>
             <div className='category'>
                     <ul>
-                        <li><a class="active" href="verified/all">All</a></li>
+                        <li><a className="active" href="verified/all">All</a></li>
                         <li> <a  href="verified/health" >Health</a></li>
                         <li><a  href="verified/economic" >Economic</a></li>
                         <li><a  href="verified/environment" >Environment</a></li>

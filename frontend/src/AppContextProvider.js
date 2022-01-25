@@ -14,7 +14,7 @@ function AppContextProvider(props) {
     }
 
     useEffect (()=>{
-        getLoggedIn();
+        getLoggedIn(); 
     }, []);
     
     return (

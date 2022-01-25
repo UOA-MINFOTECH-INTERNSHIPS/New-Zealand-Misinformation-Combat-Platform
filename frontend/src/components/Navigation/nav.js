@@ -5,13 +5,13 @@ import AppContext from '../../AppContextProvider';
 import {Logout} from '@mui/icons-material';
 import {Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Button} from '@mui/material';
 import axios from 'axios';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 
 
 
 export default function Nav() {
-    const {loggedIn, setLoggedIn, user, setUser} = useContext(AppContext);
+    const {loggedIn, getLoggedIn, user, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     console.log(loggedIn);
@@ -28,7 +28,7 @@ export default function Nav() {
 
     async function logout ( ) {
         await axios.get("http://localhost:3001/api/user/logout");
-        setLoggedIn(false);
+        getLoggedIn();
         setUser({});
     }
 
@@ -60,17 +60,17 @@ export default function Nav() {
                             height: 10, bgcolor: 'background.paper', transform: 'translateY(-50%) rotate(45deg)', zIndex: 0,
                         }, }, }} transformOrigin={{ horizontal: 'right', vertical: 'top' }} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                    <MenuItem > <a className='menu' href='/profile'>Profile </a></MenuItem>
+                    <MenuItem > <Link className='menu' to='/profile'>Profile </Link></MenuItem>
                     <MenuItem sx={{color:"1A2634"}}> My Requests</MenuItem>
                     {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}> My Verified List</MenuItem>)}
                     <Divider />
                     <MenuItem onClick={logout}>
-                        <a className='menu' href='/'>
+                        <Link className='menu' to='/'>
                             <ListItemIcon>
                                 <Logout fontSize="small" />
                             </ListItemIcon>
                             Logout
-                        </a>
+                        </Link>
                     </MenuItem>
                 </Menu>
             </div>
