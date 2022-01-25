@@ -8,7 +8,7 @@ import AppContext from '../../AppContextProvider';
 
 
 function Login() {
-  const {loggedIn, setLoggedIn, user, setUser} = useContext(AppContext);
+  const {loggedIn, getLoggedIn,  user, setUser} = useContext(AppContext);
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -23,8 +23,8 @@ function Login() {
       cookies.set('username',userDetail.data.username, {path: '/'});
       cookies.set('email',userDetail.data.email, {path: '/'});
       cookies.set('userType',userDetail.data.userType, {path: '/'});
-      setLoggedIn(true);
       setUser(userDetail.data);
+      getLoggedIn();
       Navigate('/')
 
 

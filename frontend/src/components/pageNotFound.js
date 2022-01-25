@@ -1,9 +1,8 @@
 
-export default function PageNotFound() {
+export default function PageNotFound({ message }) {
     return (
         <div>
-            <h1> Ops.... 404 this page is not found <br/> Or you are not authorized to access</h1>
-            
+            <h1> {message} </h1>
         </div>
     )
 }
