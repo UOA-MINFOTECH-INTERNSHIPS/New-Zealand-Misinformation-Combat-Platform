@@ -15,7 +15,6 @@ import Article from './components/Article/article';
 import Results from './components/Results/resultsContainer';
 import Mission from './components/Mission/missionsContainer'
 import Home from './components/Home/home'
-import UserContext, { UserContextProvider } from './UserContextProvider';
 import Recommendation from './components/Article/RecommendationPage';
 
 
@@ -25,7 +24,6 @@ export default function App() {
   const {user, setUser} = useState(UserContext);
 
   return (
-    <UserContextProvider value = {{user, setUser}}>
 
   <Routes>
 
@@ -62,7 +60,6 @@ export default function App() {
 
       <Route path= "/*" element={<PageNotFound/> } />
       </Routes>
-    </UserContextProvider>
 
   );
 

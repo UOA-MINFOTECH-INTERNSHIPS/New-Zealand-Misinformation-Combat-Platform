@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import './home.css'
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -36,7 +37,7 @@ export default function Home() {
             <div className='container'>
                 <div className='newest'>
                     <h1>What's new</h1><br/>
-                    { newest.map((val)=> (
+                    { newest.map((val, key)=> (
                         <div className='card'>
                             <div >
                                 <p>
@@ -53,8 +54,8 @@ export default function Home() {
                             </div>
 
                             <div >
-                                <Button className='action' ><a href= {`/request`}>Vote</a></Button>
-                                <Button className='action'> <a href= {`/result/${val._id}`}>Read more</a></Button>
+                                <Button className='action' ><Link to= {`/request`}>Vote</Link></Button>
+                                <Button className='action'> <Link to= {`/result/${val._id}`}>Read more</Link></Button>
                             </div>
                         </div>
                     ) ) } 
@@ -65,7 +66,7 @@ export default function Home() {
                 <div className='popular'>
                     <h1>Popular fact<WhatshotIcon sx={{color:'red', fontSize:'30px'}}/></h1> <br/> 
                     {
-                        mission.map ((val) => (
+                        mission.map ((val, key) => (
                             <div className='popularItem'>{val.question}</div>
                         ))
                     }
