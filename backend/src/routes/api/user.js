@@ -1,7 +1,3 @@
-/**
- * This is a simple RESTful API for dealing with pokemon.
- */
-
 import express from 'express';
 import {
     createUser,
