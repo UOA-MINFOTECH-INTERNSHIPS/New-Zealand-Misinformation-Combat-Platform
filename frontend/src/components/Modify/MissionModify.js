@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
-import { ConstructionRounded } from '@mui/icons-material';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -22,7 +22,7 @@ function EditMission() {
   const [keywords, setKeywords] = useState('');
   const [listOfMission, setListOfMission] = useState([]);
   const  findid  = useParams();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const Navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -86,9 +86,9 @@ function EditMission() {
   
     }
     return (
-  
-      <div className='container' >
-      <form  onSubmit={submitArticle}  >
+      <div className='background' >
+       <div className='inputContainer' >
+        <form  onSubmit={submitArticle}  >
           <div>
                   <label>URL</label>
                   <input 
@@ -178,10 +178,11 @@ function EditMission() {
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 
-                  <button type="submit" className='sub_button' onClick={() => navigate(-1)}>
+                  <Button type="submit" className='sub_button' onClick={() => Navigate(-1)}>
                     Go back
-                  </button> 
-      </form>
+                  </Button> 
+         </form>
+        </div>
       </div>
     );
   }

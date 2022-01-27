@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
 
 
 export default function Mission_list (){
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
     const  findid  = useParams();
     const [listOfArticle, setListOfArticle]=useState([]);
     const [page, setPage] = useState(1);
@@ -43,11 +43,9 @@ export default function Mission_list (){
        .then((response) =>{
         setListOfArticle(response.data.results);
         //console.log(response); 
-        const findid=response.data.results._id;
-        console.log(findid);
-        
         const cookies = new Cookies();
         console.log(cookies.get('username')); 
+        Navigate("/MissionDisplay")
         })
        .catch(()=> {console.log("ERR") } )
    }, 
@@ -60,12 +58,12 @@ export default function Mission_list (){
         console.log(page); 
     };
    
-    const handleClickDelete = (event, id) => {
-        axios.delete("http://localhost:3001/api/mission/delete",id,
+    const handleClickDelete = (articleId) => {
+        const id = {'id':articleId}
+        axios.delete("http://localhost:3001/api/mission/delete",{data: id},
         { withCredentials: true })
-        .then(() => this.setState({ status: 'Delete successful' }));
+        .then(window.location.reload());
         console.log(id); 
-        
        
     };
     
@@ -109,8 +107,8 @@ export default function Mission_list (){
                  </CardContent>
                  
                  <CardActions>
-                    <Button size="small"  onClick={handleClickDelete} > 
-                         Delect  
+                    <Button size="small"  onClick={()=>handleClickDelete(article._id)} > 
+                         Delete  
                     </Button>
                     <Link to = {'/MissionDisplay/' + article._id}  > <Button size="small" > Modify  </Button></Link>
                  </CardActions>
@@ -120,7 +118,7 @@ export default function Mission_list (){
                  
             ) ) } 
            <div >
-                   {/*<Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" />*/} 
+                   <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" />
             </div> 
         </div>
     )

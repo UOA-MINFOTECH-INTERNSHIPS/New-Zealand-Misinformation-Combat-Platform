@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link ,useParams} from 'react-router-dom';
 import './NewMission.css';
-import { ConstructionRounded } from '@mui/icons-material';
+import { Cookies } from 'react-cookie';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -25,7 +25,6 @@ function EditArticle() {
   const handleChange = (event) => {
     setVerdict(event.target.value);
   };
-    
     useEffect(()=>{
        
       // const missionid={"findid":findid};
@@ -36,10 +35,7 @@ function EditArticle() {
        //  const update = prompt("Enter val: ");
         console.log(findid);
         console.log(response);
-        
-        
-        
-        
+            
     })
     .catch(()=> {
         console.log("ERR")
@@ -52,10 +48,13 @@ function EditArticle() {
   
     async function submitResult(e) {
       e.preventDefault();
-  
+      
       try {
         var missionID=findid._id;
+        const cookies = new Cookies();
+        const username=cookies.get('username');
         const createText = {
+          username,
           missionID,
           analysis,
           conclusion,
@@ -67,22 +66,15 @@ function EditArticle() {
   
         await axios.post(
          "http://localhost:3001/api/result/post",
-          createText, { withCredentials: true }
+          createText, 
         )
         .then(()=>{
                 alert("It works");
-        }
-  
-        )
-  
+        })
       }catch (err) {
             console.error(err);
       }
-  
     }
-  
-  
-  
     return (
   
       <div className='container' >
