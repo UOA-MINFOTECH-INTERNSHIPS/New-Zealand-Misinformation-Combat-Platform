@@ -17,7 +17,6 @@ export default function ResultsContainer() {
         axios.post("http://localhost:3001/api/result/resultlist", pageNum)
        .then((response) =>{
             setListofResults(response.data.results);
-            console.log(listOfResult)
         })
        .catch(()=> {console.log("ERR") } )
    }, []);
@@ -28,7 +27,6 @@ export default function ResultsContainer() {
             return value.title.toLowerCase().includes(searchWord.toLowerCase());
         });
         setFilteredArticle(newFilter);
-        console.log(filteredResult)
    }
     return (
         <div className='missions'>

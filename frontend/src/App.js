@@ -19,12 +19,13 @@ import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
 
 
+
 export default function App() {
   const {loggedIn} = useContext(AppContext);
-  console.log(loggedIn);
 
   return (
       <Routes>
+
       <Route path='/' element ={<Home/>}/>
       <Route path='/articles' element ={<ArticlesPage/>}/>
       <Route path='/articles/:id' element ={<Article/>}/>
@@ -52,3 +53,4 @@ export default function App() {
       </Routes>
   )
 }
+

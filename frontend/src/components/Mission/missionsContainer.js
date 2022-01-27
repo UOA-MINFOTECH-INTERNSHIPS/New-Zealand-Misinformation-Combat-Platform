@@ -4,14 +4,12 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import React, {useState, useEffect, useContext } from 'react';
 import Mission from './mission'
-import Typography from '@mui/material/Typography';
 import {useNavigate } from 'react-router-dom';
 import AppContext from '../../AppContextProvider';
 import './mission.css'
 
 export default function Missions() {
-    const {user, loggedIn} = useContext(AppContext);
-    console.log(loggedIn);
+    const {loggedIn} = useContext(AppContext);
     const [missionList, setMissionList] = useState([]);
     const [filteredResult, setFilteredResult] = useState ([]);
     const [page, setPage] = useState(2);
@@ -42,6 +40,8 @@ export default function Missions() {
             navigate('/signin')
         }
     }
+
+    
 
     return (
         <div className='missionContainer'>

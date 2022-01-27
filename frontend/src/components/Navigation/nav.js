@@ -14,7 +14,6 @@ export default function Nav() {
     const {loggedIn, getLoggedIn, user, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    console.log(loggedIn);
     const cookies = new Cookies();
     const userType = cookies.get('userType');
     const username = cookies.get('username');
