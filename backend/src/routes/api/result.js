@@ -128,7 +128,8 @@ router.post('/post',auth, async (req, res) => {
                 analysis : analysis,
                 conclusion : conclusion,
                 verdict : verdict,
-                reference : reference
+                reference : reference,
+                imagesArray : []
             };
             
             const dbResult = await createResult(newResult);

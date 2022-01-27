@@ -23,6 +23,7 @@ async function updateResult(id,newResult) {
     dbResult.conclusion = newResult.conclusion;
     dbResult.verdict = newResult.verdict;
     dbResult.reference = newResult.reference;
+    // dbResult.imagesArray = newResult.imagesArray;
 
     await dbResult.save();
     return dbResult;

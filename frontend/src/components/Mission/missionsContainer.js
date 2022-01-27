@@ -11,6 +11,7 @@ import './mission.css'
 
 export default function Missions() {
     const {user, loggedIn} = useContext(AppContext);
+    console.log(loggedIn);
     const [missionList, setMissionList] = useState([]);
     const [filteredResult, setFilteredResult] = useState ([]);
     const [page, setPage] = useState(2);
