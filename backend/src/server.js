@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
+import { Result } from './pokemon-data/resultschema';
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
@@ -118,8 +119,8 @@ app.use("/file", upload);
  *       - image/jpg
  *       - image/jpeg
  *     parameters:
- *       - name: filename
- *         description: give the filename to find image
+ *       - name: imageID
+ *         description: give the image's ID to find image
  *         in: formData
  *         required: true
  *         type: string       
@@ -133,12 +134,16 @@ app.use("/file", upload);
  *               format: binary
  */
 app.post("/file/find", async (req, res) => {
-  const {filename}=req.body;
+  const {imageID}=req.body;
+  const ID=mongoose.Types.ObjectId(imageID);
   try {
-      const file = await gfs.files.findOne({ filename: filename });
-      const readStream = gridfsBucket.openDownloadStreamByName(file.filename);
+        const file = await gfs.files.findOne({_id : ID });
+        const readStream = gridfsBucket.openDownloadStreamByName(file.filename);
+        readStream.pipe(res);
+      
       res.setHeader('Content-Type', 'image/png');
-      readStream.pipe(res);
+      
+      
   } catch (error) {
       res.send("not found");
   }
@@ -166,8 +171,8 @@ app.post("/file/find", async (req, res) => {
  *       - image/jpg
  *       - image/jpeg
  *     parameters:
- *       - name: filename
- *         description: give the filename to find image
+ *       - name: imageID
+ *         description: give the image's id to delete image
  *         in: formData
  *         required: true
  *         type: string       
@@ -181,9 +186,10 @@ app.post("/file/find", async (req, res) => {
  *               format: binary
  */
 app.delete("/file/delete", async (req, res) => {
-  const {filename}=req.body;
+  const {imageID}=req.body;
+  const ID=mongoose.Types.ObjectId(imageID);
   try {
-      await gfs.files.deleteOne({ filename: filename });
+      await gfs.files.deleteOne({ _id: ID });
       res.send("success");
   } catch (error) {
       console.log(error);
