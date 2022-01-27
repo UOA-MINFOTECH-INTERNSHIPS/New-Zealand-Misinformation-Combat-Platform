@@ -1,20 +1,22 @@
 import React ,{useState,useEffect}from "react";
+import {NavLink, Link} from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './Profile.css';
-import { Tooltip , IconButton} from "@mui/material";
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+
+
 export default function Profile (){
     const [listOfMission, setListOfMission]=useState([]);
-    const Navigate = useNavigate();
+   // const Navigate = useNavigate();
     const cookies = new Cookies();
-    const userDetail=cookies.get('username');
+    const username=cookies.get('username');
     const email=cookies.get('email');
     const userType = cookies.get('userType');
     
-    
+    console.log(username);
    //Navigate("/NewMission")
 
    /*useEffect(()=>{
@@ -32,29 +34,22 @@ export default function Profile (){
 
     return (
         <div>
-                <div className='UserContainer'>
-                    <div>
-                     </div>
-                     <div>
-                           <h1>UserName: {userDetail}</h1>
-                           <h1>Email: {email}</h1>
-                           <h1>userType: {userType}</h1>
-
+                <div>
                            
-                    </div>
-                    <div>
-                        {listOfMission.map((mission)=>(
-                            <p>{mission}</p>
-                        ))}
-                    </div>
+                     <div className='Userprofile' >                
+                           <h1>UserName: {username}</h1>
+                           <h1>Email: {email}</h1>
+                           <h1>UserType: {userType}</h1>
+                           <li ><NavLink to="/profile">Home</NavLink></li>
+                           <li ><NavLink to="/NewMission">News articles</NavLink></li>
+                           
+                          </div>
                 </div>
                 <div>
                     
-                    <Tooltip title="Add Article">
-                        <IconButton size="small" sx={{ ml: 1 }}>
-                             <AddCircleIcon style={{width:"60px", height:"60px",borderRadius:"180px", margin:"50px"}} ></AddCircleIcon>
-                         </IconButton>
-                     </Tooltip>
+                    
+                        <NavLink to="/NewMission"> <AddCircleIcon  sx={{ margin:10, width: 70, height: 70, }} /> </NavLink>
+                        
                 </div>
        
        </div>

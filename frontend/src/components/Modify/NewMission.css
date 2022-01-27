@@ -17,7 +17,7 @@
     grid-template-rows: minmax(min-content, max-content);    
     gap:10px;
     box-sizing: border-box;
-    border-radius:px;
+    border-radius:4px;
     border:#c9b8b8;
     margin-left: 4%;
     margin-right: 4%;
@@ -25,9 +25,7 @@
     box-shadow:  0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) ;
 }
 
-.inputColume{
 
-}
 
 .sub_button{
     background-color: #1A2634;
