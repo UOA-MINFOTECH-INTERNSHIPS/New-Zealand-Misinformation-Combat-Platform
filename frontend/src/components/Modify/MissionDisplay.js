@@ -11,6 +11,8 @@ import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
 import { useNavigate,Link } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
+import {useParams} from 'react-router-dom';
+//import ReactDeleteRow from 'react-delete-row';
 
 
 const useStyles = makeStyles(() => ({
@@ -30,41 +32,47 @@ const useStyles = makeStyles(() => ({
 
 
 export default function Mission_list (){
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
+    const  findid  = useParams();
     const [listOfArticle, setListOfArticle]=useState([]);
-  //  const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
-    const classes = useStyles();
-    //const [user, setUser] = useState("Linda");
-    const user = {
-        username: "linda1",
-        name: "Linda",
-        email: "123@bla.com"
-    }
 
     useEffect(()=> {
         const pageNum ={page};
-      //  const userName={user}
         axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
-            setListOfArticle(response.data.results);
-           
-            const cookies = new Cookies();
-            console.log(cookies.get('username')); 
-
+        setListOfArticle(response.data.results);
+        //console.log(response); 
+        const cookies = new Cookies();
+        console.log(cookies.get('username')); 
+        Navigate("/MissionDisplay")
         })
        .catch(()=> {console.log("ERR") } )
-   }, [page]);
+   }, 
+   //DELETE request using axios with error handling
+   
+   [page]);
       
     const handleChange = (event, value) => {
         setPage(value);
         console.log(page); 
     };
+   
+    const handleClickDelete = (articleId) => {
+        const id = {'id':articleId}
+        axios.delete("http://localhost:3001/api/mission/delete",{data: id},
+        { withCredentials: true })
+        .then(window.location.reload());
+        console.log(id); 
+       
+    };
+    
 
     return (
         <div>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
             {listOfArticle.map((article)=> (
+               
                  <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
                  <CardMedia
                    component="img"
@@ -99,16 +107,18 @@ export default function Mission_list (){
                  </CardContent>
                  
                  <CardActions>
-                    <Button size="small"  > 
-                         Delect  
+                    <Button size="small"  onClick={()=>handleClickDelete(article._id)} > 
+                         Delete  
                     </Button>
-                    <Link to = {'/MissionDisplay/' + article._id}  > <Button size="small" >Modify  </Button></Link>
+                    <Link to = {'/MissionDisplay/' + article._id}  > <Button size="small" > Modify  </Button></Link>
                  </CardActions>
+                
                  </Card>
+                
                  
             ) ) } 
-           <div className={classes.container}>
-                    <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
+           <div >
+                   <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" />
             </div> 
         </div>
     )

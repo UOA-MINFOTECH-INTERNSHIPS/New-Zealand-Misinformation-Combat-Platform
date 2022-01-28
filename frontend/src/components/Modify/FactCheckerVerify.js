@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
 
 
@@ -67,7 +68,7 @@ function EditArticle() {
   
         await axios.post(
          "http://localhost:3001/api/result/post",
-          createText, { withCredentials: true }
+           { withCredentials: true },createText
         )
         .then(()=>{
                 alert("It works");
@@ -86,7 +87,10 @@ function EditArticle() {
     return (
   
       <div className='container' >
-      <form  onSubmit={submitResult}  >
+       <form  onSubmit={submitResult}  >
+          <div >
+           <LiveHelpIcon style={{width:"60px", height:"60px", margin:"5px"}} />
+          </div>
           <div>
           <label>Title:</label>
           <label>{listOfResult.title}</label>
