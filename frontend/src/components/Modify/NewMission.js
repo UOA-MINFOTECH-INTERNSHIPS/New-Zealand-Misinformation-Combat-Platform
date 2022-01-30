@@ -24,6 +24,7 @@ function Editor() {
   const [question,setQuestion] = useState('');
   const [keywords, setKeywords] = useState('');
   const Navigate = useNavigate();
+  const [error, setError] = useState(null);
   //const [status, setStatus] = useState('');
   //const [support, setSupport] = useState('');
  
@@ -39,8 +40,8 @@ function Editor() {
           const body = new FormData();
           loader.file.then((file) => {
             body.append("files", file);
-            // axios.post("localhost:3000/api/image/upload", file)
-            // axios.get("localhost:3000/api/image/get/12121773.jpg")
+            // axios.post("localhost:3001/api/image/upload", file)
+            // axios.get("localhost:3001/api/image/get/12121773.jpg")
           });
         });
       }
@@ -81,7 +82,7 @@ function Editor() {
               alert("It works");
       })
     }catch (err) {
-          console.error(err);
+      setError(err.response.data.errorMessage);
     }
   }
 
@@ -207,6 +208,7 @@ function Editor() {
            </Select>
           </FormControl>
          </Box>
+         {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
                 <button type="submit" className='sub_button'>
                   Submit
                 </button> 

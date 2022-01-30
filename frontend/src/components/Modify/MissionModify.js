@@ -21,6 +21,7 @@ function EditMission() {
   const [question,setQuestion] = useState('');
   const [keywords, setKeywords] = useState('');
   const [listOfMission, setListOfMission] = useState([]);
+  const [error, setError] = useState(null);
   const  findid  = useParams();
   //const navigate = useNavigate();
   const Navigate = useNavigate();
@@ -76,12 +77,9 @@ function EditMission() {
         )
         .then(()=>{
           Navigate("/MissionDisplay")
-        }
-  
-        )
-  
+             })
       }catch (err) {
-            console.error(err);
+        setError(err.response.data.errorMessage);
       }
   
     }
@@ -175,6 +173,7 @@ function EditMission() {
              </Select>
             </FormControl>
            </Box>
+           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 

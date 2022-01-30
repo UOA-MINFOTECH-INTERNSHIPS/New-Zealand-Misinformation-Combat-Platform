@@ -1,4 +1,10 @@
-
+.background{
+    background-image: url('../Image/bkimg2.jpg');
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 100%;
+    padding-top: 3%;
+  }
 
 .Container{
     display:flex;
