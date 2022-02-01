@@ -3,6 +3,7 @@ import React,{useState} from 'react';
 import {useParams,useNavigate} from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 import axios from "axios";
 import './NewMission.css';
 import { Link } from 'react-router-dom';
@@ -158,8 +159,9 @@ function Editor() {
                          console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                                const content = editor.getData()
-                                  setBackgroundInfo(content)
+                const regex = /(<([^>]+)>)/ig
+                const content = editor.getData().replace(regex, '')
+                setBackgroundInfo(content)
                          }}
                          required
             />
@@ -173,7 +175,10 @@ function Editor() {
                   console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                  const content = editor.getData()
+                const regex = /(<([^>]+)>)/ig
+                const content = editor.getData().replace(regex, '')
+                console.log(content);
+                  
                   setQuestion(content)
                          }}
                        

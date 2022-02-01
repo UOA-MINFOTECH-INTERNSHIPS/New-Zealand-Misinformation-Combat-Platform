@@ -1,14 +1,14 @@
 import React ,{useState,useEffect}from "react";
 import {NavLink, Link} from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import './Profile.css';
+import './FactCheckerProfile.css';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 
 
-export default function Profile (){
+export default function FactCheckerProfile (){
     const [listOfMission, setListOfMission]=useState([]);
    // const Navigate = useNavigate();
     const cookies = new Cookies();
@@ -17,18 +17,7 @@ export default function Profile (){
     const userType = cookies.get('userType');
     
     console.log(username);
-   //Navigate("/NewMission")
-
-   /*useEffect(()=>{
-        console.log(userDetail);
-        const username = userDetail;
-        axios.post("http://localhost:3001/api/user/addToPostList",username )
-        .then((response) => {
-            setListOfMission(response.data.result)
-            console.log(response)
-        })
-        .catch(() => {console.log("ERR")})
-    },[]); */
+  
 
 
 

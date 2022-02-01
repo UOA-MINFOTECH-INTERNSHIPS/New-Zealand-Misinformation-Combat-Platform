@@ -76,7 +76,7 @@ function EditMission() {
           
         )
         .then(()=>{
-          Navigate("/MissionDisplay")
+          Navigate("/MyMissions")
              })
       }catch (err) {
         setError(err.response.data.errorMessage);
@@ -128,8 +128,9 @@ function EditMission() {
                            console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                                  const content = editor.getData()
-                                    setBackgroundInfo(content)
+                  const regex = /(<([^>]+)>)/ig
+                  const content = editor.getData().replace(regex, '')
+                  setBackgroundInfo(content)
                            }}
               />
          </div>
@@ -142,8 +143,9 @@ function EditMission() {
                     console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                    const content = editor.getData()
-                    setQuestion(content)
+                  const regex = /(<([^>]+)>)/ig
+                  const content = editor.getData().replace(regex, '')
+                  setQuestion(content)
                            }}
               />
          </div>

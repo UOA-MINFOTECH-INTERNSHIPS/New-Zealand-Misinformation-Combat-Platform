@@ -16,10 +16,6 @@ export default function Profile (){
     const username=cookies.get('username');
     const email=cookies.get('email');
     const userType = cookies.get('userType');
-    
-   
-
-
 
     return (
         <div className='ProfileCard'>
@@ -34,7 +30,7 @@ export default function Profile (){
                 <h2>Email: {email}</h2>
                 <h4>UserType: {userType}</h4>
                 <button className='button'>
-                  <NavLink className='navlink' to='/MissionDisplay'> Visit My Requests</NavLink>
+                  <NavLink className='navlink' to='/MyMissions'> Visit My Requests</NavLink>
                 </button>
                 <button className='button'>
                   <NavLink className='navlink' to='/NewMission'>  Create a New Request</NavLink>
