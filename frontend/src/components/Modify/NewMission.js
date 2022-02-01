@@ -3,6 +3,7 @@ import React,{useState} from 'react';
 import {useParams,useNavigate} from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 import axios from "axios";
 import './NewMission.css';
 import { Link } from 'react-router-dom';
@@ -24,6 +25,7 @@ function Editor() {
   const [question,setQuestion] = useState('');
   const [keywords, setKeywords] = useState('');
   const Navigate = useNavigate();
+  const [error, setError] = useState(null);
   //const [status, setStatus] = useState('');
   //const [support, setSupport] = useState('');
  
@@ -39,8 +41,8 @@ function Editor() {
           const body = new FormData();
           loader.file.then((file) => {
             body.append("files", file);
-            // axios.post("localhost:3000/api/image/upload", file)
-            // axios.get("localhost:3000/api/image/get/12121773.jpg")
+            // axios.post("localhost:3001/api/image/upload", file)
+            // axios.get("localhost:3001/api/image/get/12121773.jpg")
           });
         });
       }
@@ -81,7 +83,7 @@ function Editor() {
               alert("It works");
       })
     }catch (err) {
-          console.error(err);
+      setError(err.response.data.errorMessage);
     }
   }
 
@@ -157,8 +159,9 @@ function Editor() {
                          console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                                const content = editor.getData()
-                                  setBackgroundInfo(content)
+                const regex = /(<([^>]+)>)/ig
+                const content = editor.getData().replace(regex, '')
+                setBackgroundInfo(content)
                          }}
                          required
             />
@@ -172,7 +175,10 @@ function Editor() {
                   console.log( 'Editor is ready to use!', editor );
                        } }
                onChange={(event, editor) =>{
-                  const content = editor.getData()
+                const regex = /(<([^>]+)>)/ig
+                const content = editor.getData().replace(regex, '')
+                console.log(content);
+                  
                   setQuestion(content)
                          }}
                        
@@ -207,6 +213,7 @@ function Editor() {
            </Select>
           </FormControl>
          </Box>
+         {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
                 <button type="submit" className='sub_button'>
                   Submit
                 </button> 
