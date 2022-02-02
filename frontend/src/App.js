@@ -20,6 +20,8 @@ import Missions from './components/Mission/missionsContainer';
 import Mission from './components/Mission/missionDetail';
 import Home from './components/Home/home';
 import VerifiedArticle from './components/Results/verifiedArticle'
+import MyResults from './components/Profile_FactChecker/MyResults';
+import EditResults from './components/Modify/ResultsModify';
 
 export default function App() {
   const {loggedIn} = useState(AppContext);
@@ -43,9 +45,10 @@ export default function App() {
      {/* <Route path='/MissionDisplay' element ={<Mission_list/>}/>    用户创建的所有mission */}
       <Route path='/MyMissions' element ={<MyMissions/>}/> 
       <Route path='/MyMissions/:_id' element ={<EditMission/>}/>   {/* 编辑某用户创建的某个mission */}
-      {/* <Route path='/MissionCheck' element ={<MissionCheck/>}/>    用户创建的所有mission */}
+      <Route path='/MissionCheck' element ={<MissionCheck/>}/>  {/*用户创建的所有mission */}
       <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}
-
+      <Route path='/MyResults' element ={<MyResults/>}/> 
+      <Route path='/ResultsModify/:_id' element ={<EditResults />}/>
 
       {loggedIn ? (
       <>

@@ -25,21 +25,21 @@ export default function FactCheckerProfile (){
         <div>
                 <div>
                            
-                     <div className='Userprofile' >                
-                           <h1>UserName: {username}</h1>
-                           <h1>Email: {email}</h1>
-                           <h1>UserType: {userType}</h1>
-                           <li ><NavLink to="/profile">Home</NavLink></li>
-                           <li ><NavLink to="/NewMission">News articles</NavLink></li>
-                           
+                     <div className='ProfileContainer' >                
+                           <h1>Welcome come back!  {username} . Lets start to verify </h1>
+                           <br/>
+                           <button className='button'>
+                              <NavLink className='navlink' to='/MyResults'> Visit My Results</NavLink>
+                           </button>
                           </div>
-                </div>
-                <div>
+                          <div>
                     
                     
-                        <NavLink to="/NewMission"> <AddCircleIcon  sx={{ margin:10, width: 70, height: 70, }} /> </NavLink>
+                        
                         
                 </div>
+                </div>
+                
        
        </div>
     );
