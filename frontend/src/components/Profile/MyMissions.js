@@ -57,13 +57,15 @@ export default function MyMissions (){
         picture:"https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
     }
 
+
+
 {/*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>*/} 
     return (
         <div  className='background'>
              {listOfArticle.map((article)=> (
              <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
                      
-                     {article.image != null ?  <CardMedia
+                     {/*article.image != null ?  <CardMedia
                         component="img"
                         alt="no picture"
                         height="110"
@@ -75,7 +77,7 @@ export default function MyMissions (){
                         height="110"
                         image= {defaultPicture.picture}
                       />
-                     } 
+                     */} 
                      <CardContent>
                          <Typography gutterBottom variant="h6" component="div">
                              {article.title}
@@ -109,10 +111,7 @@ export default function MyMissions (){
                          </Button>
                          <Link to = {'/MyMissions/' + article._id}  > <Button size="small" > Modify  </Button></Link>
                       </CardActions>
-                     
-                      </Card>
-           
-        
+                      </Card> 
      ) ) } 
     </div>
     )
