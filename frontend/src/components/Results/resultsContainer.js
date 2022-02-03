@@ -31,37 +31,24 @@ export default function ResultsContainer() {
         console.log(filteredResult)
    }
     return (
-        <div className='resultContainer'>
-            <div className='category'>
-                <ul>
-                    <li><a class="active" href="verified/all">All</a></li>
-                    <li> <a  href="verified/health" >Health</a></li>
-                    <li><a  href="verified/economic" >Economic</a></li>
-                    <li><a  href="verified/environment" >Environment</a></li>
-                    <li><a href="verified/technology" >Technology</a></li>
-                    <li><a href="verified/lifestyle"  >Life Style</a></li>
-                    <li><a href="verified/international" >International</a></li>
-                </ul>
-            </div>
-
-            <div className='search'>
+        <div className='missions'>
+            <div className='mission'>
+            <p className='title'> Fact checked results </p>
+            
+            <div className='missionSearch'>
                 <input type='text' placeholder= "Search here ..." onChange={handleSearch} /> 
             </div>
 
-            <div className='radioBtn'>
+            <div className='missionRadioBtn'>
                 <RadioGroup row aria-label="sort" name="row-radio-buttons-group">
                     <FormControlLabel value="popular" control={<Radio />} label="Sort by popularity" />
                     <FormControlLabel value="time" control={<Radio />} label="Sort by time" />
                 </RadioGroup>
             </div>
 
-
-            <div>
-                { filteredResult.length != 0 ? (<Results data={filteredResult}/>) :(<Results data={listOfResult}/>)}
-            </div>
-                        
-
+            { filteredResult.length != 0 ? (<Results data={filteredResult}/>) :(<Results data={listOfResult}/>)}
             
+            </div>
         </div>
     )
 }

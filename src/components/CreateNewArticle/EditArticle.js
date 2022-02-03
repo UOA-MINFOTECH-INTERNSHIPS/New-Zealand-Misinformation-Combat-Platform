@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import { Link ,useParams} from 'react-router-dom';
 import './ArticleDisplay.css';
 import { ConstructionRounded } from '@mui/icons-material';

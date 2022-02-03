@@ -90,3 +90,11 @@ input[type=text] {
     position: absolute;
     bottom: 0;
 }
+
+.red{
+    color: red;
+}
+
+.orange{
+    color: orange;
+}

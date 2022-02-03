@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import './articleStyle.css';
 import axios from 'axios';
 import Card from '@mui/material/Card';
@@ -9,8 +9,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
 import { makeStyles } from '@mui/styles';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import AppContext from '../../AppContextProvider';
 
 
 
@@ -37,6 +38,8 @@ export default function ArticleContainer (){
     const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
     const classes = useStyles();
+    const {logged} = useContext(AppContext);
+
     
     
     useEffect(()=> {
@@ -57,7 +60,7 @@ export default function ArticleContainer (){
         <div>
             <div className='category'>
                     <ul>
-                        <li><a class="active" href="verified/all">All</a></li>
+                        <li><a className="active" href="verified/all">All</a></li>
                         <li> <a  href="verified/health" >Health</a></li>
                         <li><a  href="verified/economic" >Economic</a></li>
                         <li><a  href="verified/environment" >Environment</a></li>
@@ -66,6 +69,7 @@ export default function ArticleContainer (){
                         <li><a href="verified/international" >International</a></li>
                     </ul>
             </div>
+            
             <Grid container spacing={2}>
                 <Grid >
                     <div className='articlesContainer' >
@@ -102,7 +106,7 @@ export default function ArticleContainer (){
                                     <i className="material-icons" style={ {color:"red", marginRight:"5px"} } >favorite</i> 
                                     */} Verification Request  
                                 </Button>
-                                <Button size="small" ><NavLink to = {'/articles/' + article._id} >Read More </NavLink> </Button>
+                                <Link to = {'/articles/' + article._id} > <Button size="small" >Read More  </Button></Link>
                             </CardActions>
                         </Card>
                         ) ) } 

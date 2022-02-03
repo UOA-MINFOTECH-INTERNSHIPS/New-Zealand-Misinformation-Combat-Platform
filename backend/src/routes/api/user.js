@@ -1,7 +1,3 @@
-/**
- * This is a simple RESTful API for dealing with pokemon.
- */
-
 import express from 'express';
 import {
     createUser,
@@ -16,6 +12,8 @@ import axios from 'axios';
 import { User } from '../../pokemon-data/userschema';
 import { Article } from '../../pokemon-data/articleschema';
 import { retrieveArticle } from '../../pokemon-data/article-dao';
+import { Mission } from '../../pokemon-data/missionschema';
+import { Result } from '../../pokemon-data/resultschema';
 
 
 const bcrypt = require("bcryptjs");
@@ -488,9 +486,91 @@ router.post('/addToPostList',async (req, res) =>{
  *           type: object
  *           $ref: '#/definitions/user_finder'
  */
- router.post('/find', async (req, res) => {
+router.post('/find', async (req, res) => {
   const {username} = req.body;
   res.json(await User.findOne({username}));
+});
+
+/**
+ * @swagger
+ * definitions:
+ *   user_mission:
+ *     required:
+ *       - username
+ *     properties:
+ *       username:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/user/user_mission:
+ *   post:
+ *     description: find missions of a specific user by username
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give the username
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: missions found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/user_mission'
+ */
+router.post('/user_mission', async (req, res) => {
+  const {username} = req.body;
+  const exsitUser = await User.findOne({username});
+  const missions=[]
+  for (let i=0; i<exsitUser.arrayOfUserMission.length;i++){
+    missions.push(await Mission.findOne({_id:exsitUser.arrayOfUserMission[i]}));
+  }
+  res.json(missions);
+});
+
+/**
+ * @swagger
+ * definitions:
+ *   user_result:
+ *     required:
+ *       - username
+ *     properties:
+ *       username:
+ *         type: string
+ */
+/**
+ * @swagger
+ * /api/user/user_result:
+ *   post:
+ *     description: find results of a specific user by username
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give the username
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: results found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/user_mission'
+ */
+router.post('/user_result', async (req, res) => {
+  const {username} = req.body;
+  const exsitUser = await User.findOne({username});
+  const results=[]
+  for (let i=0; i<exsitUser.arrayOfChecked.length;i++){
+      results.push(await Result.findOne({_id:exsitUser.arrayOfChecked[i]}));
+  }
+  res.json(results);
 });
 
 export default router;

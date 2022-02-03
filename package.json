@@ -6,6 +6,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.3",
+    "@ckeditor/ckeditor5-upload": "^32.0.0",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.1.1",
@@ -28,6 +29,7 @@
     "react-bootstrap": "^2.1.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
+    "react-form-with-constraints": "^0.18.0",
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
