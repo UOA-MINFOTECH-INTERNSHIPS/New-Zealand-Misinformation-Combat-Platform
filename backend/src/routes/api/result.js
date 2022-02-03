@@ -214,7 +214,7 @@ router.post('/post',auth, async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/updater_result'
  */
-router.post('/update', auth, async (req, res) => {
+router.put('/update', auth, async (req, res) => {
     const {id, analysis, conclusion, verdict, reference} = req.body;
     if (!analysis || !conclusion || !verdict || !reference )
         return res

@@ -33,7 +33,7 @@ export default function Mission_list (){
         const cookies = new Cookies();
         console.log(cookies.get('username')); 
         console.log(response); 
-        //Navigate("/MissionDisplay")
+        //Navigate("/")
         })
        .catch(()=> {console.log("ERR") } )
    },  
@@ -85,8 +85,8 @@ export default function Mission_list (){
                     <Typography variant="body2" color="text.secondary">
                         {article.backgroundInfo}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {article.question}
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.question}}>
+                        
                     </Typography>
 
                     <br/>

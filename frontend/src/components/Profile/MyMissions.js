@@ -82,8 +82,8 @@ export default function MyMissions (){
                          <Typography gutterBottom variant="h6" component="div">
                              {article.title}
                          </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             {article.question}
+                         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.question}}>
+                             
                          </Typography>
      
                         {/*<Typography variant="body2" color="text.secondary">

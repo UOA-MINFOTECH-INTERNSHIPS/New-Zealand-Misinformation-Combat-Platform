@@ -64,15 +64,15 @@ export default function MissionCheck (){
                    image= {mission.Image}
                  />
                 <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h6" component="div"  >
                         {mission.title}
                     </Typography>
 
-                    <Typography variant="body2" color="text.secondary">
-                        {mission.backgroundInfo}
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: mission.backgroundInfo}}>
+                        
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {mission.question}
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: mission.questions}}>
+               
                     </Typography>
 
                     <br/>
