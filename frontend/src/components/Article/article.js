@@ -33,9 +33,16 @@ export default function Article() {
                     <div >
                         <h2>{article.title}</h2>
                         <p><strong>Author: </strong>&nbsp;{article.author} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                            <strong>Mission created:&nbsp;</strong> {article.Published_Date} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong>Recent update:&nbsp;</strong> {article.updatedAt}</p>
+                            <strong>Published Date:&nbsp;</strong> {article.Published_Date} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </p>
                         <img className='artiImg' src={article.urlToImage} />
+                        
+                        {article.content.map((content) => (
+                            <p>{content}</p>
+                        ))}
+                        <Button sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" size="small" href={'/NewMission/' + article._id} > 
+                            Verification Request  
+                        </Button>
 
                     </div>
 

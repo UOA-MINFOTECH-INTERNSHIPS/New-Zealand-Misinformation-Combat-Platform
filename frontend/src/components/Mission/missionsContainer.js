@@ -42,7 +42,6 @@ export default function Missions() {
     }
 
     
-
     return (
         <div className='missionContainer'>
             <div className='category'>

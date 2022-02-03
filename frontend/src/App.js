@@ -17,6 +17,7 @@ import Home from './components/Home/home';
 import VerifiedArticle from './components/Results/verifiedArticle'
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
+import Liked from './components/Results/userLiked'
 
 
 
@@ -40,8 +41,11 @@ export default function App() {
 
       <Route element={<PrivateRoute isLogged={loggedIn} />}>
         <Route path='/profile' element ={<Profile/>}/> 
+        <Route path = '/liked' element= {<Liked/>}/>
         <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}
-        <Route path='/NewMission' element ={<Editor/>}/>              {/*创建新的mission*/}
+        <Route path='/NewMission/' element ={<Editor/>}/>              {/*创建新的mission*/}
+
+
       </Route>
     
       <Route element={<RestrictedRoute isLogged={loggedIn} />}>

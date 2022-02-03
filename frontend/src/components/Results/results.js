@@ -8,6 +8,8 @@ import axios from 'axios';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AppContext from '../../AppContextProvider';
+import Button from '@mui/material/Button';
+
 
 
 export default function Mission({data}) {
@@ -53,11 +55,13 @@ export default function Mission({data}) {
                         { loggedIn &&  
                             <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i>
                         }
-                        
-                        <Link className='readmore' to= {`/result/${val._id}/read`}>Read more</Link> 
+                        <div className='votes'>
+                        <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
+                        </div>
                     </div>
                 </div>
             ) ) } 
+
         </div>
     )
 }

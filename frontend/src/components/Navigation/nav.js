@@ -60,6 +60,7 @@ export default function Nav() {
                         }, }, }} transformOrigin={{ horizontal: 'right', vertical: 'top' }} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem > <Link className='menu' to='/profile'>Profile </Link></MenuItem>
+                    <MenuItem sx={{color:"1A2634"}}> <Link className='menu' to='/liked'>Liked List</Link></MenuItem>
                     <MenuItem sx={{color:"1A2634"}}> My Requests</MenuItem>
                     {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}> My Verified List</MenuItem>)}
                     <Divider />
