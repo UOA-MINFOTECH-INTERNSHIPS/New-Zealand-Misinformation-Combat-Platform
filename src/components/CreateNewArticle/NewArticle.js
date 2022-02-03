@@ -1,7 +1,7 @@
 
 import React,{useState} from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import axios from "axios";
 import './NewArticle.css';
 import { Link } from 'react-router-dom';

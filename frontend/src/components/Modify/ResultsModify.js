@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import { Link ,useParams} from 'react-router-dom';
 import './NewMission.css';
 import { ConstructionRounded } from '@mui/icons-material';
@@ -27,14 +27,12 @@ function EditResults() {
   };
     
     useEffect(()=>{
-       
-      // const missionid={"findid":findid};
       const resultid={"id":findid._id};
        axios.post("http://localhost:3001/api/result/find",resultid)
        .then((response) =>{
         setListOfResult(response.data);
        //  const update = prompt("Enter val: ");
-        console.log(findid);
+        console.log(response.data);
       //  console.log(response);
         setAnalysis(response.data.analysis);
         setConclusion(response.data.conclusion);
@@ -46,9 +44,6 @@ function EditResults() {
     .catch(()=> {
         console.log("ERR")
     }) 
-  
-    
-
   },[]);
 
   

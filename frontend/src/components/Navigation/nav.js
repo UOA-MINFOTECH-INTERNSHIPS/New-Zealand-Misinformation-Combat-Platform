@@ -46,7 +46,7 @@ export default function Nav() {
             <div className='webstatus'>
                 <IconButton  onClick={handleClick} >
                     <Avatar sx={{width: 35, height: 35, }}> {username.charAt(0)} </Avatar>
-                    <Typography variant ="h6" color ='white' ml ='10px'> {username} </Typography>
+                    <Typography variant ="h6" color ='white' ml ='10px'> {username} </Typography> 
                 </IconButton>
 
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
