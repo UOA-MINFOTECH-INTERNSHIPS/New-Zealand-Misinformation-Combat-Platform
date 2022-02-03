@@ -26,7 +26,7 @@ export default function MissionDetail() {
         <div>
             
             <div className='returnBtn'>
-                <Link to='/mission'><Button variant="outlined"> Back </Button></Link>
+                <Link to='/result'><Button variant="outlined"> Back </Button></Link>
             </div>
 
             <div className='missionDetailContainers'>
