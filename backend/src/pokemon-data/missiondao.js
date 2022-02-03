@@ -50,8 +50,10 @@ async function voteMission(username,id) {
     if(existingUser.arrayOfVoted.includes(id))
         return 'you already voted this mission'
     if (dbMission){
-        dbMission.support += 1;
+        
         await existingUser.arrayOfVoted.push(id);
+        const users = await User.find({arrayOfVoted : id});
+        dbMission.support = users.length;
     }
     await dbMission.save();
     await existingUser.save();
@@ -68,8 +70,9 @@ async function unvoteMission(username,id) {
     if(!existingUser.arrayOfVoted.includes(id))
         return "you didn't vote this mission before"
     if (dbMission){
-        dbMission.support -= 1;
         await existingUser.arrayOfVoted.pull(id);
+        const users = await User.find({arrayOfVoted : id});
+        dbMission.support = users.length;
     }
     await dbMission.save();
     await existingUser.save();

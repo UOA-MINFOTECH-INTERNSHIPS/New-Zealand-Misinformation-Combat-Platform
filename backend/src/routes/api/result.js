@@ -129,6 +129,7 @@ router.post('/post',auth, async (req, res) => {
                 conclusion : conclusion,
                 verdict : verdict,
                 reference : reference,
+                likeNum : 0,
                 imagesArray : []
             };
             
@@ -271,8 +272,36 @@ router.post('/update', auth, async (req, res) => {
  */
 router.delete('/delete', auth, async (req, res) => {
     const {id} = req.body;
+    const exsitResult = await Result.findOne({id});
+
+    if(!exsitResult){
+        return res.status(400).json({
+            errorMessage: "Does not exsit this result id",
+        });
+    }
+    const exsitingUser = await User.findOne({arrayOfChecked : id});
+
+    if(!exsitingUser){
+        return res.status(400).json({
+            errorMessage: "Database error, Cannot find the fact checker of this result",
+        });
+    }
+    await exsitingUser.arrayOfChecked.pull(id);
+    await exsitingUser.save();
+
+    const deletedFrom=[];
+    const users = await User.find({arrayOfLiked : id});
+
+    for(let i =0; i < users.length; i++){
+        const likedUser = await User.findOne({username : users[i].username});
+        await likedUser.arrayOfLiked.pull(id);
+        await likedUser.save();
+        await deletedFrom.push(likedUser.username);
+    }
+    
     await deleteResult(id);
-    res.sendStatus(HTTP_NO_CONTENT);
+
+    res.json([exsitingUser,deletedFrom]);
 });
 
 /**
@@ -537,5 +566,48 @@ router.delete('/deleteAll', async (req, res) => {
     }
 });
 
-
+/**
+ * @swagger
+ * /api/result/find_results:
+ *   post:
+ *     description: searched results pagination
+ *     tags: [Results]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: idArray
+ *         description: give an array of result id
+ *         in: formData
+ *         required: true
+ *         type: array
+ *         items:
+ *           type: string
+ *         example: ['str1', 'str2', 'str3']
+ *       - name: page
+ *         description: give the page number you want
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: give the list of results user searched
+ *         schema:
+ *           type: array
+ */
+ router.post('/find_results', async (req, res) => {
+    const {idArray, page} = req.body;
+    const results=[];
+    for (let i=0; i<idArray.length; i++){
+        const exsitResult = await Result.findOne({_id : idArray[i]})
+        if(!exsitResult){
+            return res.status(400).json({
+                errorMessage: `The number ${i+1} id in array does not exsit`,
+            });
+        }
+        results.push(exsitResult);
+    }
+    const slicedArray = results.slice((page-1)*20, page*20);
+    res.json(slicedArray);
+    
+});
 export default router;
