@@ -573,6 +573,78 @@ router.post('/user_result', async (req, res) => {
   res.json(results);
 });
 
+/**
+ * @swagger
+ * /api/user/user_voted:
+ *   post:
+ *     description: find all VOTED missions of a specific user by username
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give the username
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: missions found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/user_mission'
+ */
+router.post('/user_voted', async (req, res) => {
+  const {username} = req.body;
+  const exsitUser = await User.findOne({username});
+  if(!exsitUser){
+    return res.status(400).json({
+        errorMessage: `user does not exsit`,
+    });
+  }
+  const missions=[]
+  for (let i=0; i<exsitUser.arrayOfVoted.length;i++){
+    missions.push(await Mission.findOne({_id : exsitUser.arrayOfVoted[i]}));
+  }
+  res.json(missions);
+});
+
+/**
+ * @swagger
+ * /api/user/user_liked:
+ *   post:
+ *     description: find all LIKED results of a specific user by username
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: give the username
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: results found
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/user_mission'
+ */
+ router.post('/user_liked', async (req, res) => {
+  const {username} = req.body;
+  const exsitUser = await User.findOne({username});
+  if(!exsitUser){
+    return res.status(400).json({
+        errorMessage: `user does not exsit`,
+    });
+  }
+  const results=[]
+  for (let i=0; i<exsitUser.arrayOfLiked.length;i++){
+    results.push(await Result.findOne({_id : exsitUser.arrayOfLiked[i]}));
+  }
+  res.json(results);
+});
+
 export default router;
 
 

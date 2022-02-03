@@ -42,7 +42,7 @@ app.use('/', routes);
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: 'Hello World',
+      title: 'NZMC',
       version: '1.0.0',
     }
   },
