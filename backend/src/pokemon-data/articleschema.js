@@ -9,7 +9,8 @@ const articleSchema = new Schema({
     url:String,
     urlToImage:String,
     publishAt:Date,
-    content:Array
+    content:Array,
+    score: String
 }, {
     timestamps: {}
 });
