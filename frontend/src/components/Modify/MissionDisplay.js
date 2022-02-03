@@ -15,20 +15,7 @@ import {useParams} from 'react-router-dom';
 //import ReactDeleteRow from 'react-delete-row';
 
 
-const useStyles = makeStyles(() => ({
-    ul: {
-      "& .MuiPaginationItem-root": {
-        color: "#fff",
-        padding: "20px 20px",
-      }
-    },
-    container:{
-        justifyContent:"center",
-        alignItems:"center",
-        marginTop: "50px",
-        width:"100%"
-    },
-  }));
+
 
 
 export default function Mission_list (){
@@ -45,12 +32,11 @@ export default function Mission_list (){
         //console.log(response); 
         const cookies = new Cookies();
         console.log(cookies.get('username')); 
-        Navigate("/MissionDisplay")
+        console.log(response); 
+        //Navigate("/MissionDisplay")
         })
        .catch(()=> {console.log("ERR") } )
-   }, 
-   //DELETE request using axios with error handling
-   
+   },  
    [page]);
       
     const handleChange = (event, value) => {
@@ -64,22 +50,33 @@ export default function Mission_list (){
         { withCredentials: true })
         .then(window.location.reload());
         console.log(id); 
-       
     };
-    
+
+    const defaultPicture = {
+        picture:"https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
+    }
+
 
     return (
-        <div>
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+        <div >
+           {/*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>*/} 
             {listOfArticle.map((article)=> (
-               
+                
                  <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
+                     
+                {article.image != null ?  <CardMedia
+                   component="img"
+                   alt="green iguana"
+                   height="110"
+                   image= {article.image}
+                 />:
                  <CardMedia
                    component="img"
                    alt="green iguana"
-                   height="200"
-                   image= {article.urlToImage}
+                   height="110"
+                   image= {defaultPicture.picture}
                  />
+                } 
                 <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
                         {article.title}
@@ -101,9 +98,9 @@ export default function Mission_list (){
                         Author: Undefined
                     </Typography> }
 
-                    <Typography variant="body2" color="text.secondary">
+                    {/*<Typography variant="body2" color="text.secondary">
                         Published Date: {article.publishAt}
-                    </Typography>
+                    </Typography>*/}
                  </CardContent>
                  
                  <CardActions>

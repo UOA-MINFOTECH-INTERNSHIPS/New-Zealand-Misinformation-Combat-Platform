@@ -103,6 +103,7 @@ const router = express.Router();
  *           $ref: '#/definitions/Poster'
  */
 router.post('/post',auth, async (req, res) => {
+    console.log(req.body);
     try {
         const {username, missionID, analysis,conclusion, verdict, reference} = req.body;
         if (!analysis || !conclusion || !verdict || !reference )

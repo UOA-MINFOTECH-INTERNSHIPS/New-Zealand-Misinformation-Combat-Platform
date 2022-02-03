@@ -1,17 +1,17 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import { Link ,useParams} from 'react-router-dom';
 import './NewMission.css';
-import { ConstructionRounded } from '@mui/icons-material';
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
-
+import { Cookies } from 'react-cookie';
 
 
 function EditArticle() {
@@ -21,14 +21,13 @@ function EditArticle() {
   const [verdict, setVerdict] = useState('');
   const [reference, setReference] = useState('');
   const [listOfResult, setListOfResult] = useState([]);
+  const [error, setError] = useState(null);
   const  findid  = useParams();
 
   const handleChange = (event) => {
     setVerdict(event.target.value);
   };
-    
     useEffect(()=>{
-       
       // const missionid={"findid":findid};
       const id={"id":findid._id};
        axios.post("http://localhost:3001/api/mission/find",id)
@@ -36,27 +35,23 @@ function EditArticle() {
         setListOfResult(response.data);
        //  const update = prompt("Enter val: ");
         console.log(findid);
-        console.log(response);
-        
-        
-        
-        
+        console.log(response);        
     })
     .catch(()=> {
         console.log("ERR")
     }) 
-  
-    
-
   },[]);
 
-  
     async function submitResult(e) {
       e.preventDefault();
   
       try {
         var missionID=findid._id;
+        const cookies = new Cookies();
+        const username=cookies.get('username');
+        const verdict ='True';
         const createText = {
+          username,
           missionID,
           analysis,
           conclusion,
@@ -68,21 +63,15 @@ function EditArticle() {
   
         await axios.post(
          "http://localhost:3001/api/result/post",
-           { withCredentials: true },createText
+           createText,{ withCredentials: true }
         )
         .then(()=>{
                 alert("It works");
-        }
-  
-        )
-  
+        })
       }catch (err) {
-            console.error(err);
+        setError(err.response.data.errorMessage);
       }
-  
     }
-  
-  
   
     return (
   
@@ -159,6 +148,7 @@ function EditArticle() {
              </Select>
             </FormControl>
            </Box>
+           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 

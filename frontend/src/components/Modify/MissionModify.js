@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
 import {useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
 import Button from '@mui/material/Button';
@@ -21,6 +21,7 @@ function EditMission() {
   const [question,setQuestion] = useState('');
   const [keywords, setKeywords] = useState('');
   const [listOfMission, setListOfMission] = useState([]);
+  const [error, setError] = useState(null);
   const  findid  = useParams();
   //const navigate = useNavigate();
   const Navigate = useNavigate();
@@ -75,13 +76,10 @@ function EditMission() {
           
         )
         .then(()=>{
-          Navigate("/MissionDisplay")
-        }
-  
-        )
-  
+          Navigate("/MyMissions")
+             })
       }catch (err) {
-            console.error(err);
+        setError(err.response.data.errorMessage);
       }
   
     }
@@ -130,8 +128,9 @@ function EditMission() {
                            console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                                  const content = editor.getData()
-                                    setBackgroundInfo(content)
+                  const regex = /(<([^>]+)>)/ig
+                  const content = editor.getData().replace(regex, '')
+                  setBackgroundInfo(content)
                            }}
               />
          </div>
@@ -144,8 +143,9 @@ function EditMission() {
                     console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                    const content = editor.getData()
-                    setQuestion(content)
+                  const regex = /(<([^>]+)>)/ig
+                  const content = editor.getData().replace(regex, '')
+                  setQuestion(content)
                            }}
               />
          </div>
@@ -175,6 +175,7 @@ function EditMission() {
              </Select>
             </FormControl>
            </Box>
+           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 

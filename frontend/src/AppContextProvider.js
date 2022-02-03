@@ -15,7 +15,10 @@ function AppContextProvider(props) {
 
     useEffect (()=>{
         getLoggedIn(); 
-    }, []);
+    }, [loggedIn]);
+
+    useEffect (()=>{
+    }, [user]);
     
     return (
         <AppContext.Provider value={{ loggedIn, setLoggedIn, getLoggedIn, user, setUser}}>
