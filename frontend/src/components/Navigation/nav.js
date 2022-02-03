@@ -14,7 +14,6 @@ export default function Nav() {
     const {loggedIn, getLoggedIn, user, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    console.log(loggedIn);
     const cookies = new Cookies();
     const userType = cookies.get('userType');
     const username = cookies.get('username');
@@ -47,7 +46,7 @@ export default function Nav() {
             <div className='webstatus'>
                 <IconButton  onClick={handleClick} >
                     <Avatar sx={{width: 35, height: 35, }}> {username.charAt(0)} </Avatar>
-                    <Typography variant ="h6" color ='white' ml ='10px'> {username} </Typography>
+                    <Typography variant ="h6" color ='white' ml ='10px'> {username} </Typography> 
                 </IconButton>
 
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose}
@@ -61,6 +60,7 @@ export default function Nav() {
                         }, }, }} transformOrigin={{ horizontal: 'right', vertical: 'top' }} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                     <MenuItem > <Link className='menu' to='/profile'>Profile </Link></MenuItem>
+                    <MenuItem sx={{color:"1A2634"}}> <Link className='menu' to='/liked'>Liked List</Link></MenuItem>
                     <MenuItem sx={{color:"1A2634"}}> My Requests</MenuItem>
                     {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}> My Verified List</MenuItem>)}
                     <Divider />

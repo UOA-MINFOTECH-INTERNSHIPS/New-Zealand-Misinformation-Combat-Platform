@@ -17,15 +17,19 @@ function Login() {
     e.preventDefault();
 
     try{
+
       const user_temp = {username,password}
       const userDetail = await axios.post("http://localhost:3001/api/user/login", user_temp);
+
       const cookies= new Cookies();
       cookies.set('username',userDetail.data.username, {path: '/'});
       cookies.set('email',userDetail.data.email, {path: '/'});
       cookies.set('userType',userDetail.data.userType, {path: '/'});
+
       setUser(userDetail.data);
       getLoggedIn();
       Navigate('/')
+
 
 
     }catch (err){
