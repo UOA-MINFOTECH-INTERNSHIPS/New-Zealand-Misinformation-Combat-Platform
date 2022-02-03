@@ -1,11 +1,11 @@
 import {Routes, Route, useSearchParams} from 'react-router-dom';
 import ArticlesPage from './components/ArticlePage';
 //import Profile from './components/Profile/Profile';
+import Profile from './components/Profile/UserProfile';
 import Login from './components/Auth/signin';
 import Register from  './components/Auth/signup';
 import Mission_list from './components/Modify/MissionDisplay';
 import AppContext from './AppContextProvider';
-import { useState } from 'react';
 import { useContext } from 'react';
 import PageNotFound from './components/pageNotFound';
 import Article from './components/Article/article';
@@ -14,18 +14,18 @@ import Missions from './components/Mission/missionsContainer';
 import Mission from './components/Mission/missionDetail';
 import Home from './components/Home/home';
 import VerifiedArticle from './components/Results/verifiedArticle'
-import Profile from './components/Profile/UserProfile';
 import PrivateRoute from './PrivateRoute';
 import RestrictedRoute from './RestrictedRoute';
 import FactCheckerProfile from './components/Profile_FactChecker/FactChecker';
+//mission
 import Editor from './components/Modify/NewMission';
 import MyMissions from './components/Profile/MyMissions';
 import EditMission from './components/Modify/MissionModify';
+//verify
 import MissionCheck from './components/Modify/MissionCheck';
 import FactCheckerVerify from './components/Modify/FactCheckerVerify';
 import MyResults from './components/Profile_FactChecker/MyResults';
 import EditResults from './components/Modify/ResultsModify';
-
 import Liked from './components/Results/userLiked';
 
 
