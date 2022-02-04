@@ -10,8 +10,6 @@ export default function Article() {
     const [article, setArticle] = useState([]);
     const articleID = {"id" : id}; 
     const navigate = useNavigate();
-    
-
 
     useEffect(()=> {
         axios.post("http://localhost:3001/api/articles/find", articleID).then((response) =>{
@@ -19,10 +17,8 @@ export default function Article() {
         })
     }, []);
 
-
     return (
         <div>
-            
             <div className='returnBtn'>
                 <Link to='/articles'><Button variant="outlined"> Back </Button></Link>
             </div>
@@ -37,9 +33,6 @@ export default function Article() {
                         </p>
                         <img className='artiImg' src={article.urlToImage} />
                         
-                        {article.content.map((content) => (
-                            <p>{content}</p>
-                        ))}
                         <Button sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" size="small" href={'/NewMission/' + article._id} > 
                             Verification Request  
                         </Button>
