@@ -46,8 +46,10 @@ export default function App() {
       <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/>   {/* 编辑某用户创建的某个mission */}
       <Route path='/MissionCheck' element ={<MissionCheck/>}/>    {/*用户创建的所有mission */}
       <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
+
       <Route element={<PrivateRoute isLogged={loggedIn} />}>
         <Route path='/profile' element ={<Profile/>}/> 
+        <Route path='/factCheckerProfile' element ={<FactCheckerProfile/>}/>
         <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}
         <Route path='/NewMission' element ={<Editor/>}/>              {/*创建新的mission*/}
         <Route path='/MyMissions' element ={<MyMissions/>}/> 
@@ -55,7 +57,6 @@ export default function App() {
         <Route path='/MyResults' element ={<MyResults/>}/> 
         <Route path='/ResultsModify/:_id' element ={<EditResults />}/>
         <Route path='/liked' element ={<Liked/>}/> 
-
       </Route>
     
       <Route element={<RestrictedRoute isLogged={loggedIn} />}>
