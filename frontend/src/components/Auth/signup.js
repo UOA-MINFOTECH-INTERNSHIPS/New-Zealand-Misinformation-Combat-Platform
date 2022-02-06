@@ -25,8 +25,13 @@ export default function Register() {
     try {
       const factCheckerData = {username, name, email, password, confirmPassword, userType, category};
       console.log(factCheckerData)
-      await axios.post("http://localhost:3001/api/user/register", factCheckerData);
+      const res = await axios.post("http://localhost:3001/api/user/register", factCheckerData);
+      if (res.status == 401){
       //navigate('/login');
+      }else{
+        setError(res.data.errorMessage);
+      }
+
     }catch (err) {
         setError(err.response.data.errorMessage);
     }
