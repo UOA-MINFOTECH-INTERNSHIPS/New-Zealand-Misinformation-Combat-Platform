@@ -12,25 +12,31 @@ export default function Missions() {
     const {loggedIn} = useContext(AppContext);
     const [missionList, setMissionList] = useState([]);
     const [filteredResult, setFilteredResult] = useState ([]);
-    const [page, setPage] = useState(2);
+    const [totalPage, setTotalPage] = useState(1); 
     const navigate = useNavigate();
 
     useEffect(()=> {
-        const pageNum ={page};
-        axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
-       .then((response) =>{
-            setMissionList(response.data.results);
+        axios.get("http://localhost:3001/api/mission/missionNum").then((res)=> {
+            setTotalPage(Math.ceil(res.data/20));
         })
-       .catch(()=> {console.log("ERR") } )
-   }, []);
 
-   const handleSearch = (e) => {
-    const searchWord = e.target.value;
-    const newFilter = missionList.filter((value) => {
-        return value.title.toLowerCase().includes(searchWord.toLowerCase());
-    });
-    setFilteredResult(newFilter);
-}
+        axios.get("http://localhost:3001/api/mission/all").then((res)=> {
+            setMissionList(res.data);
+            
+        }).catch(()=> {console.log("ERR") } )
+   }, []);
+   
+
+    const handleSearch = (e) => {
+        const searchWord = e.target.value;
+        const newFilter = missionList.filter((value) => {
+            return value.title.toLowerCase().includes(searchWord.toLowerCase());
+        });
+        setFilteredResult(newFilter);
+        if(newFilter.length == 0) {
+            setTotalPage(1);
+        }else setTotalPage(Math.ceil(newFilter.length/20));
+    }
 
     const handleRequest = () => {
         if (loggedIn) {
@@ -41,20 +47,8 @@ export default function Missions() {
         }
     }
 
-    
     return (
         <div className='missionContainer'>
-            <div className='category'>
-                <ul>
-                    <li><a class="active" href="verified/all">All</a></li>
-                    <li> <a  href="verified/health" >Health</a></li>
-                    <li><a  href="verified/economic" >Economic</a></li>
-                    <li><a  href="verified/environment" >Environment</a></li>
-                    <li><a href="verified/technology" >Technology</a></li>
-                    <li><a href="verified/lifestyle"  >Life Style</a></li>
-                    <li><a href="verified/international" >International</a></li>
-                </ul>
-            </div>
 
             <div className='missions'>
                 <div className='mission'>
@@ -73,7 +67,7 @@ export default function Missions() {
                     </RadioGroup>
                 </div>
 
-                { filteredResult.length != 0 ? (<Mission data={filteredResult}/>) :(<Mission data={missionList}/>)}
+                { filteredResult.length != 0 ? (<Mission data={filteredResult} totalPage={totalPage}/>) :(<Mission data={missionList} totalPage={totalPage}/>)}
                 
                 </div>
             </div>

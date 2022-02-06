@@ -9,6 +9,11 @@ import AppContext from '../../AppContextProvider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 
 
 export default function Home() {
@@ -61,31 +66,29 @@ export default function Home() {
                 <div className='newest'>
                     <h1>What's new</h1><br/>
                     { newest.map((val, key)=> (
-                        <div className='card'>
-                            <div >
-                                <p>
+                        <Card key={val._id} sx={{mb:3, p:2}}>
+                            <CardContent>
+                                <Typography gutterBottom variant="h6" component="div">
                                     {val.title}
-                                    </p>
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Fact checking article Number: {val.url}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {val.analysis}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {val.author}
+                                </Typography>
+                            </CardContent>
 
-                                    <p> Fact checking article Number: 
-                                    {val.url}
-                                    </p>
-                                    <p>{val.analysis}</p>
-                                    <p>
-                                Fact Checked by: {val.author}
-                                </p>
-                            </div>
+                            <CardActions>
+                                {loggedIn &&(user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />)}
+                                { loggedIn &&  <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i> }
+                                <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
+                            </CardActions>
+                        </Card>
 
-                            <div >
-                            {loggedIn &&  
-                                (user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />) 
-                            }
-                            { loggedIn &&  
-                                <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i>
-                            }
-                                <Link className='readmore' to= {`/result/${val._id}/read`}>Read more</Link> 
-                            </div>
-                        </div>
                     ) ) } 
                     <Button className='btn' size="small"><a href= {`/result`}>View more</a></Button>
 

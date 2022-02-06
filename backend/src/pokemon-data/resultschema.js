@@ -15,6 +15,7 @@ const resultSchema = new Schema({
     verdict: {type:String,required:true},
     reference: {type:String,required:false},
     keywords: {type: Array,required:true},
+    likeNum : {type:String,required:true},
     imagesArray:[Schema.Types.ObjectId]
 }, {
     timestamps: {}

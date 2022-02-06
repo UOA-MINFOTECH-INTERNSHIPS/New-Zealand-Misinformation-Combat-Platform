@@ -1,20 +1,39 @@
-import React, {useState, useContext} from 'react';
+import React, { useContext, useState, useEffect} from 'react';
 import './mission.css';
 import { Cookies } from 'react-cookie';
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import AppContext from '../../AppContextProvider';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Pagination from "@mui/material/Pagination";
 
 
-export default function Mission({data}) {
+
+export default function Mission({data, totalPage}) {
     const cookies = new Cookies();
     const username = cookies.get('username');
     const userType = cookies.get('userType');
     const {user, setUser, loggedIn} = useContext(AppContext);
     const navigate = useNavigate();
+    const [page, setPage] = useState(1);
+    const [display, setDisplay] = useState([]);
 
-    console.log(user)
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+
+    useEffect(()=>{
+        const req = {data, page}
+        axios.post("http://localhost:3001/api/mission/find_missions", req).then((res)=> { 
+            console.log(res)
+        })
+
+    },[])
+
 
     const handleVote = (id) => {
         try{
@@ -41,38 +60,40 @@ export default function Mission({data}) {
     return (
         <div className='missioncard'>
             { data.map((val)=> (
-                <div className='card'>
-                    <div >
-                        <h3>{val.title}</h3>
-                        <p> Fact checking on: {val.url} </p>
-                        <p>Created on: {val.createdAt}</p>
-                    </div>
+                <Card key={val._id} sx={{mb:3, p:2}}>
+                    <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                            {val.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Request Fact Check On: {val.url}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Request Created on: {val.createdAt}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {val.question}
+                        </Typography>
+                    </CardContent>
 
-                    <div className='missionbtn'>
-                        
-                    { loggedIn
-                        ? [
-                            (user.arrayOfVoted.includes(val._id) 
-                                ? <Button sx={{backgroundColor: 'rgb(233, 183, 91)'}} variant="contained" onClick={(e) => {handleVote(val._id)}} size="small"> Unvote</Button>
-                                : <Button sx={{backgroundColor: 'rgb(26,38,52)' }} variant="contained" onClick={(e) => {handleVote(val._id)}} size="small"> Vote</Button>
-                            )
-                        ]
-                        : null
+                    <CardActions>
+                        {loggedIn ? [ (user.arrayOfVoted.includes(val._id) 
+                            ? <Button sx={{backgroundColor: 'rgb(233, 183, 91)'}} variant="contained" onClick={(e) => {handleVote(val._id)}} size="small"> Unvote</Button>
+                            : <Button sx={{backgroundColor: 'rgb(26,38,52)' }} variant="contained" onClick={(e) => {handleVote(val._id)}} size="small"> Vote</Button>
+                            ) ] : null
                         }
-                        <div className='votes'>
-                        <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" href= {`/mission/${val._id}/read` } size="small"> Read more</Button>
-                        { loggedIn 
-                            ? [
-                                (userType == 'fact checker' 
-                                    ? <Button sx={{backgroundColor: 'rgb(26,38,52)'}} variant="contained" href= {`/MissionCheck/${val._id}`} size="small">Verify</Button>
-                                    : null 
-                                ) 
-                            ] : null
+                        {loggedIn ? [ (userType == 'fact checker' 
+                            ? <Button sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/MissionCheck/${val._id}`} size="small">Verify</Button>
+                            : null ) ] : null
                         }
-                        </div>
-                    </div>
-                </div>
+                        <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/read` } size="small"> Read more</Button>
+                    </CardActions>
+                </Card>
             ) ) } 
+
+            <div className='pagination'>
+                <Pagination className="page" defaultPage={1} count={totalPage} page={page} onChange={handleChange} variant="outlined" />
+            </div>
         </div>
     )
 }

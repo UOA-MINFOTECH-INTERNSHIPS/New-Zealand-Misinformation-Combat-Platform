@@ -35,6 +35,7 @@ export default function App() {
   
 
   return (
+
     <Routes>
     <Route path='/' element ={<Home/>}/>
     <Route path='/articles' element ={<ArticlesPage/>}/>
@@ -64,6 +65,7 @@ export default function App() {
       <Route path="/signin" element={<Login />} />
     </Route>
   
+
 
     </Routes>
 )
