@@ -1,66 +1,61 @@
-import Button from '@mui/material/Button';
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React,{useState, useEffect} from 'react';
+import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-//import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-//import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
-import axios from "axios";
+import { Link ,useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
-import { Link } from 'react-router-dom';
-import { Cookies } from 'react-cookie';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-//import Cookies from 'universal-cookie';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Cookies } from 'react-cookie';
 
 
-function Editor() {
-  const [url, setUrl] = useState('');
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [image, setImage] = useState('');
-  const [backgroundInfo, setBackgroundInfo] = useState('');
-  const [question, setQuestion] = useState('');
-  const [keywords, setKeywords] = useState('');
-  const Navigate = useNavigate();
-  const [error, setError] = useState(null);
-  //const [status, setStatus] = useState('');
-  //const [support, setSupport] = useState('');
-
+function CreateMissionByArticle() {
+ 
+    const [url, setUrl] = useState('');
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [image, setImage] = useState('');
+    const [backgroundInfo, setBackgroundInfo] = useState('');
+    const [question, setQuestion] = useState('');
+    const [keywords, setKeywords] = useState(''); 
+    const [listOfResult, setListOfResult] = useState([]);
+    const [error, setError] = useState(null);
+    const Navigate = useNavigate();
+    const  findid  = useParams();
 
   const handleChange = (event) => {
     setKeywords(event.target.value);
   };
-
-  function uploadAdapter(loader) {
-    return {
-      upload: () => {
-        return new Promise((resolve, reject) => {
-          const body = new FormData();
-          loader.file.then((file) => {
-            body.append("files", file);
-            // axios.post("localhost:3001/api/image/upload", file)
-            // axios.get("localhost:3001/api/image/get/12121773.jpg")
-          });
-        });
-      }
-    };
-  }
-
-  function uploadPlugin(editor) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-      return uploadAdapter(loader);
-    };
-  }
+    useEffect(()=>{
+      const id={"id":findid._id};
+       axios.post("http://localhost:3001/api/articles/find",id)
+       .then((response) =>{
+        setListOfResult(response.data);
+       //  const update = prompt("Enter val: ");
+        console.log(id);
+        console.log(response);        
+    })
+    .catch(()=> {
+        console.log("ERR")
+        console.log(findid);
+    }) 
+  },[]);
 
   async function submitArticle(e) {
     e.preventDefault();
     try {
       const cookie = new Cookies();
       const username = cookie.get('username');
+      const title =listOfResult.title;
+      const author =listOfResult.author;
+      const image =listOfResult.image;
+      const backgroundInfo = listOfResult.description;
       const createText = {
         username,
         url,
@@ -92,7 +87,21 @@ function Editor() {
     <div className='background'>
       <div className='inputContainer' >
         <form onSubmit={submitArticle}  >
-          <div >
+        <label>Title:</label>
+          <div>{listOfResult.title}</div>
+          <CardMedia component="img" alt="green iguana" height="200" image= {listOfResult.urlToImage}/>
+            {listOfResult.author != null ?
+                 <Typography variant="body2" color="text.secondary">
+                    Author: {listOfResult.author}
+                </Typography> : 
+                <Typography variant="body2" color="text.secondary">
+                    Author: Undefined
+                </Typography> }
+
+          <label>Description:</label>
+          <div>{listOfResult.description}</div>
+         {/*   <div >
+              <br/>
             <label>URL</label>
             <input
               type="text"
@@ -102,13 +111,13 @@ function Editor() {
             />
           </div>
           <div>
-            <label>Title</label>
+           <label>Title</label>
             <input
               type="text"
               onChange={(e) => setTitle(e.target.value)}
               value={title}
               required
-            />
+            /> 
           </div>
           <div>
             <label>Author</label>
@@ -127,31 +136,13 @@ function Editor() {
               value={image}
 
             />
-          </div>
-
-          {/*  <div>
-                <label>Background Information</label>
-                <input 
-                type="text" 
-                onChange={(e) => setDescription(e.target.value)} 
-                value={description}  
-                />
-        </div>
-     <div>
-                <label>Publish</label>
-                <input 
-                className='data'
-                type="Date" 
-                onChange={(e) => setPublishAt(e.target.value)} 
-                value={publishAt}  
-                />
-      </div> */}
+          </div> 
           <div >
             <label>Background Information</label>
             <CKEditor
-              /*config={{
+              config={{
                 extraPlugins: [uploadPlugin]
-              }} */
+              }} 
               editor={ClassicEditor}
               data={backgroundInfo}
               onBlur={(event, editor) => { }}
@@ -160,13 +151,13 @@ function Editor() {
                 console.log('Editor is ready to use!', editor);
               }}
               onChange={(event, editor) => {
-                /*const regex = /(<([^>]+)>)/ig */
+                const regex = /(<([^>]+)>)/ig 
                 const content = editor.getData()
                 setBackgroundInfo(content)
               }}
               required
             />
-          </div>
+          </div>  */}
           <div>
             <label>Question</label>
             <CKEditor
@@ -186,14 +177,7 @@ function Editor() {
 
             />
           </div>
-          {/*  <div>
-                <label>Like</label>
-                <input
-                type="checkbox" 
-                onChange={(e) => setLike(e.target.value)} 
-                value={like}  
-                />
-        </div> */}
+
           <label>Keyword</label>
           {/*< MultipleSelectChip   />*/}
           <Box sx={{ minWidth: 120 }}>
@@ -213,6 +197,8 @@ function Editor() {
                 <MenuItem value={"Life Style"}>Life Style</MenuItem>
                 <MenuItem value={"International"}>International</MenuItem>
 
+
+
               </Select>
             </FormControl>
           </Box>
@@ -230,5 +216,6 @@ function Editor() {
     </div>
   );
 }
-
-export default Editor;
+  
+  export default CreateMissionByArticle;
+  

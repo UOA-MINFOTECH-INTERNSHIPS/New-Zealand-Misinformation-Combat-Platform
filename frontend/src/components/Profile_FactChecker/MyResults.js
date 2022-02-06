@@ -58,26 +58,12 @@ export default function MyResults (){
         <div >
              {listOfArticle.map((article)=> (
                      <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
-
-                     {/*article.image != null ?  <CardMedia
-                        component="img"
-                        alt="no picture"
-                        height="110"
-                        image= {article.image}
-                      />:
-                      <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="110"
-                        image= {defaultPicture.picture}
-                      />
-                     */} 
                      <CardContent>
                          <Typography gutterBottom variant="h6" component="div">
                              {article.title}
                          </Typography>
-                         <Typography variant="body2" color="text.secondary">
-                             {article.conclusion}
+                         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.conclusion}}>
+                           
                          </Typography>
      
                         {/*<Typography variant="body2" color="text.secondary">
@@ -102,7 +88,7 @@ export default function MyResults (){
                          <Button size="small"  onClick={()=>handleClickDelete(article._id)} > 
                               Delete  
                          </Button>
-                         <Link to = {'/MyMissions/' + article._id}  > <Button size="small" > Modify  </Button></Link>
+                         <Link to = {'/ResultsModify/' + article._id}  > <Button size="small" > Modify  </Button></Link>
                       </CardActions>
                      
                       </Card>

@@ -128,8 +128,8 @@ function EditMission() {
                            console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                  const regex = /(<([^>]+)>)/ig
-                  const content = editor.getData().replace(regex, '')
+                  
+                  const content = editor.getData();
                   setBackgroundInfo(content)
                            }}
               />
@@ -143,8 +143,7 @@ function EditMission() {
                     console.log( 'Editor is ready to use!', editor );
                          } }
                  onChange={(event, editor) =>{
-                  const regex = /(<([^>]+)>)/ig
-                  const content = editor.getData().replace(regex, '')
+                  const content = editor.getData();
                   setQuestion(content)
                            }}
               />
@@ -171,6 +170,9 @@ function EditMission() {
                <MenuItem value={"Health"}>Health</MenuItem>
                <MenuItem value={"Economic"}>Economic</MenuItem>
                <MenuItem value={"Environment"}>Environment</MenuItem>
+               <MenuItem value={"Technology"}>Technology</MenuItem>
+                <MenuItem value={"Life Style"}>Life Style</MenuItem>
+                <MenuItem value={"International"}>International</MenuItem>
               
              </Select>
             </FormControl>

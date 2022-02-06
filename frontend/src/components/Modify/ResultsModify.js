@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-import { Link ,useParams} from 'react-router-dom';
+import { Link ,useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
 import { ConstructionRounded } from '@mui/icons-material';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 
 
@@ -20,6 +21,8 @@ function EditResults() {
   const [verdict, setVerdict] = useState('');
   const [reference, setReference] = useState('');
   const [listOfResult, setListOfResult] = useState([]);
+  const [error, setError] = useState(null);
+  const Navigate = useNavigate();
   const  findid  = useParams();
 
   const handleChange = (event) => {
@@ -71,7 +74,7 @@ function EditResults() {
                 alert("It works");
         })
       }catch (err) {
-            console.error(err);
+        setError(err.response.data.errorMessage);
       }
     }
   
@@ -146,9 +149,13 @@ function EditResults() {
              </Select>
             </FormControl>
            </Box>
+           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 
+                  <div >
+                    <Button className='sub_button' onClick={() => Navigate(-1)}> Go Back </Button>
+                   </div>
      
       </form>
       </div>

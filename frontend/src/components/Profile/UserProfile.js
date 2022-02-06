@@ -29,12 +29,21 @@ export default function Profile (){
                 <h1> Welcome Back, {username}</h1>
                 <h2>Email: {email}</h2>
                 <h4>UserType: {userType}</h4>
-                <button className='button'>
-                  <NavLink className='navlink' to='/MyMissions'> Visit My Requests</NavLink>
-                </button>
-                <button className='button'>
+                
+                
+                {userType == "fact checker" ?  
+                <><button className='button'>
+                    <NavLink className='navlink' to='/MissionCheck'> Start to verify</NavLink>
+                </button>  <button className='button'>
+                    <NavLink className='navlink' to='/MyResults'>My posted Results</NavLink>
+                </button></>: <><button className='button'>
                   <NavLink className='navlink' to='/NewMission'>  Create a New Request</NavLink>
                 </button>
+                <button className='button'>
+                <NavLink className='navlink' to='/MyMissions'> My posted Requests</NavLink>
+              </button> </>
+              }
+               
             </div>
             
         </div>

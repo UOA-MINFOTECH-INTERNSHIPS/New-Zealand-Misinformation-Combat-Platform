@@ -2,9 +2,9 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-import { Link ,useParams} from 'react-router-dom';
+import { Link ,useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
-
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -22,6 +22,7 @@ function EditArticle() {
   const [reference, setReference] = useState('');
   const [listOfResult, setListOfResult] = useState([]);
   const [error, setError] = useState(null);
+  const Navigate = useNavigate();
   const  findid  = useParams();
 
   const handleChange = (event) => {
@@ -82,15 +83,15 @@ function EditArticle() {
           </div>
           <div>
           <label>Title:</label>
-          <label>{listOfResult.title}</label>
+          <div>{listOfResult.title}</div>
           </div>
           <div>
           <label>Question:</label>
-          <label>{listOfResult.question}</label>
+          <div dangerouslySetInnerHTML={{__html: listOfResult.question}}></div>
           </div>
           <div>
           <label>Background Information:</label>
-          <label>{listOfResult.backgroundInfo}</label>
+          <div dangerouslySetInnerHTML={{__html: listOfResult.backgroundInfo}}></div>
           </div>
           <br/>
           <div >
@@ -152,6 +153,9 @@ function EditArticle() {
                   <button type="submit" className='sub_button'>
                     Submit
                   </button> 
+                  <div >
+                    <Button className='sub_button' onClick={() => Navigate(-1)}> Go Back </Button>
+                   </div>
                   
      
       </form>
