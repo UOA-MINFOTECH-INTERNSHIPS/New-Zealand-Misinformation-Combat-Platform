@@ -8,39 +8,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
-import { makeStyles } from '@mui/styles';
-import { useNavigate, Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import AppContext from '../../AppContextProvider';
 
 
-
-
-const useStyles = makeStyles(() => ({
-    ul: {
-      "& .MuiPaginationItem-root": {
-        color: 'rgb(233, 183, 91)',
-        padding: "20px 20px",
-        backgroundColor: '#1A2634'
-      }
-    },
-    container:{
-        color: 'red',
-        justifyContent:"center",
-        alignItems:"center",
-        marginTop: "50px",
-        width:"100%"
-    },
-  }));
-
-
 export default function ArticleContainer (){
-    const navigate = useNavigate();
     const [listOfArticle, setListOfArticle]=useState([]);
-    const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1); 
-    const classes = useStyles();
     const {logged} = useContext(AppContext);
 
     axios.get("http://localhost:3001/api/articles/articleNum").then((res)=> {
@@ -65,18 +40,6 @@ export default function ArticleContainer (){
 
     return (
         <div>
-            <div className='category'>
-                    <ul>
-                        <li><a className="active" href="verified/all">All</a></li>
-                        <li> <a  href="verified/health" >Health</a></li>
-                        <li><a  href="verified/economic" >Economic</a></li>
-                        <li><a  href="verified/environment" >Environment</a></li>
-                        <li><a href="verified/technology" >Technology</a></li>
-                        <li><a href="verified/lifestyle"  >Life Style</a></li>
-                        <li><a href="verified/international" >International</a></li>
-                    </ul>
-            </div>
-            
             <Grid container spacing={2}>
                 <Grid >
                     <div className='articlesContainer' >
@@ -116,11 +79,11 @@ export default function ArticleContainer (){
                         </Card>
                         ) ) } 
                     </div>
-                    {
+                    
                     <div className='pagination'>
                         <Pagination className="page" defaultPage={1} count={totalPage} page={page} onChange={handleChange} variant="outlined" />
                     </div>
-                    }
+                    
                     </Grid>
             </Grid>
 

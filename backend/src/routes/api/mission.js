@@ -125,6 +125,11 @@ router.post('/post', async (req, res) => {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
+        const exsitMission = await Mission.findOne({url});
+        if(exsitMission)
+            return res.status(400).json({
+                errorMessage: "A mission with this url is already exsit",
+            });
         const newMission = {
             url: url,
             title : title,
@@ -466,8 +471,33 @@ router.put('/update', auth, async (req, res) => {
  */
 router.delete('/delete', auth, async (req, res) => {
     const {id} = req.body;
+    const exsitMission = await Mission.findOne({id});
+    if(!exsitMission){
+        return res.status(400).json({
+            errorMessage: "Does not exsit this mission id",
+        });
+    }
+    const exsitingUser = await User.findOne({arrayOfUserMission : id});
+    if(!exsitingUser){
+        return res.status(400).json({
+            errorMessage: "Database error, Cannot find the author of this mission",
+        });
+    }
+    await exsitingUser.arrayOfUserMission.pull(id);
+    await exsitingUser.save();
+
+    const deletedFrom=[];
+    const users = await User.find({arrayOfVoted : id});
+    for(let i =0; i < users.length; i++){
+        const votedUser = await User.findOne({username : users[i].username});
+        await votedUser.arrayOfVoted.pull(id);
+        await votedUser.save();
+        await deletedFrom.push(votedUser.username);
+    }
+    
     await deleteMission(id);
-    res.sendStatus(HTTP_NO_CONTENT);
+
+    res.json([exsitingUser,deletedFrom]);
 });
 
 
@@ -558,5 +588,52 @@ router.get('/all', async (req, res) => {
         res.status(500).send();
     }
 });
+
+/**
+ * @swagger
+ * /api/mission/find_missions:
+ *   post:
+ *     description: searched mission pagination
+ *     tags: [Missions]
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: idArray
+ *         description: give an array of mission id
+ *         in: formData
+ *         required: true 
+ *         type: array
+ *         items:
+ *           type: string
+ *         example: ['str1', 'str2', 'str3']
+ *       - name: page
+ *         description: give the page number you want
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: give the list of mission user searched
+ *         schema:
+ *           type: array
+ */
+router.post('/find_missions', async (req, res) => {
+    const {idArray,page} = req.body;
+    // console.log(idArray);
+    const missions=[];
+    for (let i=0; i<idArray.length; i++){
+        const exsitMission = await Mission.findOne({_id : idArray[i]})
+        if(!exsitMission){
+            return res.status(400).json({
+                errorMessage: `The number ${i+1} id in array does not exsit`,
+            });
+        }
+        missions.push(exsitMission);
+    }
+    const slicedArray = missions.slice((page-1)*20, page*20);
+    res.json(slicedArray);
+    
+});
+
 
 export default router;

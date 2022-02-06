@@ -45,6 +45,8 @@ async function likeResult(username,id) {
         return 'you already like this result'
     if (dbResult && existingUser){
         await existingUser.arrayOfLiked.push(id);
+        const users = await User.find({arrayOfLiked : id});
+        dbResult.likeNum = users.length;
     }
     await existingUser.save();
     return existingUser;
@@ -61,6 +63,8 @@ async function unlikeResult(username,id) {
         return "you didn't like this result before"
     if (dbResult && existingUser){
         await existingUser.arrayOfLiked.pull(id);
+        const users = await User.find({arrayOfLiked : id});
+        dbResult.likeNum = users.length;
     }
     await existingUser.save();
     return existingUser;
