@@ -82,29 +82,11 @@ export default function MyMissions (){
                          <Typography gutterBottom variant="h6" component="div">
                              {article.title}
                          </Typography>
-                         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.question}}>
-                             
+                         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.question}}>  
                          </Typography>
-     
-                        {/*<Typography variant="body2" color="text.secondary">
-                             {article.backgroundInfo}
+                         <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: article.backgroundInfo}}>  
                          </Typography>
-
-                          {article.author != null ?
-                         <Typography variant="body2" color="text.secondary">
-                             Author: {article.author}
-                         </Typography> : 
-                         <Typography variant="body2" color="text.secondary">
-                             Author: Undefined
-                         </Typography> }
-
-                         */} 
-     
-                         {/*<Typography variant="body2" color="text.secondary">
-                             Published Date: {article.publishAt}
-                         </Typography>*/}
                       </CardContent>
-                      
                       <CardActions>
                          <Button size="small"  onClick={()=>handleClickDelete(article._id)} > 
                               Delete  

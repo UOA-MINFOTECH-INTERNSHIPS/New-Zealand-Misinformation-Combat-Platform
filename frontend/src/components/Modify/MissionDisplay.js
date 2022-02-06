@@ -61,9 +61,7 @@ export default function Mission_list (){
         <div >
            {/*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>*/} 
             {listOfArticle.map((article)=> (
-                
                  <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
-                     
                 {article.image != null ?  <CardMedia
                    component="img"
                    alt="green iguana"

@@ -6,7 +6,7 @@ import Login from './components/Auth/signin';
 import Register from  './components/Auth/signup';
 import Mission_list from './components/Modify/MissionDisplay';
 import AppContext from './AppContextProvider';
-import { useContext } from 'react';
+import { useContext ,useState} from 'react';
 import PageNotFound from './components/pageNotFound';
 import Article from './components/Article/article';
 import Results from './components/Results/resultsContainer';
@@ -21,6 +21,7 @@ import FactCheckerProfile from './components/Profile_FactChecker/FactChecker';
 import Editor from './components/Modify/NewMission';
 import MyMissions from './components/Profile/MyMissions';
 import EditMission from './components/Modify/MissionModify';
+import CreateMissionByArticle from './components/Modify/CreateMissionByArticle';
 //verify
 import MissionCheck from './components/Modify/MissionCheck';
 import FactCheckerVerify from './components/Modify/FactCheckerVerify';
@@ -43,10 +44,15 @@ export default function App() {
     <Route path ='/result/:id/read' element = {<VerifiedArticle/>} />
     <Route path='/mission' element ={<Missions/>}/>
     <Route path='/mission/:id/read' element ={<Mission/>}/>
-    <Route path='/MissionDisplay' element ={<Mission_list/>}/>   {/* 用户创建的所有mission */}
-    <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/>   {/* 编辑某用户创建的某个mission */}
+   {/*  <Route path='/MissionDisplay' element ={<Mission_list/>}/>   
+    <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/>   */}
     <Route path='/MissionCheck' element ={<MissionCheck/>}/>    {/*用户创建的所有mission */}
-    <Route path='/MissionDisplay' element ={<Mission_list/>}/> 
+    <Route path='/profile' element ={<Profile/>}/> 
+    <Route path='/NewMission' element ={<Editor/>}/>              {/*创建新的mission*/}
+    <Route path='/NewMission/:_id' element ={<CreateMissionByArticle/>}/> 
+    <Route path='/MyMissions' element ={<MyMissions/>}/> 
+    <Route path='/MyMissions/:_id' element ={<EditMission/>}/> 
+    <Route path='/MyResults' element ={<MyResults/>}/> 
     <Route element={<PrivateRoute isLogged={loggedIn} />}>
       <Route path='/profile' element ={<Profile/>}/> 
       <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}

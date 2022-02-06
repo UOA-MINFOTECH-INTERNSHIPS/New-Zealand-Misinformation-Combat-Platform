@@ -58,20 +58,6 @@ export default function MyResults (){
         <div >
              {listOfArticle.map((article)=> (
                      <Card key={article._id} className="articleContainer" sx={{ maxWidth: 600 }}>
-
-                     {/*article.image != null ?  <CardMedia
-                        component="img"
-                        alt="no picture"
-                        height="110"
-                        image= {article.image}
-                      />:
-                      <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        height="110"
-                        image= {defaultPicture.picture}
-                      />
-                     */} 
                      <CardContent>
                          <Typography gutterBottom variant="h6" component="div">
                              {article.title}
