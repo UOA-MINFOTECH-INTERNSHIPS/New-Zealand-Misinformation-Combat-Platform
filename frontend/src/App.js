@@ -31,7 +31,8 @@ import Liked from './components/Results/userLiked';
 
 
 export default function App() {
-  const {loggedIn} = useState(AppContext);
+  const {loggedIn} = useContext(AppContext);
+  console.log(loggedIn);
 
   
 
@@ -53,11 +54,12 @@ export default function App() {
     <Route path='/NewMission/:_id' element ={<CreateMissionByArticle/>}/> 
     <Route path='/MyMissions' element ={<MyMissions/>}/> 
     <Route path='/MyMissions/:_id' element ={<EditMission/>}/> 
-    <Route path='/MyResults' element ={<MyResults/>}/> 
+    
     <Route element={<PrivateRoute isLogged={loggedIn} />}>
       <Route path='/profile' element ={<Profile/>}/> 
       <Route path='/MissionCheck/:_id' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}
       <Route path='/NewMission' element ={<Editor/>}/>              {/*创建新的mission*/}
+      <Route path='/NewMission/:_id' element ={<CreateMissionByArticle/>}/> 
       <Route path='/MyMissions' element ={<MyMissions/>}/> 
       <Route path='/MyMissions/:_id' element ={<EditMission/>}/>   {/* 编辑某用户创建的某个mission */}
       <Route path='/MyResults' element ={<MyResults/>}/> 

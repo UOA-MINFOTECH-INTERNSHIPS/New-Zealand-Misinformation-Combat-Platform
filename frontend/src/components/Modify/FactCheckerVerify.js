@@ -52,6 +52,7 @@ function EditArticle() {
         const username=cookies.get('username');
         const verdict ='True';
         const createText = {
+
           username,
           missionID,
           analysis,
