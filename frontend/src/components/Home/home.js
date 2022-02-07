@@ -15,7 +15,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import { Cookies } from 'react-cookie';
-
+import parse from 'html-react-parser';
 
 const useStyles = makeStyles({
     button: {
@@ -97,7 +97,7 @@ export default function Home() {
                                     Fact checking article Number: {val.url}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    {val.analysis}
+                                    {parse(val.backgroundInfo)}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     {val.author}
@@ -120,7 +120,7 @@ export default function Home() {
                     <h1>Popular fact<WhatshotIcon sx={{color:'red', fontSize:'30px'}}/></h1> <br/> 
                     {
                         mission.map ((val, key) => (
-                            <div className='popularItem'>{val.question}</div>
+                            <div className='popularItem'>{parse(val.question)}</div>
                         ))
                     }
                     <Button className={classes.button} size="small" href= {`/result`} sx={{backgroundColor: 'rgb(26,38,52)' }}>View more</Button>

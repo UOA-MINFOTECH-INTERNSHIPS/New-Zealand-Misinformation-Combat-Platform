@@ -77,14 +77,10 @@ function EditArticle() {
   
     return (
   
-      <div className='container' >
+      <div className='inputContainer'  >
        <form  onSubmit={submitResult}  >
           <div >
            <LiveHelpIcon style={{width:"60px", height:"60px", margin:"5px"}} />
-          </div>
-          <div>
-          <label>Title:</label>
-          <div>{listOfResult.title}</div>
           </div>
           <div>
           <label>Question:</label>

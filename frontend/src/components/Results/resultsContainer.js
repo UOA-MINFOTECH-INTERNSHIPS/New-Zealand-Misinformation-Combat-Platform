@@ -116,7 +116,6 @@ export default function ResultsContainer() {
                                 Fact checking article Number: {val.url}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-
                                 {parse(val.backgroundInfo)}
 
                             </Typography>

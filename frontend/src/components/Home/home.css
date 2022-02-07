@@ -86,3 +86,10 @@
     background-color: rgb(233, 183, 91);
 }
 
+.popularItem p{
+    margin-left: 0px;
+}
+
+.newest p{
+    margin-left: 0px;
+}
