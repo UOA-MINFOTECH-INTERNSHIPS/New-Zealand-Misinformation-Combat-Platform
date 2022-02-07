@@ -20,7 +20,10 @@
     margin-left: 4%;
     margin-right: 4%;
     background-color: transparent;
+}
 
+.card div{
+    margin-bottom: 10px;
 }
 
 .newest{
@@ -53,12 +56,6 @@
 
 .card {
     margin-bottom: 30px;
-    border: 1px solid grey;
-    border-radius: 10px;
-    background-color: white;
-    padding: 20px 40px 30px 40px;
-
-
 }
 
 .card:hover{

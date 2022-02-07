@@ -13,7 +13,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
-import parse from "html-react-parser";
   
 export default function Missions() {
     const cookies = new Cookies();
@@ -139,8 +138,7 @@ export default function Missions() {
                                     Request Created on: {val.createdAt}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    
-                                    {parse(val.question) }
+                                    {val.question }
                                 </Typography>
                             </CardContent>
 
