@@ -7,7 +7,8 @@ import {
     deleteResult,
     likeResult,
     unlikeResult,
-    deleteAllResult
+    deleteAllResult,
+    sortAllResult
 } from '../../pokemon-data/resultdao';
 import {
     retrieveMission,
@@ -507,7 +508,7 @@ function paginatedResults(model) {
         }
       }
       try {
-        results.results = await model.find().limit(limit).skip(startIndex).exec()
+        results.results = await model.find().sort({likeNum: -1}).limit(limit).skip(startIndex).exec()
         res.paginatedResults = results
         next()
       } catch (e) {
@@ -563,6 +564,25 @@ router.delete('/deleteAll', async (req, res) => {
  router.get('/all', async (req, res) => {
     try{
         res.json(await retrieveAllResult());
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
+});
+
+/**
+ * @swagger
+ * /api/result/sort_all:
+ *   get:
+ *     description: retrieve all SORTED results in db
+ *     tags: [Results]
+ *     responses:
+ *       200:
+ *         description: all results got
+ */
+ router.get('/sort_all', async (req, res) => {
+    try{
+        res.json(await sortAllResult());
     }catch(err){
         console.error(err);
         res.status(500).send();
