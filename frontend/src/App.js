@@ -47,13 +47,13 @@ export default function App() {
     <Route path='/mission' element ={<Missions/>}/>
     <Route path='/mission/:id/read' element ={<Mission/>}/>
    {/*  <Route path='/MissionDisplay' element ={<Mission_list/>}/>   
-    <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/>   */}
-    <Route path='/MissionCheck' element ={<MissionCheck/>}/>    {/*用户创建的所有mission */}
+    <Route path='/MissionDisplay/:_id' element ={<EditMission/>}/>   
+    <Route path='/MissionCheck' element ={<MissionCheck/>}/>    
     <Route path='/profile' element ={<Profile/>}/> 
-    <Route path='/NewMission' element ={<Editor/>}/>              {/*创建新的mission*/}
+    <Route path='/NewMission' element ={<Editor/>}/>            
     <Route path='/NewMission/:_id' element ={<CreateMissionByArticle/>}/> 
     <Route path='/MyMissions' element ={<MyMissions/>}/> 
-    <Route path='/MyMissions/:_id' element ={<EditMission/>}/> 
+    <Route path='/MyMissions/:_id' element ={<EditMission/>}/> */}
     
     <Route element={<PrivateRoute isLogged={loggedIn} />}>
       <Route path='/profile' element ={<Profile/>}/> 
