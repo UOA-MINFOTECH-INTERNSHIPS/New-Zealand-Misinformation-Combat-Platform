@@ -33,7 +33,7 @@ export default function Profile (){
                 
                 {userType == "fact checker" ?  
                 <><button className='button'>
-                    <NavLink className='navlink' to='/MissionCheck'> Start to verify</NavLink>
+                    <NavLink className='navlink' to='/mission'> Start to verify</NavLink>
                 </button>  <button className='button'>
                     <NavLink className='navlink' to='/MyResults'>My posted Results</NavLink>
                 </button></>: <><button className='button'>
