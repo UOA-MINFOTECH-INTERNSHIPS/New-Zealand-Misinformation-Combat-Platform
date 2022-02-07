@@ -103,7 +103,7 @@ const router = express.Router();
  *           $ref: '#/definitions/Poster'
  */
 router.post('/post',auth, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
         const {username, missionID, analysis,conclusion, verdict, reference} = req.body;
         if (!analysis || !conclusion || !verdict || !reference )
@@ -135,6 +135,8 @@ router.post('/post',auth, async (req, res) => {
             };
             
             const dbResult = await createResult(newResult);
+            exsitingMission.status = true;
+            await exsitingMission.save();
             const exsitUser = await User.findOne({username});
 
             exsitUser.arrayOfChecked.push(dbResult._id);
