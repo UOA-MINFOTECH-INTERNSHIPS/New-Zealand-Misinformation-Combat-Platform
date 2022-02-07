@@ -32,11 +32,13 @@ const useStyles = makeStyles(() => ({
 export default function MissionCheck (){
     const navigate = useNavigate();
     const [listOfMission, setListOfMission]=useState([]);
-  //  const [like, setLike] = useState(false);
     const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1); 
     const classes = useStyles();
   
-
+    axios.get("http://localhost:3001/api/articles/articleNum").then((res)=> {
+        setTotalPage(Math.ceil(res.data/20));
+    })
     useEffect(()=> {
         const pageNum ={page};
       //  const userName={user}
@@ -57,22 +59,22 @@ export default function MissionCheck (){
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
             {listOfMission.map((mission)=> (
                  <Card key={mission._id} className="articleContainer" sx={{ maxWidth: 600 }}>
-                 <CardMedia
+                {/*} <CardMedia
                    component="img"
                    alt="picture is disappear"
                    height="200"
                    image= {mission.Image}
-                 />
+                 />*/}
                 <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h6" component="div"  >
                         {mission.title}
                     </Typography>
 
-                    <Typography variant="body2" color="text.secondary">
-                        {mission.backgroundInfo}
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: mission.backgroundInfo}}>
+                        
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {mission.question}
+                    <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{__html: mission.questions}}>
+               
                     </Typography>
 
                     <br/>
@@ -96,9 +98,9 @@ export default function MissionCheck (){
                  </Card>
                  
             ) ) } 
-           <div className={classes.container}>
-                    <Pagination className="page" defaultPage={1} count={10} page={page} onChange={handleChange} color="primary" variant="outlined" classes={{ ul: classes.ul }}/>
-            </div> 
+           { <div className='pagination'>
+                <Pagination className="page" defaultPage={1} count={totalPage} page={page} onChange={handleChange} variant="outlined" />
+            </div>}
         </div>
     )
 }

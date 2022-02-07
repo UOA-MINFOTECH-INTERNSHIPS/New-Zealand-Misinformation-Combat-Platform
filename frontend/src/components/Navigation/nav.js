@@ -63,8 +63,8 @@ export default function Nav() {
                 >
                     <MenuItem > <Link className='menu' to='/profile'>Profile </Link></MenuItem>
                     <MenuItem sx={{color:"1A2634"}}> <Link className='menu' to='/liked'>Liked List</Link></MenuItem>
-                    <MenuItem sx={{color:"1A2634"}}> My Requests</MenuItem>
-                    {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}> My Verified List</MenuItem>)}
+                    <MenuItem sx={{color:"1A2634"}}> <NavLink className='menu' to='/MyMissions'>My Requests</NavLink></MenuItem>
+                    {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}>  <NavLink className='menu' to='/MyResults'>My Verified List</NavLink></MenuItem>)}
                     <Divider />
                     <MenuItem onClick={logout}>
                         <Link className='menu' to='/'>

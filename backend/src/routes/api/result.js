@@ -103,7 +103,7 @@ const router = express.Router();
  *           $ref: '#/definitions/Poster'
  */
 router.post('/post',auth, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
         const {username, missionID, analysis,conclusion, verdict, reference} = req.body;
         if (!analysis || !conclusion || !verdict || !reference )
@@ -121,7 +121,7 @@ router.post('/post',auth, async (req, res) => {
                 missionID : missionID,
                 url: exsitingMission.url,
                 title : exsitingMission.title,
-                author: exsitingMission.author,
+                author: username,
                 image: exsitingMission.image,
                 backgroundInfo : exsitingMission.backgroundInfo,
                 question : exsitingMission.question,
@@ -135,6 +135,8 @@ router.post('/post',auth, async (req, res) => {
             };
             
             const dbResult = await createResult(newResult);
+            exsitingMission.status = true;
+            await exsitingMission.save();
             const exsitUser = await User.findOne({username});
 
             exsitUser.arrayOfChecked.push(dbResult._id);
@@ -215,7 +217,7 @@ router.post('/post',auth, async (req, res) => {
  *           type: object
  *           $ref: '#/definitions/updater_result'
  */
-router.post('/update', auth, async (req, res) => {
+router.put('/update', auth, async (req, res) => {
     const {id, analysis, conclusion, verdict, reference} = req.body;
     if (!analysis || !conclusion || !verdict || !reference )
         return res

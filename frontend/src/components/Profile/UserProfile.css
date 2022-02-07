@@ -53,7 +53,8 @@
 }
 
 .button{
-    margin: 1rem;
+    margin: 2px;
+    width: auto;
     margin-top: 0;
     color: black;
     font:bold;
