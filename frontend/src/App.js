@@ -62,6 +62,7 @@ export default function App() {
       <Route path='/NewMission/:_id' element ={<CreateMissionByArticle/>}/> 
       <Route path='/MyMissions' element ={<MyMissions/>}/> 
       <Route path='/MyMissions/:_id' element ={<EditMission/>}/>   {/* 编辑某用户创建的某个mission */}
+      <Route path='/MissionCheck' element ={<MissionCheck/>}/> 
       <Route path='/MyResults' element ={<MyResults/>}/> 
       <Route path='/ResultsModify/:_id' element ={<EditResults />}/>
       <Route path='/liked' element ={<Liked/>}/> 
