@@ -18,21 +18,28 @@ export default function Mission({data, totalPage}) {
     const username = cookies.get('username');
     const userType = cookies.get('userType');
     const {user, setUser, loggedIn} = useContext(AppContext);
-    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [display, setDisplay] = useState([]);
+    
 
     const handleChange = (event, value) => {
         setPage(value);
+        window.scrollTo(0, 0);
     };
 
-    useEffect(()=>{
-        const req = {data, page}
-        axios.post("http://localhost:3001/api/mission/find_missions", req).then((res)=> { 
-            console.log(res)
-        })
 
+    useEffect(()=>{
+        const temp = {username} 
+        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
+            setUser(res.data)
+        })
     },[])
+
+    useEffect(()=>{
+        const start = (page-1) * 20; 
+        const end = page * 20;
+        setDisplay(data.slice(start,end));
+    },[page])
 
 
     const handleVote = (id) => {
@@ -59,7 +66,7 @@ export default function Mission({data, totalPage}) {
 
     return (
         <div className='missioncard'>
-            { data.map((val)=> (
+            { display.map((val)=> (
                 <Card key={val._id} sx={{mb:3, p:2}}>
                     <CardContent>
                         <Typography gutterBottom variant="h6" component="div">

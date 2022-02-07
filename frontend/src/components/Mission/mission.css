@@ -42,10 +42,9 @@
 }
 
 .missionContent{
-    grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
     padding:30px 50px;
-    border: 1px solid grey ;
 }
 
 .missionContent p {
@@ -53,11 +52,7 @@
     margin-bottom: 10px;
 }
 
-.card p {
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-}
+
 
 .votes{
     float: right;
@@ -74,3 +69,6 @@
     margin-left: 100px;
 }
 
+.missionContent p{
+    margin-left: 0;
+}
