@@ -11,6 +11,10 @@ async function retrieveAllResult() {
     return await Result.find();
 }
 
+async function sortAllResult() {
+    return await Result.find().sort({likeNum: -1});
+}
+
 async function retrieveResult(id) {
     return await Result.findById(id);
 }
@@ -82,5 +86,6 @@ export {
     deleteResult,
     likeResult,
     unlikeResult,
-    deleteAllResult
+    deleteAllResult,
+    sortAllResult
 }
