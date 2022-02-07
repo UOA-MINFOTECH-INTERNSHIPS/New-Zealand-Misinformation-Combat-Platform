@@ -80,19 +80,15 @@ function EditResults() {
   
     return (
   
-      <div className='container' >
+      <div className='inputContainer'  >
       <form  onSubmit={submitResult}  >
-      <div>
-          <label>Title:</label>
-          <label>{listOfResult.title}</label>
-          </div>
           <div>
           <label>Question:</label>
-          <label>{listOfResult.question}</label>
+          <div dangerouslySetInnerHTML={{__html: listOfResult.question}}></div>
           </div>
           <div>
           <label>Background Information:</label>
-          <label>{listOfResult.backgroundInfo}</label>
+          <label dangerouslySetInnerHTML={{__html: listOfResult.backgroundInfo}}></label>
           </div>
           <br/>
           <div >

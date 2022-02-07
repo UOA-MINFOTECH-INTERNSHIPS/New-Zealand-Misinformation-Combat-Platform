@@ -30,6 +30,7 @@ import Liked from './components/Results/userLiked';
 export default function App() {
   const {loggedIn} = useContext(AppContext);
 
+
   return (
 <Routes>
       <Route path='/' element ={<Home/>}/>
@@ -37,9 +38,8 @@ export default function App() {
       <Route path='/articles/:id' element ={<Article/>}/>
       <Route path ='/result' element = {<Results/>} />
       <Route path ='/result/:id/read' element = {<VerifiedArticle/>} />
-      <Route path='/mission' element ={<Missions/>}/>
+      <Route path='/mission' element ={<Missions/>}/> 
       <Route path='/mission/:id/read' element ={<Mission/>}/>
-
       <Route element={<PrivateRoute isLogged={loggedIn} />}>
         <Route path='/profile' element ={<Profile/>}/> 
         <Route path='/mission/:_id/verify' element ={<FactCheckerVerify />}/>  {/* fact checker verify mission的界面*/}
@@ -56,8 +56,8 @@ export default function App() {
         <Route path="/signup" element ={<Register />} />
         <Route path="/signin" element={<Login />} />
       </Route>
-    
-
+  
       </Routes>
+
 )
 }
