@@ -7,7 +7,8 @@ import {
     deleteMission,
     voteMission,
     unvoteMission,
-    deleteAllMission
+    deleteAllMission,
+    sortAllMission
 } from '../../pokemon-data/missiondao';
 import auth from '../../middleware/auth';
 import { Mission } from '../../pokemon-data/missionschema';
@@ -326,7 +327,7 @@ function paginatedResults(model) {
         }
       }
       try {
-        results.results = await model.find({status : false}).limit(limit).skip(startIndex).exec()
+        results.results = await model.find({status : false}).sort({support: -1}).limit(limit).skip(startIndex).exec()
         res.paginatedResults = results
         next()
       } catch (e) {
@@ -583,6 +584,25 @@ router.delete('/deleteAll', async (req, res) => {
 router.get('/all', async (req, res) => {
     try{
         res.json(await retrieveAllMission());
+    }catch(err){
+        console.error(err);
+        res.status(500).send();
+    }
+});
+
+/**
+ * @swagger
+ * /api/mission/sort_all:
+ *   get:
+ *     description: retrieve all SORTED missions in db
+ *     tags: [Missions]
+ *     responses:
+ *       200:
+ *         description: all missions got
+ */
+ router.get('/sort_all', async (req, res) => {
+    try{
+        res.json(await sortAllMission());
     }catch(err){
         console.error(err);
         res.status(500).send();

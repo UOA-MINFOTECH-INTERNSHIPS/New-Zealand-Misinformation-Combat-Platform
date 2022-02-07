@@ -151,7 +151,7 @@ export default function Missions() {
                                     ) ] : null
                                 }
                                 {loggedIn ? [ (userType == 'fact checker' 
-                                    ? <Button sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/MissionCheck/${val._id}`} size="small">Verify</Button>
+                                    ? <Button sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/verify`} size="small">Verify</Button>
                                     : null ) ] : null
                                 }
                                 <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/read` } size="small"> Read more</Button>
