@@ -35,12 +35,25 @@ export default function UserLiked() {
 
     useEffect(()=> {
         const req = {username};
-        axios.post("http://localhost:3001/api/user/user_liked", req)
+
+        axios.post("http://localhost:3001/api/user/find", req)
        .then((res) =>{
-            setLiked(res.data);
+            setUser(res.data);
         })
        .catch(()=> {console.log("ERR") } )
+       
    }, []);
+
+   useEffect(()=> {
+    const req = user.username;
+
+    axios.post("http://localhost:3001/api/user/user_liked", req)
+   .then((res) =>{
+        setLiked(res.data);
+    })
+   .catch(()=> {console.log("ERR") } )
+   
+}, []);
 
 
     return (

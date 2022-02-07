@@ -459,7 +459,7 @@ function paginatedResults(model) {
         }
       }
       try {
-        results.results = await model.find().limit(limit).skip(startIndex).exec()
+        results.results = await model.find().sort({score: -1}).limit(limit).skip(startIndex).exec()
         // console.log(results.results)
         res.paginatedResults = results
         next()

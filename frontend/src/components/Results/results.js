@@ -1,4 +1,4 @@
-import React , { useContext }from 'react';
+import React , { useContext,useState, useEffect }from 'react';
 import './results.css';
 import { Cookies } from 'react-cookie';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -18,6 +18,28 @@ export default function Mission({data}) {
     const cookies = new Cookies();
     const username = cookies.get('username');
     const {user, setUser, loggedIn} = useContext(AppContext); 
+    const [page, setPage] = useState(1);
+    const [display, setDisplay] = useState([]);
+    const [missions, setMissions] = useState([]);
+
+    useEffect(()=>{
+        const temp = {username} 
+        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
+            setUser(res.data);
+        })
+
+        axios.get("http://localhost:3001/api/result/all").then((res)=> { 
+            setMissions(res.data);
+            console.log(res.data);
+        })
+    },[])
+
+    useEffect(()=>{
+        const start = (page-1) * 20; 
+        const end = page * 20;
+        setDisplay(missions.slice(start,end));
+    },[page,data])
+
 
     const handleLike = (id) => {
         try{
@@ -25,8 +47,7 @@ export default function Mission({data}) {
             if(user.arrayOfLiked.includes(id)){
                 axios.post("http://localhost:3001/api/result/unlike", obj).then((res) =>{
                     console.log(res)
-                        setUser(res.data)
-                    
+                        setUser(res.data)   
                 })
             } else{
                 axios.post("http://localhost:3001/api/result/like", obj).then((res) =>{
@@ -36,7 +57,6 @@ export default function Mission({data}) {
         }catch(err){
             console.log(err)
         }
-        
     }
 
     return (

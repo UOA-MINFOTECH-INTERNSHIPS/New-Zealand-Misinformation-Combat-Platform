@@ -13,26 +13,48 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import { Cookies } from 'react-cookie';
 
 
+const useStyles = makeStyles({
+    button: {
+      width:'100%',
+      backgroundColor: '#1A2634',
+      marginBottom:'20px',
+      color: '#fff',
+      fontSize: '15px',
+      '&:hover': {
+        backgroundColor: 'rgba(192, 142, 49)',
+        color: 'black',
+    },
+  }})
 
 export default function Home() {
+    const cookies = new Cookies();
+    const username = cookies.get('username');
+    const classes = useStyles();
     const [newest, setNewest] = useState([]);
     const [mission, setMission] = useState([]);
     const [page, setPage] = useState(1);
     const { user, setUser, loggedIn} = useContext(AppContext)
 
     useEffect(()=> {
+        const temp = {username} 
+        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
+            setUser(res.data)
+        })
+
         const pageNum ={page};
         axios.post("http://localhost:3001/api/result/resultlist", pageNum)
        .then((response) =>{
-        setNewest(response.data.results);
+        setNewest(response.data.results.slice(0,5));
         })
        .catch(()=> {console.log("ERR") } )
 
         axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
        .then((response) =>{
-        setMission(response.data.results);
+        setMission(response.data.results.slice(0,10));
         })
        .catch(()=> {console.log("ERR") } )
 
@@ -83,14 +105,14 @@ export default function Home() {
                             </CardContent>
 
                             <CardActions>
-                                {loggedIn &&(user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />)}
+                                {loggedIn && (user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />)}
                                 { loggedIn &&  <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i> }
                                 <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
                             </CardActions>
                         </Card>
 
                     ) ) } 
-                    <Button className='btn' size="small"><a href= {`/result`}>View more</a></Button>
+                    <Button className={classes.button} size="small" href= {`/result`} sx={{backgroundColor: 'rgb(26,38,52)' }}>View more</Button>
 
                 </div>
 
@@ -101,6 +123,8 @@ export default function Home() {
                             <div className='popularItem'>{val.question}</div>
                         ))
                     }
+                    <Button className={classes.button} size="small" href= {`/result`} sx={{backgroundColor: 'rgb(26,38,52)' }}>View more</Button>
+
                 </div>
 
             </div>

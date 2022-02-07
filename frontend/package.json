@@ -18,6 +18,7 @@
     "ckeditor5-custom-build": "file:ckeditor5",
     "components": "^0.1.0",
     "dayjs": "^1.10.7",
+    "html-react-parser": "^1.4.8",
     "minfotech-internship-template-frontend": "file:",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
