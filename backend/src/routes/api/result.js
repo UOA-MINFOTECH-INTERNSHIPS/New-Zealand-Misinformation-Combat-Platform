@@ -121,7 +121,7 @@ router.post('/post',auth, async (req, res) => {
                 missionID : missionID,
                 url: exsitingMission.url,
                 title : exsitingMission.title,
-                author: exsitingMission.author,
+                author: username,
                 image: exsitingMission.image,
                 backgroundInfo : exsitingMission.backgroundInfo,
                 question : exsitingMission.question,
