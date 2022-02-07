@@ -25,10 +25,12 @@ export default function Nav() {
         setAnchorEl(null);
       };
 
+
+
     async function logout ( ) {
         await axios.get("http://localhost:3001/api/user/logout");
         getLoggedIn();
-        setUser({});
+
     }
 
     return (

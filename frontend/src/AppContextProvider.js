@@ -1,24 +1,50 @@
 import React, {createContext, useEffect, useState} from 'react';
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
+
 
 const AppContext = createContext();
 
 function AppContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({});
+    const cookies = new Cookies();
+    const username = cookies.get('username');
+
+        const removeCookies = () =>{
+        cookies.remove("username")
+        cookies.remove("email");
+        cookies.remove("userType");
+    }
 
 
     async function getLoggedIn(){
-        const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn ");
+        const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn");
         setLoggedIn(loggedInRes.data);
     }
 
+    async function getUserData(usernmae){
+        if (username){
+            const response = await axios.post("http://localhost:3001/api/user/find", {username});
+            if (response.status == 200){
+                setUser(response.data);
+            }
+        }else{
+            setUser({});
+        }
+    }
+
     useEffect (()=>{
-        getLoggedIn(); 
+        getLoggedIn();
+        if (!loggedIn){
+            setUser({});
+            removeCookies();
+        }
     }, [loggedIn]);
 
     useEffect (()=>{
-    }, [user]);
+        getUserData(username);
+    }, []);
     
     return (
         <AppContext.Provider value={{ loggedIn, setLoggedIn, getLoggedIn, user, setUser}}>

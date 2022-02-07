@@ -19,21 +19,23 @@ function Login() {
     try{
 
       const user_temp = {username,password}
-      const userDetail = await axios.post("http://localhost:3001/api/user/login", user_temp);
+      const response = await axios.post("http://localhost:3001/api/user/login", user_temp);
+      if (response.status == 200){
 
-      const cookies= new Cookies();
-      cookies.set('username',userDetail.data.username, {path: '/'});
-      cookies.set('email',userDetail.data.email, {path: '/'});
-      cookies.set('userType',userDetail.data.userType, {path: '/'});
-
-      setUser(userDetail.data);
-      getLoggedIn();
-      Navigate('/')
-
-
+        const userDetail = response.data;
+        const cookies= new Cookies();
+        cookies.set('username',userDetail.username, {path: '/'});
+        cookies.set('email',userDetail.email, {path: '/'});
+        cookies.set('userType',userDetail.userType, {path: '/'});
+        setUser(userDetail.data);
+        getLoggedIn();
+        Navigate('/')
+      }else{
+        setError(response.data.errorMessage);
+      }
 
     }catch (err){
-      setError(error.response.data.errorMessage);
+      setError(err.response.data.errorMessage);
 
     }
   }
