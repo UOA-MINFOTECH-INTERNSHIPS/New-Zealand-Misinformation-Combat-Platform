@@ -114,3 +114,6 @@ input[type=text] {
     padding: 20px 40px 30px 40px;
 }
 
+.resultContainer p{
+    margin-left: 0px;
+}

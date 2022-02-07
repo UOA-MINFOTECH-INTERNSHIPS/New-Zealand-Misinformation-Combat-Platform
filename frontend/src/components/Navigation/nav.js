@@ -27,6 +27,8 @@ export default function Nav() {
 
     async function logout ( ) {
         await axios.get("http://localhost:3001/api/user/logout");
+        localStorage.removeItem('email')
+        localStorage.removeItem('userType')
         getLoggedIn();
         setUser({});
     }

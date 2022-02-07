@@ -35,7 +35,6 @@ export default function ArticleContainer (){
 
     const handleChange = (event, value) => {
         setPage(value);
-        console.log(page); 
     };
 
     return (

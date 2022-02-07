@@ -1,5 +1,6 @@
 .home{
     margin: 0;
+    margin-bottom: 60px;
     padding: 0;
 }
 
@@ -80,11 +81,8 @@
     border-radius: 25px;
     margin-left: 20px;
 }
-.action a{
-    color: white;
-    font-size: 13px;
-}
 
 .action:hover{
     background-color: rgb(233, 183, 91);
 }
+
