@@ -18,7 +18,7 @@ export default function ArticleContainer (){
     const [listOfArticle, setListOfArticle]=useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1); 
-    const {logged} = useContext(AppContext);
+    const {loggedIn} = useContext(AppContext);
 
     axios.get("http://localhost:3001/api/articles/articleNum").then((res)=> {
         setTotalPage(Math.ceil(res.data/20));
@@ -30,6 +30,7 @@ export default function ArticleContainer (){
         axios.post("http://localhost:3001/api/articles/articlelist", pageNum)
        .then((response) =>{
             setListOfArticle(response.data.results);
+            console.log(response.data.results)
         })
        .catch(()=> {console.log("ERR") } )
    }, [page]);
@@ -46,7 +47,7 @@ export default function ArticleContainer (){
                     <div className='articlesContainer' >
                     {listOfArticle.map((article)=> (
                         <Card key={article._id} className="articleContainer" sx={{ maxWidth: 730 }}>
-                            {article.urlToImage == null ? 
+                            {article.urlToImage == "null" ? 
                             <CardMedia component="img" alt="green iguana" height="200" image= {placeholder}/>
                             : 
                             <CardMedia component="img" alt="green iguana" height="200" image= {article.urlToImage}/>
@@ -57,28 +58,26 @@ export default function ArticleContainer (){
                                     {article.title}
                                 </Typography>
 
-                                <Typography variant="body2" color="text.secondary">
-                                    {article.description}
-                                </Typography>
-
-                                <br/>
-                                {article.author != null ?
+                                {article.author != "null" ?
                                 <Typography variant="body2" color="text.secondary">
                                     Author: {article.author}
                                 </Typography> : 
                                 <Typography variant="body2" color="text.secondary">
                                     Author: Undefined
                                 </Typography> }
+                                <br/>
 
                                 <Typography variant="body2" color="text.secondary">
-                                    Published Date: {article.publishAt}
+                                    {article.background_info}
                                 </Typography>
                             </CardContent>
                             
                             <CardActions>
+                                {loggedIn && 
                                 <Button sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" size="small" href={'/NewMission/' + article._id} > 
-                                     Verification Request  
+                                        Verification Request  
                                 </Button>
+                                }
                                 <Button variant="contained" sx={{backgroundColor: 'rgb(26,38,52)'}} href= {'/articles/' + article._id} size="small"> Read more</Button>
                                 
                             </CardActions>

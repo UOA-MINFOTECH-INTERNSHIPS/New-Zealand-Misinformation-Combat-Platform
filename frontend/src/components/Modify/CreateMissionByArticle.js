@@ -18,12 +18,10 @@ import { Cookies } from 'react-cookie';
 function CreateMissionByArticle() {
  
     const [url, setUrl] = useState('');
-    /*
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('');
     const [backgroundInfo, setBackgroundInfo] = useState('');
-    */
     const [question, setQuestion] = useState('');
     const [keywords, setKeywords] = useState(''); 
     const [listOfResult, setListOfResult] = useState([]);
@@ -54,10 +52,11 @@ function CreateMissionByArticle() {
     try {
       const cookie = new Cookies();
       const username = cookie.get('username');
+      const url = listOfResult.url;
       const title =listOfResult.title;
       const author =listOfResult.author;
       const image =listOfResult.image;
-      const backgroundInfo = listOfResult.description;
+      const backgroundInfo = listOfResult.background_info;
       const createText = {
         username,
         url,
@@ -89,19 +88,18 @@ function CreateMissionByArticle() {
     <div className='background'>
       <div className='inputContainer' >
         <form onSubmit={submitArticle}  >
-        <label>Title:</label>
-          <div>{listOfResult.title}</div>
+        <label><strong>Title:&nbsp;&nbsp;</strong>{listOfResult.title}</label>
           <CardMedia component="img" alt="green iguana" height="200" image= {listOfResult.urlToImage}/>
             {listOfResult.author != null ?
-                 <Typography variant="body2" color="text.secondary">
-                    Author: {listOfResult.author}
+                 <Typography variant="body" component="div">
+                    <strong>Author:</strong> {listOfResult.author}
                 </Typography> : 
-                <Typography variant="body2" color="text.secondary">
-                    Author: Undefined
+                <Typography variant="body1" component="div">
+                    <strong>Author:</strong> Undefined
                 </Typography> }
 
-          <label>Description:</label>
-          <div>{listOfResult.description}</div>
+          <label><strong>Description:&nbsp;&nbsp;</strong> {listOfResult.background_info}</label>
+
          {/*   <div >
               <br/>
             <label>URL</label>
@@ -161,7 +159,7 @@ function CreateMissionByArticle() {
             />
           </div>  */}
           <div>
-            <label>Question</label>
+            <label><strong>Question</strong></label>
             <CKEditor
               editor={ClassicEditor}
               data={question}
@@ -180,7 +178,7 @@ function CreateMissionByArticle() {
             />
           </div>
 
-          <label>Keyword</label>
+          <label><strong>Keyword</strong></label>
           {/*< MultipleSelectChip   />*/}
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
@@ -198,8 +196,6 @@ function CreateMissionByArticle() {
                 <MenuItem value={"Technology"}>Technology</MenuItem>
                 <MenuItem value={"Life Style"}>Life Style</MenuItem>
                 <MenuItem value={"International"}>International</MenuItem>
-
-
 
               </Select>
             </FormControl>

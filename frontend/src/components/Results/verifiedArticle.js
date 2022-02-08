@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './results.css'
-
+import parse from 'html-react-parser';
 
 
 export default function MissionDetail() {
@@ -14,7 +14,6 @@ export default function MissionDetail() {
     const [result, setResult] = useState([]);
     const ResultID = {"id" : id}; 
     const navigate = useNavigate();
-
 
     useEffect(()=> {
         axios.post("http://localhost:3001/api/result/find", ResultID).then((response) =>{
@@ -44,11 +43,24 @@ export default function MissionDetail() {
                     </Typography>
                     <Typography variant="body"  component="div">
                         Request Fact Check On: {result.url}
+                        
                     </Typography>
                     <Typography variant="body"  component="div">
-                        Request Created on: {result.createdAt}
+                        <br/><br/> <strong>Background information</strong> <br/>
+                        {parse(result.backgroundInfo)}
                     </Typography>
                     <Typography variant="body"  component="div">
+                        <br/><br/> <strong>Analysis</strong> <br/>
+                        {parse(result.analysis)}
+                    </Typography>
+                    <Typography variant="body"  component="div">
+                        <br/><br/> <strong>Conclusion</strong> <br/>
+                        {parse(result.conclusion)}
+                    </Typography>
+
+                    <Typography variant="body"  component="div">
+                        <br/><br/> <strong>Verdict:</strong> 
+                        {parse(result.verdict)}
                     </Typography>
                 </CardContent>
             </Card>
