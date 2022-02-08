@@ -31,10 +31,6 @@ export default function Missions() {
 
 
     useEffect(()=> {
-        const temp = {username} 
-        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
-            setUser(res.data)
-        })
         axios.get("http://localhost:3001/api/mission/missionNum").then((res)=> {
             setTotalPage(Math.ceil(res.data/20));
         })
@@ -45,7 +41,6 @@ export default function Missions() {
         }).catch(()=> {console.log("ERR") } )
    },[]);
    
-
 
    //handling page change
     const handleChange = (event, value) => {

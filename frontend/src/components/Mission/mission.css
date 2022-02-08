@@ -74,9 +74,13 @@
 
 .detailContainter{
     align-items: center;
-    display: inline-block;
+
 }
 
 .missionDetail{
     margin: 40px 200px;
+}
+
+.missionDetail p{
+    margin-left: 0px;
 }

@@ -30,11 +30,6 @@ export default function ResultsContainer() {
     const end = page * 20;
 
     useEffect(()=> {
-        const temp = {username} 
-        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
-            setUser(res.data)
-        })
-
         axios.get("http://localhost:3001/api/result/resultNum").then((res)=> {
             setTotalPage(Math.ceil(res.data/20));
         })
@@ -120,7 +115,7 @@ export default function ResultsContainer() {
                                 Fact checking article Number: {val.url}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {parse(val.backgroundInfo)}
+                                {parse(val.question)}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 {val.author}

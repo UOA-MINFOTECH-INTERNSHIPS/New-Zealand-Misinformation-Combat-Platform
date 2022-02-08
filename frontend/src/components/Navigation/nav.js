@@ -11,7 +11,7 @@ import { Cookies } from 'react-cookie';
 
 
 export default function Nav() {
-    const {loggedIn, getLoggedIn, setUser} = useContext(AppContext);
+    const {loggedIn, getLoggedIn, user, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const cookies = new Cookies();
@@ -28,8 +28,9 @@ export default function Nav() {
     async function logout ( ) {
         await axios.get("http://localhost:3001/api/user/logout");
         getLoggedIn();
-        setUser({});
-        localStorage.clear();
+        cookies.remove("username")
+        cookies.remove("email");
+        cookies.remove("userType");
     }
 
     return (

@@ -38,10 +38,6 @@ export default function Home() {
     const { user, setUser, loggedIn} = useContext(AppContext)
 
     useEffect(()=> {
-        const temp = {username} 
-        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
-            setUser(res.data)
-        })
         axios.get("http://localhost:3001/api/result/all")
        .then((response) =>{
         setNewest(response.data.slice(0,5));

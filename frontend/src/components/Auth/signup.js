@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './auth.css'
 import axios from "axios";
 import Box from '@mui/material/Box';
@@ -16,13 +17,21 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userType, setUserType] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function register(e) {
     e.preventDefault();
 
     try {
-      const user = {username, name, email, password, confirmPassword, userType, category};
-      await axios.post("http://localhost:3001/api/user/register", user);
+      const userRegister = {username, name, email, password, confirmPassword, userType, category};
+      const res = await axios.post("http://localhost:3001/api/user/register", userRegister);
+      console.log(res.status);
+      if (res.status == 201){
+        navigate('/signin');
+      }else{
+        setError(res.data.errorMessage);
+      }
+
     }catch (err) {
         setError(err.response.data.errorMessage);
     }
