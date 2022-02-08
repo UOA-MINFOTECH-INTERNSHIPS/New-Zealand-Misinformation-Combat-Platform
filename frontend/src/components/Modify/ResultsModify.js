@@ -72,6 +72,7 @@ function EditResults() {
         )
         .then(()=>{
                 alert("It works");
+                Navigate("/MyResults")
         })
       }catch (err) {
         setError(err.response.data.errorMessage);
@@ -82,13 +83,14 @@ function EditResults() {
   
       <div className='inputContainer'  >
       <form  onSubmit={submitResult}  >
-          <div>
-          <label>Question:</label>
-          <div dangerouslySetInnerHTML={{__html: listOfResult.question}}></div>
-          </div>
+          
           <div>
           <label>Background Information:</label>
           <label dangerouslySetInnerHTML={{__html: listOfResult.backgroundInfo}}></label>
+          </div>
+          <div>
+          <label>Question:</label>
+          <label dangerouslySetInnerHTML={{__html: listOfResult.question}}></label>
           </div>
           <br/>
           <div >
