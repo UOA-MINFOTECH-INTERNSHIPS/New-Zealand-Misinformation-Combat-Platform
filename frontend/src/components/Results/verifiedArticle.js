@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import './results.css'
 
 
@@ -10,6 +13,7 @@ export default function MissionDetail() {
     const { id } = useParams();
     const [result, setResult] = useState([]);
     const ResultID = {"id" : id}; 
+    const navigate = useNavigate();
 
 
     useEffect(()=> {
@@ -23,28 +27,31 @@ export default function MissionDetail() {
     }
 
     return (
-        <div>
-            
+        <div className='detailContainter'>
+
             <div className='returnBtn'>
-                <Link to='/result'><Button variant="outlined"> Back </Button></Link>
+                <Button variant="outlined" onClick={(e)=>{navigate(-1)}}> Back </Button>
             </div>
+            <div className='missionDetail'>
 
-            <div className='missionDetailContainers'>
-                <div className='missionContent'>
-                    
-                    <div >
-                        <h2>{result.title}</h2>
-                        <p><strong>Author: </strong>&nbsp;{result.author} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                            <strong>Mission created:&nbsp;</strong> {result.createdAt} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong>Recent update:&nbsp;</strong> {result.updatedAt}</p>
-                        <p><strong>Potential false URL:&nbsp;</strong> {result.url}</p>
-                        <p><strong>Description</strong></p>
-                        <p>{result.backgroundInfo}</p>
-                    </div>
-
-
-                </div>
-
+            <Card sx={{mb:3, p:2}}>
+                <CardContent>
+                    <Typography gutterBottom variant="h3" component="div">
+                        {result.title} 
+                    </Typography>
+                    <Typography variant="body"  component="div" >
+                        Verified by: {result.author}  <br/>
+                    </Typography>
+                    <Typography variant="body"  component="div">
+                        Request Fact Check On: {result.url}
+                    </Typography>
+                    <Typography variant="body"  component="div">
+                        Request Created on: {result.createdAt}
+                    </Typography>
+                    <Typography variant="body"  component="div">
+                    </Typography>
+                </CardContent>
+            </Card>
             </div>
         </div>
         );

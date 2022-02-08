@@ -52,8 +52,6 @@
     margin-bottom: 10px;
 }
 
-
-
 .votes{
     float: right;
 }
@@ -71,4 +69,18 @@
 
 .missionContent p{
     margin-left: 0;
+}
+
+
+.detailContainter{
+    align-items: center;
+
+}
+
+.missionDetail{
+    margin: 40px 200px;
+}
+
+.missionDetail p{
+    margin-left: 0px;
 }

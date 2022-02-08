@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './auth.css'
 import axios from "axios";
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useNavigate } from 'react-router-dom';
 import InputLabel from "@mui/material/InputLabel";
 
 export default function Register() {
@@ -23,10 +23,15 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const factCheckerData = {username, name, email, password, confirmPassword, userType, category};
-      console.log(factCheckerData)
-      await axios.post("http://localhost:3001/api/user/register", factCheckerData);
-      //navigate('/login');
+      const userRegister = {username, name, email, password, confirmPassword, userType, category};
+      const res = await axios.post("http://localhost:3001/api/user/register", userRegister);
+      console.log(res.status);
+      if (res.status == 201){
+        navigate('/signin');
+      }else{
+        setError(res.data.errorMessage);
+      }
+
     }catch (err) {
         setError(err.response.data.errorMessage);
     }
@@ -51,7 +56,7 @@ export default function Register() {
                 </Box>
             </div>
 
-            {userType == 'Fact checker' && (
+            {userType === 'Fact checker' && (
                 <div className="selectionBox">
                     <Box sx={{ minWidth: 120}}>
                         <FormControl fullWidth>
@@ -94,7 +99,7 @@ export default function Register() {
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br /> 
 
             <form onSubmit={register}>
-              <button type="submit" className="btn">
+              <button href='/signin' type="submit" className="btn">
                   Register
               </button>
             </form>

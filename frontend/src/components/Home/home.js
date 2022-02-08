@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom'
 import React, {useState, useEffect, useContext} from 'react'
 import './home.css'
 import axios from 'axios';
@@ -20,14 +19,14 @@ import parse from 'html-react-parser';
 const useStyles = makeStyles({
     button: {
       width:'100%',
-      backgroundColor: '#1A2634',
+      backgroundColor:'#1A2634',
       marginBottom:'20px',
       color: '#fff',
       fontSize: '15px',
       '&:hover': {
-        backgroundColor: 'rgba(192, 142, 49)',
-        color: 'black',
-    },
+        backgroundColor:'rgba(192, 142, 49)',
+        color: 'white',
+    }, 
   }})
 
 export default function Home() {
@@ -36,29 +35,21 @@ export default function Home() {
     const classes = useStyles();
     const [newest, setNewest] = useState([]);
     const [mission, setMission] = useState([]);
-    const [page, setPage] = useState(1);
     const { user, setUser, loggedIn} = useContext(AppContext)
 
     useEffect(()=> {
-        const temp = {username} 
-        axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
-            setUser(res.data)
-        })
-
-        const pageNum ={page};
-        axios.post("http://localhost:3001/api/result/resultlist", pageNum)
+        axios.get("http://localhost:3001/api/result/all")
        .then((response) =>{
-        setNewest(response.data.results.slice(0,5));
+        setNewest(response.data.slice(0,5));
         })
        .catch(()=> {console.log("ERR") } )
 
-        axios.post("http://localhost:3001/api/mission/missionlist", pageNum)
+        axios.get("http://localhost:3001/api/mission/all")
        .then((response) =>{
-        setMission(response.data.results.slice(0,10));
+        setMission(response.data.slice(0,10));
         })
        .catch(()=> {console.log("ERR") } )
-
-   }, []);
+   }, [setUser,username]);
 
    const handleLike = (id) => {
     try{
@@ -66,7 +57,7 @@ export default function Home() {
         const obj = {username, id};
         if(user.arrayOfLiked.includes(id)){
             axios.post("http://localhost:3001/api/result/unlike", obj).then((res) =>{
-                if(res.data != "you already like this result"){
+                if(res.data !== "you already like this result"){
                     setUser(res.data)
                 }
             })
@@ -82,7 +73,7 @@ export default function Home() {
 
     return (
         <div className='home'>
-            <img className='bkimg' src={bkImg}/>
+            <img className='bkimg' src={bkImg} alt=''/>
 
             <div className='container'>
                 <div className='newest'>
@@ -107,12 +98,12 @@ export default function Home() {
                             <CardActions>
                                 {loggedIn && (user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />)}
                                 { loggedIn &&  <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i> }
-                                <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
+                                <Button variant="contained" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} href= {`/result/${val._id}/read`} size="small"> Read more</Button>
                             </CardActions>
                         </Card>
 
                     ) ) } 
-                    <Button className={classes.button} size="small" href= {`/result`} sx={{backgroundColor: 'rgb(26,38,52)' }}>View more</Button>
+                    <Button className={classes.button} size="small" href= {`/result`}>View more</Button>
 
                 </div>
 
@@ -123,7 +114,7 @@ export default function Home() {
                             <div className='popularItem'>{parse(val.question)}</div>
                         ))
                     }
-                    <Button className={classes.button} size="small" href= {`/result`} sx={{backgroundColor: 'rgb(26,38,52)' }}>View more</Button>
+                    <Button className={classes.button} size="small" href= {`/result`}>View more</Button>
 
                 </div>
 

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor';
-import { Link ,useParams,useNavigate} from 'react-router-dom';
+import { useParams,useNavigate} from 'react-router-dom';
 import './NewMission.css';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
@@ -18,10 +18,12 @@ import { Cookies } from 'react-cookie';
 function CreateMissionByArticle() {
  
     const [url, setUrl] = useState('');
+    /*
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('');
     const [backgroundInfo, setBackgroundInfo] = useState('');
+    */
     const [question, setQuestion] = useState('');
     const [keywords, setKeywords] = useState(''); 
     const [listOfResult, setListOfResult] = useState([]);

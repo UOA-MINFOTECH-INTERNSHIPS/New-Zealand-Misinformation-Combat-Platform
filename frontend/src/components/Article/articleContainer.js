@@ -79,7 +79,7 @@ export default function ArticleContainer (){
                                 <Button sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" size="small" href={'/NewMission/' + article._id} > 
                                      Verification Request  
                                 </Button>
-                                <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)'}} variant="contained" href= {'/articles/' + article._id} size="small"> Read more</Button>
+                                <Button variant="contained" sx={{backgroundColor: 'rgb(26,38,52)'}} href= {'/articles/' + article._id} size="small"> Read more</Button>
                                 
                             </CardActions>
                         </Card>
