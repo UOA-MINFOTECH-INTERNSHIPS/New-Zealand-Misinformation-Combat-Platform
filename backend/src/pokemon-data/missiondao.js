@@ -8,7 +8,11 @@ async function createMission(mission) {
 }
 
 async function retrieveAllMission() {
-    return await Mission.find();
+    return await Mission.find({status: false});
+}
+
+async function sortAllMission() {
+    return await Mission.find({status: false}).sort({support: -1});
 }
 
 async function retrieveMission20() {
@@ -92,5 +96,6 @@ export {
     deleteMission,
     voteMission,
     unvoteMission,
-    deleteAllMission
+    deleteAllMission,
+    sortAllMission
 }

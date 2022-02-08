@@ -121,7 +121,6 @@ export default function ResultsContainer() {
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 {parse(val.backgroundInfo)}
-
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 {val.author}
