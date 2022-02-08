@@ -69,6 +69,8 @@ function EditArticle() {
         )
         .then(()=>{
                 alert("It works");
+                Navigate("/mission")
+
         })
       }catch (err) {
         setError(err.response.data.errorMessage);
@@ -82,13 +84,14 @@ function EditArticle() {
           <div >
            <LiveHelpIcon style={{width:"60px", height:"60px", margin:"5px"}} />
           </div>
-          <div>
-          <label>Question:</label>
-          <div dangerouslySetInnerHTML={{__html: listOfResult.question}}></div>
-          </div>
+          
           <div>
           <label>Background Information:</label>
-          <div dangerouslySetInnerHTML={{__html: listOfResult.backgroundInfo}}></div>
+          <label dangerouslySetInnerHTML={{__html: listOfResult.backgroundInfo}}></label>
+          </div>
+          <div>
+          <label>Question:</label>
+          <label dangerouslySetInnerHTML={{__html: listOfResult.question}}></label>
           </div>
           <br/>
           <div >
