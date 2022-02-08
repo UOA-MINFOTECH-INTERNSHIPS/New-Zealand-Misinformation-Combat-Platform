@@ -1,23 +1,28 @@
 import React, { useContext, useState, useEffect } from 'react';
 import AppContext from '../../AppContextProvider';
 import axios from 'axios';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from '@mui/material/Button';
 import { Cookies } from 'react-cookie';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Pagination from "@mui/material/Pagination";
+import parse from "html-react-parser";
 
 
 export default function UserLiked() {
     const cookies = new Cookies();
-    const username = cookies.get('username');
+    const un = cookies.get('username')
     const {user,loggedIn, setUser} = useContext(AppContext);
     const [liked, setLiked] = useState([]);
 
     const handleLike = (id) => {
         try{
-            const obj = {username, id};
+            const obj = {un, id};
             if(user.arrayOfLiked.includes(id)){
                 axios.post("http://localhost:3001/api/result/unlike", obj).then((res) =>{
                     console.log(res)
@@ -34,54 +39,58 @@ export default function UserLiked() {
     }
 
     useEffect(()=> {
-        const req = {username};
+        const username={"username": un}
+        axios.post("http://localhost:3001/api/user/find",username)
+        .then((response) =>{
+            setUser(response.data);
+         })
+        .catch(()=> {console.log("ERR") } )
 
-        axios.post("http://localhost:3001/api/user/find", req)
-       .then((res) =>{
-            setUser(res.data);
-        })
-       .catch(()=> {console.log("ERR") } )
-       
-   }, []);
 
-   useEffect(()=> {
-    const req = user.username;
-
-    axios.post("http://localhost:3001/api/user/user_liked", req)
-   .then((res) =>{
-        setLiked(res.data);
-    })
-   .catch(()=> {console.log("ERR") } )
-   
-}, []);
-
+        axios.post("http://localhost:3001/api/user/user_liked",username)
+        .then((response) =>{
+            setLiked(response.data);
+         })
+        .catch(()=> {console.log("ERR") } )
+    },  
+    []);
 
     return (
+        <div className='missions'>
+        <div className='mission'>
+        <p className='title'> My Liked Fact Check Result List </p>
+
+
         <div className='resultContainer'>
             { liked.map((val, key)=> (
-                <div className='resultCard'>
-                    <div >
-                        <p><VerifiedIcon className='red'/>Verification result place holder</p>
-                        <h3>{val.title}</h3>
-                        <p> Fact checking on: {val.url} </p>
-                        <p>Created on: {val.createdAt}</p>
-                    </div>
+                <Card key={val._id} sx={{mb:3, p:2}}>
+                    <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                            {val.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Fact checking article Number: {val.url}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {parse(val.backgroundInfo)}
 
-                    <div className='resultAction' >
-                        {loggedIn &&  
-                            (user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />) 
-                            
-                        }
-                        { loggedIn &&  
-                            <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i>
-                        }
-                        <div className='votes'>
-                        <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)',  mx: 2 }} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
-                        </div>
-                    </div>
-                </div>
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {val.author}
+                        </Typography>
+                    </CardContent>
+
+                    <CardActions>
+                        {loggedIn &&(user.arrayOfLiked.includes(val._id) ? <FavoriteIcon color="error" />: <FavoriteBorderIcon />)}
+                        { loggedIn &&  <i onClick={(e) => {handleLike(val._id)}}><ThumbUpIcon /></i> }
+                        <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/result/${val._id}/read`} size="small"> Read more</Button>
+                    </CardActions>
+                </Card>
             ) ) } 
 
         </div>
+
+        </div>
+    </div>
     )
 }

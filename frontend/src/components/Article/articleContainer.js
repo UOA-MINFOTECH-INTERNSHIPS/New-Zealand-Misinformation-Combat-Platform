@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Pagination from "@mui/material/Pagination";
 import Grid from '@mui/material/Grid';
 import AppContext from '../../AppContextProvider';
+import placeholder from '../Image/imagePlaceholder.png'
+
 
 
 export default function ArticleContainer (){
@@ -44,7 +46,12 @@ export default function ArticleContainer (){
                     <div className='articlesContainer' >
                     {listOfArticle.map((article)=> (
                         <Card key={article._id} className="articleContainer" sx={{ maxWidth: 730 }}>
+                            {article.urlToImage == null ? 
+                            <CardMedia component="img" alt="green iguana" height="200" image= {placeholder}/>
+                            : 
                             <CardMedia component="img" alt="green iguana" height="200" image= {article.urlToImage}/>
+                                
+                            }
                             <CardContent>
                                 <Typography gutterBottom variant="h6" component="div">
                                     {article.title}
