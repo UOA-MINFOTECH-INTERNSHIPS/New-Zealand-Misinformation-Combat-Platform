@@ -3,15 +3,15 @@ import './nav.css';
 import logo from './luxury.png';
 import AppContext from '../../AppContextProvider';
 import {Logout} from '@mui/icons-material';
-import {Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography, Button} from '@mui/material';
+import {Avatar,Menu, MenuItem, ListItemIcon, Divider, IconButton, Typography } from '@mui/material';
 import axios from 'axios';
-import {NavLink, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 
 
 
 export default function Nav() {
-    const {loggedIn, getLoggedIn, user, setUser} = useContext(AppContext);
+    const {loggedIn, getLoggedIn, setUser} = useContext(AppContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const cookies = new Cookies();
@@ -27,10 +27,9 @@ export default function Nav() {
 
     async function logout ( ) {
         await axios.get("http://localhost:3001/api/user/logout");
-        localStorage.removeItem('email')
-        localStorage.removeItem('userType')
         getLoggedIn();
         setUser({});
+        localStorage.clear();
     }
 
     return (
@@ -38,10 +37,10 @@ export default function Nav() {
             <img className='logo' src={logo}/>
             <nav>
                 <ul className='nav_links'>
-                    <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/articles">News articles</NavLink></li>
-                    <li><NavLink to="/result">Fact checked</NavLink></li>
-                    <li><NavLink to="/mission">Fact checked Requests</NavLink></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/articles">News articles</Link></li>
+                    <li><Link to="/result">Fact checked</Link></li>
+                    <li><Link to="/mission">Fact checked Requests</Link></li>
                 </ul>
             </nav>
             {loggedIn === true && (
@@ -61,27 +60,20 @@ export default function Nav() {
                             height: 10, bgcolor: 'background.paper', transform: 'translateY(-50%) rotate(45deg)', zIndex: 0,
                         }, }, }} transformOrigin={{ horizontal: 'right', vertical: 'top' }} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
-                    <MenuItem > <Link className='menu' to='/profile'>Profile </Link></MenuItem>
-                    <MenuItem sx={{color:"1A2634"}}> <Link className='menu' to='/liked'>Liked List</Link></MenuItem>
-                    <MenuItem sx={{color:"1A2634"}}> <NavLink className='menu' to='/MyMissions'>My Requests</NavLink></MenuItem>
-                    {userType == "fact checker" && (<MenuItem sx={{color:"1A2634"}}>  <NavLink className='menu' to='/MyResults'>My Verified List</NavLink></MenuItem>)}
+                    <Link className='menu' to='/profile'><MenuItem > Profile </MenuItem></Link>
+                    <Link className='menu' to='/liked'><MenuItem sx={{color:"1A2634"}}> Liked List</MenuItem></Link>
+                    <Link className='menu' to='/MyMissions'><MenuItem sx={{color:"1A2634"}}> My Requests</MenuItem></Link>
+                    {userType == "fact checker" && (<Link className='menu' to='/MyResults'><MenuItem sx={{color:"1A2634"}}>  My Verified List</MenuItem></Link>)}
                     <Divider />
-                    <MenuItem onClick={logout}>
-                        <Link className='menu' to='/'>
-                            <ListItemIcon>
-                                <Logout fontSize="small" />
-                            </ListItemIcon>
-                            Logout
-                        </Link>
-                    </MenuItem>
+                    <Link className='menu' to='/'><MenuItem onClick={logout}><ListItemIcon><Logout fontSize="small" /></ListItemIcon>Logout</MenuItem></Link>
                 </Menu>
             </div>
             )}
 
             {loggedIn === false && ( 
             <div className='webstatus'>
-                <NavLink to="/signin"><button>  Sign in </button></NavLink>
-                <NavLink to="/signup"><button> Sign up</button></NavLink>
+                <Link to="/signin"><button>  Sign in </button></Link>
+                <Link to="/signup"><button> Sign up</button></Link>
             </div>)}
         </div>
     )

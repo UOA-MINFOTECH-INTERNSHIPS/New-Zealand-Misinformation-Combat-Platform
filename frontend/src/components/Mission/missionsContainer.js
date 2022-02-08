@@ -29,12 +29,12 @@ export default function Missions() {
     const start = (page-1) * 20; 
     const end = page * 20;
 
+
     useEffect(()=> {
         const temp = {username} 
         axios.post("http://localhost:3001/api/user/find", temp).then((res)=> { 
             setUser(res.data)
         })
-
         axios.get("http://localhost:3001/api/mission/missionNum").then((res)=> {
             setTotalPage(Math.ceil(res.data/20));
         })
@@ -43,13 +43,8 @@ export default function Missions() {
             setMissionList(res.data);
             setDisplay(res.data.slice(start,end));
         }).catch(()=> {console.log("ERR") } )
-   }, []);
+   },[]);
    
-
-    //pagination
-    useEffect(()=>{
-        setDisplay(missionList.slice(start,end));
-    },[page])
 
 
    //handling page change
@@ -68,7 +63,7 @@ export default function Missions() {
         });
         setDisplay(newFilter);
         console.log('display : ' + newFilter)
-        if(newFilter.length == 0) {
+        if(newFilter.length === 0) {
             setTotalPage(1);
         }else setTotalPage(Math.ceil(newFilter.length/20));
     }
@@ -107,7 +102,6 @@ export default function Missions() {
 
     return (
         <div className='missionContainer'>
-
             <div className='missions'>
                 <div className='mission'>
                     <p className='title'> Missions 
@@ -150,11 +144,11 @@ export default function Missions() {
                                     : <Button sx={{backgroundColor: 'rgb(26,38,52)' }} variant="contained" onClick={(e) => {handleVote(val._id)}} size="small"> Vote</Button>
                                     ) ] : null
                                 }
-                                {loggedIn ? [ (userType == 'fact checker' 
+                                {loggedIn ? [ (userType === 'fact checker' 
                                     ? <Button sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/verify`} size="small">Verify</Button>
                                     : null ) ] : null
                                 }
-                                <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/read` } size="small"> Read more</Button>
+                                <Button variant="text" sx={{backgroundColor: 'rgb(26,38,52)', ml: "auto"}} variant="contained" href= {`/mission/${val._id}/read`} size="small"> Read more</Button>
                             </CardActions>
                         </Card>
                     ) ) } 

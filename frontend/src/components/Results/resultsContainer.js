@@ -108,7 +108,11 @@ export default function ResultsContainer() {
             <div className='resultContainer'>
                 { display.map((val, key)=> (
                     <Card key={val._id} sx={{mb:3, p:2}}>
+                        
                         <CardContent>
+                        {val.verdict === 'True' 
+                            && (<p>True</p>) 
+                        }
                             <Typography gutterBottom variant="h6" component="div">
                                 {val.title}
                             </Typography>
