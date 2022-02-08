@@ -122,12 +122,12 @@ function EditResults() {
               />
          </div>
          <div>
-                  <label>Reference</label>
-                  <input 
-                  type="text" 
-                  onChange={(e) => setReference(e.target.value)} 
-                  value={reference}  
-                  />
+            <label>Reference</label>
+            <input 
+            type="text" 
+            onChange={(e) => setReference(e.target.value)} 
+            value={reference}  
+            />
           </div>
           <label>Verdict</label>
            {/*< MultipleSelectChip   />*/}  
@@ -140,21 +140,17 @@ function EditResults() {
                value={verdict}
                onChange={handleChange}
              >
-               <MenuItem value={"Health"}>Health</MenuItem>
-               <MenuItem value={"Economic"}>Economic</MenuItem>
-               <MenuItem value={"Environment"}>Environment</MenuItem>
-              
+               <MenuItem value={"True"}>True</MenuItem>
+               <MenuItem value={"Partly True"}>Partly True</MenuItem>
+               <MenuItem value={"False"}>False</MenuItem>
              </Select>
             </FormControl>
            </Box>
-           {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-                  <button type="submit" className='sub_button'>
-                    Submit
-                  </button> 
-                  <div >
-                    <Button className='sub_button' onClick={() => Navigate(-1)}> Go Back </Button>
-                   </div>
-     
+           {error && <><small style={{ color: 'red' }}>{error}</small><br/></>}<br />
+            <button type="submit" className='sub_button'>Submit</button>
+            <div>
+              <Button className='sub_button' onClick={() => Navigate(-1)}> Go Back </Button>
+            </div>
       </form>
       </div>
     );

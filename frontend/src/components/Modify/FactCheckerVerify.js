@@ -50,16 +50,13 @@ function EditArticle() {
         var missionID=findid._id;
         const cookies = new Cookies();
         const username=cookies.get('username');
-        const verdict ='True';
         const createText = {
-
           username,
           missionID,
           analysis,
           conclusion,
           verdict,
           reference
-          
         };
       // console.log(createText)
   

@@ -52,7 +52,7 @@ export default function MissionDetail() {
         <div className='detailContainter'>
 
             <div className='returnBtn'>
-                <Button sx={{backgroundColor: 'rgb(26,38,52)'}} variant="outlined" onClick={(e)=>{navigate(-1)}}> Back </Button>
+                <Button variant="outlined" onClick={(e)=>{navigate(-1)}}> Back </Button>
             </div>
             <div className='missionDetail'>
 

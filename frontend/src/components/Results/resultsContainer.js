@@ -16,6 +16,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import parse from "html-react-parser";
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 
 export default function ResultsContainer() {
@@ -105,9 +106,15 @@ export default function ResultsContainer() {
                     <Card key={val._id} sx={{mb:3, p:2}}>
                         
                         <CardContent>
-                        {val.verdict === 'True' 
-                            && (<p>True</p>) 
-                        }
+                            {val.verdict === 'True' 
+                                && (<p className='true' ><VerifiedIcon  size='medium' /> True</p>) 
+                            } 
+                            {val.verdict === 'Partly True' 
+                                && (<p className='partly' ><VerifiedIcon size='medium' /> Partly true</p>) 
+                            }
+                            {val.verdict === 'False' 
+                                && (<p className='false' ><VerifiedIcon  size='medium' /> False</p>) 
+                            }
                             <Typography gutterBottom variant="h6" component="div">
                                 {val.title}
                             </Typography>

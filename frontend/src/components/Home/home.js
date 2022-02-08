@@ -15,6 +15,8 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import { Cookies } from 'react-cookie';
 import parse from 'html-react-parser';
+import VerifiedIcon from '@mui/icons-material/Verified';
+
 
 const useStyles = makeStyles({
     button: {
@@ -81,14 +83,23 @@ export default function Home() {
                     { newest.map((val, key)=> (
                         <Card key={val._id} sx={{mb:3, p:2}}>
                             <CardContent>
+                            {val.verdict === 'True' 
+                                && (<p className='true' ><VerifiedIcon  size='medium' /> True</p>) 
+                            } 
+                            {val.verdict === 'Partly True' 
+                                && (<p className='partly' ><VerifiedIcon size='medium' /> Partly true</p>) 
+                            }
+                            {val.verdict === 'False' 
+                                && (<p className='false' ><VerifiedIcon  size='medium' /> False</p>) 
+                            }
                                 <Typography gutterBottom variant="h6" component="div">
                                     {val.title}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Fact checking article Number: {val.url}
+                                    Original article: {val.url}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    {parse(val.backgroundInfo)}
+                                    {parse(val.question)}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     {val.author}

@@ -117,3 +117,26 @@ input[type=text] {
 .resultContainer p{
     margin-left: 0px;
 }
+
+.true{
+    color: green;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.false{
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.partly{
+    color: orange ;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}

@@ -10,13 +10,6 @@ function AppContextProvider(props) {
     const cookies = new Cookies();
     const username = cookies.get('username');
 
-    const removeCookies = () =>{
-        cookies.remove("username")
-        cookies.remove("email");
-        cookies.remove("userType");
-    }
-
-
     async function getLoggedIn(){
         const loggedInRes = await axios.get("http://localhost:3001/api/user/loggedIn ");
         setLoggedIn(loggedInRes.data);
@@ -37,7 +30,6 @@ function AppContextProvider(props) {
         getLoggedIn();
         if (!loggedIn){
             setUser({});
-            removeCookies();
         }
     }, [loggedIn]);
 
